@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Дополнительные опции - Элемент Энергия</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* БАЗОВЫЕ СТИЛИ СТРАНИЦЫ */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            background-color: #f1f5f9;
+            display: grid;
+            place-items: center;
+            min-height: 100vh;
+        }
+
+        /* ОСНОВНОЙ КОНТЕЙНЕР СЛАЙДА (1280x720) */
+        .slide-container {
+            width: 1280px;
+            height: 720px;
+            background-color: #ffffff;
+            background-image: 
+                radial-gradient(circle at 0% 100%, rgba(14, 165, 233, 0.08) 0%, transparent 40%),
+                radial-gradient(circle at 100% 0%, rgba(3, 105, 161, 0.05) 0%, transparent 40%);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            padding: 40px 80px;
+            font-family: 'Inter', sans-serif;
+            color: #0f172a;
+        }
+
+        .slide-container::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 30%;
+            height: 40%;
+            background: radial-gradient(circle at top right, rgba(14, 165, 233, 0.1), transparent 80%);
+            z-index: 0;
+        }
+
+        /* ШАПКА СЛАЙДА */
+        .slide-header {
+            position: relative;
+            z-index: 1;
+            border-left: 8px solid #0ea5e9;
+            padding-left: 20px;
+            margin-bottom: 25px;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            min-height: 50px;
+        }
+
+        .slide-header-content h2 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: 34px;
+            color: #0f172a;
+            text-transform: uppercase;
+            letter-spacing: -0.02em;
+            line-height: 1.1;
+        }
+
+        /* КОНТЕНТНАЯ ОБЛАСТЬ */
+        .content-area {
+            position: relative;
+            z-index: 1;
+            flex-grow: 1;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+
+        .options-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .option-category-label {
+            font-size: 13px;
+            font-weight: 700;
+            color: #0ea5e9;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 5px;
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 5px;
+        }
+
+        .option-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding: 6px 0;
+            border-bottom: 1px solid #f1f5f9;
+            font-size: 14px;
+        }
+
+        .option-name {
+            color: #334155;
+            padding-right: 20px;
+            line-height: 1.4;
+            max-width: 380px;
+        }
+
+        .option-price {
+            font-weight: 700;
+            color: #0f172a;
+            white-space: nowrap;
+        }
+
+        .work-box {
+            background: #f8fafc;
+            padding: 20px;
+            border-radius: 12px;
+            margin-top: 20px;
+        }
+
+        .footer-note {
+            position: absolute;
+            bottom: 40px;
+            left: 80px;
+            font-size: 12px;
+            color: #94a3b8;
+        }
+    </style>
+</head>
+<body>
+
+<div class="slide-container">
+    <header class="slide-header">
+        <div class="slide-header-content">
+            <h2>Дополнительные опции ГПУ-250</h2>
+        </div>
+    </header>
+
+    <div class="content-area">
+        <!-- Левая колонка -->
+        <div class="options-group">
+            <div class="option-category-label">Тепло и охлаждение</div>
+            <div class="option-row">
+                <span class="option-name">Модуль рекуперации (выхлоп + интеркулер + ОЖ)</span>
+                <span class="option-price">2 590 000 ₽</span>
+            </div>
+            <div class="option-row">
+                <span class="option-name">Модуль рекуперации выхлопных газов</span>
+                <span class="option-price">1 400 000 ₽</span>
+            </div>
+            <div class="option-row">
+                <span class="option-name">Модуль рекуперации (интеркулер + ОЖ)</span>
+                <span class="option-price">1 190 000 ₽</span>
+            </div>
+            <div class="option-row">
+                <span class="option-name">Интеркулер вода-воздух / Промежуточный охладитель</span>
+                <span class="option-price">210 000 ₽</span>
+            </div>
+            <div class="option-row">
+                <span class="option-name">Горизонтальный/вертикальный радиатор (4 вент.)</span>
+                <span class="option-price">70 000 ₽</span>
+            </div>
+            <div class="option-row">
+                <span class="option-name">Сверхтихий глушитель</span>
+                <span class="option-price">238 000 ₽</span>
+            </div>
+
+            <div class="option-category-label" style="margin-top: 20px;">Автоматика и мониторинг</div>
+            <div class="option-row">
+                <span class="option-name">Шкаф параллельной работы 1250А</span>
+                <span class="option-price">1 260 000 ₽</span>
+            </div>
+            <div class="option-row">
+                <span class="option-name">АВР Delixi (автоматический ввод резерва) 630А</span>
+                <span class="option-price">196 000 ₽</span>
+            </div>
+            <div class="option-row">
+                <span class="option-name">Система автодолива масла (бак 20л + датчик)</span>
+                <span class="option-price">112 000 ₽</span>
+            </div>
+            <div class="option-row">
+                <span class="option-name">Счетчик тепла / Счетчик газа индивидуальный</span>
+                <span class="option-price">98 000 ₽</span>
+            </div>
+            <div class="option-row">
+                <span class="option-name">Датчик контроля уровня охлаждающей жидкости</span>
+                <span class="option-price">56 000 ₽</span>
+            </div>
+        </div>
+
+        <!-- Правая колонка -->
+        <div class="options-group">
+            <div class="option-category-label">Корпуса и контейнеры</div>
+            <div class="option-row">
+                <span class="option-name">Контейнер «Север» (1 ГПУ + 40 водоохл. асиков)</span>
+                <span class="option-price">4 830 000 ₽</span>
+            </div>
+            <div class="option-row">
+                <span class="option-name">Контейнер «Север» (1 ГПУ + 60 возд. асиков)</span>
+                <span class="option-price">2 800 000 ₽</span>
+            </div>
+            <div class="option-row">
+                <span class="option-name">Контейнер типа «Север» на 1 ГПУ (базовый)</span>
+                <span class="option-price">1 190 000 ₽</span>
+            </div>
+            <div class="option-row">
+                <span class="option-name">Кожух погодозащитный большой</span>
+                <span class="option-price">700 000 ₽</span>
+            </div>
+            <div class="option-row">
+                <span class="option-name">Кожух погодозащитный стандарт</span>
+                <span class="option-price">560 000 ₽</span>
+            </div>
+
+            <div class="work-box">
+                <div class="option-category-label">Прочие услуги</div>
+                <div class="option-row" style="border:none;">
+                    <span class="option-name">Проектные работы</span>
+                    <span class="option-price">2-5% от счёта</span>
+                </div>
+                <div class="option-row" style="border:none;">
+                    <span class="option-name">Пуско-наладочные работы (ПНР)</span>
+                    <span class="option-price">5% от счёта</span>
+                </div>
+                <div class="option-row" style="border:none;">
+                    <span class="option-name">Строительно-монтажные работы (СМР)</span>
+                    <span class="option-price">5-10% от сложности</span>
+                </div>
+            </div>
+        </div>

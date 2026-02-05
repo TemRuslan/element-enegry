@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Чистый шаблон - Элемент Энергия</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Poppins:wght@700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* БАЗОВЫЕ СТИЛИ СТРАНИЦЫ */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            background-color: #f1f5f9;
+            display: grid;
+            place-items: center;
+            min-height: 100vh;
+        }
+
+        /* ОСНОВНОЙ КОНТЕЙНЕР СЛАЙДА (1280x720) */
+        .slide-container {
+            width: 1280px;
+            height: 720px;
+            background-color: #ffffff;
+            background-image: 
+                radial-gradient(circle at 0% 100%, rgba(14, 165, 233, 0.08) 0%, transparent 40%),
+                radial-gradient(circle at 100% 0%, rgba(3, 105, 161, 0.05) 0%, transparent 40%);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            padding: 40px 80px;
+            font-family: 'Inter', sans-serif;
+            color: #0f172a;
+        }
+
+        .slide-container::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 30%;
+            height: 40%;
+            background: radial-gradient(circle at top right, rgba(14, 165, 233, 0.1), transparent 80%);
+            z-index: 0;
+        }
+
+        /* ШАПКА СЛАЙДА */
+        .slide-header {
+            position: relative;
+            z-index: 1;
+            border-left: 8px solid #0ea5e9; /* Линия перед заголовком */
+            padding-left: 20px;
+            margin-bottom: 25px;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            min-height: 50px;
+        }
+
+        .slide-header-content h2 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: 34px;
+            color: #0f172a;
+            text-transform: uppercase;
+            letter-spacing: -0.02em;
+            line-height: 1.1;
+        }
+
+        /* ПУСТАЯ ОБЛАСТЬ КОНТЕНТА */
+        .content-area {
+            position: relative;
+            z-index: 1;
+            flex-grow: 1;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="slide-container">
+    <!-- Шапка только с линией акцента -->
+    <header class="slide-header">
+        <div class="slide-header-content">
+            <!-- Место для заголовка -->
+            <h2></h2>
+        </div>
+    </header>
+
+    <!-- Область для будущего контента -->
+    <div class="content-area">
+        <!-- Контент добавляется сюда -->
+    </div>
+</div>
+
+</body>
+</html>

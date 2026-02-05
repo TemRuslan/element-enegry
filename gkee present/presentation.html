@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Элемент Энергия - Презентация</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Шрифты как на сайте -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            /* Токены как на сайте (css/styles.css) */
+            --accent: #0ea5e9;
+            --accent-dark: #0284c7;
+            
+            /* Светлая палитра */
+            --bg: #ffffff;
+            --surface: #f8fafc;
+            --text: #0f172a;
+            --muted: #475569;
+            --muted-2: #64748b;
+            --glass-bg: rgba(255, 255, 255, 0.9);
+            --glass-border: rgba(15, 23, 42, 0.1);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body { 
+            background-color: var(--bg);
+            font-family: 'Inter', sans-serif; 
+            overflow: hidden; 
+            color: var(--text);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Оболочка для слайдов */
+        .presentation {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .slide {
+            min-width: 100vw;
+            height: 100vh;
+            background-color: #ffffff;
+            background-image: 
+                radial-gradient(circle at 0% 100%, rgba(14, 165, 233, 0.08) 0%, transparent 40%),
+                radial-gradient(circle at 100% 0%, rgba(3, 105, 161, 0.05) 0%, transparent 40%);
+            display: flex;
+            flex-direction: column;
+            padding: 5% 8%;
+            position: relative;
+            overflow-y: auto;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+
+        /* Декоративный фон */
+        .slide::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 30%;
+            height: 40%;
+            background: radial-gradient(circle at top right, rgba(14, 165, 233, 0.1), transparent 80%);
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* Заголовки */
+        h1, h2, h3 { font-family: 'Poppins', sans-serif; text-transform: uppercase; letter-spacing: -0.02em; }
+        
+        .slide-header {
+            margin-bottom: 20px;
+            border-left: 8px solid var(--accent);
+            padding-left: 20px;
+        }
+
+        .slide-header h2 { font-size: 38px; color: var(--text); }
+
+        /* Кнопки управления */
+        .controls {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            display: flex;
+            gap: 15px;
+            z-index: 1000;
+        }
+
+        .btn {
+            background: rgba(255, 255, 255, 0.95);
+            color: var(--text);
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            transition: all 0.3s;
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            backdrop-filter: blur(16px);
+        }
+
+        .btn:hover { background: var(--accent); color: white; border-color: var(--accent); transform: scale(1.06); }
+        
+        .progress-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            height: 6px;
+            background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+            width: 0%;
+            transition: width 0.3s;
+            z-index: 1001;
+        }
+
+        /* Стили контента */
+        .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; }
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
+
+        .card {
+            background: var(--glass-bg);
+            padding: 30px;
+            border-radius: 18px;
+            border: 1px solid var(--glass-border);
+            height: 100%;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            box-shadow: 0 8px 30px rgba(14, 165, 233, 0.15);
+            transform: translateY(-2px);
+        }
+
+        .card i { font-size: 40px; color: var(--accent); margin-bottom: 20px; display: block; }
+        .card h3 { margin-bottom: 15px; font-size: 20px; color: var(--text); }
+        .card p { color: var(--muted); line-height: 1.55; }
+
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); border-radius: 16px; overflow: hidden; border: 1px solid var(--glass-border); }
+        th { background: var(--accent); color: white; padding: 8px 10px; text-align: left; font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 700; }
+        th:nth-child(1) { width: 20%; }
+        th:nth-child(2) { width: 55%; }
+        th:nth-child(3) { width: 25%; }
+        td { padding: 6px 10px; border-bottom: 1px solid rgba(15, 23, 42, 0.08); color: var(--text); vertical-align: top; font-size: 16px; }
+        td:nth-child(2) { line-height: 1.35; font-size: 11px; }
+        td:nth-child(2) .props-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5px 8px; }
+        td:nth-child(2) .prop-item { margin: 0; padding: 0; line-height: 1.35; }
+        td:nth-child(2) .prop-key { color: var(--accent); font-weight: 700; }
+        tr:nth-child(even) { background: rgba(14, 165, 233, 0.03); }
+
+        /* Оптимизация для печати - компактная таблица */
+        @media print {
+            .slide-header { margin-bottom: 12px !important; }
+            .slide-header h2 { font-size: 22px !important; }
+            table { margin-top: 8px !important; font-size: 9px !important; }
+            th { padding: 5px 8px !important; font-size: 9px !important; }
+            td { padding: 4px 8px !important; font-size: 9px !important; }
+            td:nth-child(2) .props-grid { gap: 3px 5px !important; }
+            td:nth-child(2) .prop-item { font-size: 8px !important; line-height: 1.25 !important; }
+            td:nth-child(2) .prop-key { font-size: 8px !important; }
+            td strong { font-size: 9px !important; }
+        }
+        body.print-pdf .slide-header { margin-bottom: 12px !important; }
+        body.print-pdf .slide-header h2 { font-size: 22px !important; }
+        body.print-pdf table { margin-top: 8px !important; font-size: 9px !important; }
+        body.print-pdf th { padding: 5px 8px !important; font-size: 9px !important; }
+        body.print-pdf td { padding: 4px 8px !important; font-size: 9px !important; }
+        body.print-pdf td:nth-child(2) .props-grid { gap: 3px 5px !important; }
+        body.print-pdf td:nth-child(2) .prop-item { font-size: 8px !important; line-height: 1.25 !important; }
+        body.print-pdf td:nth-child(2) .prop-key { font-size: 8px !important; }
+        body.print-pdf td strong { font-size: 9px !important; }
+
+        .price-tag { font-weight: 800; color: var(--accent); font-size: 1.1em; }
+
+        /* Первый слайд */
+        .hero {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            height: 100%;
+        }
+
+        .hero h1 { font-size: 72px; margin-bottom: 20px; color: var(--text); }
+        .hero h1 span { color: var(--accent); }
+        .hero p { font-size: 24px; max-width: 800px; color: var(--muted-2); margin-bottom: 50px; line-height: 1.5; }
+
+        .stats { display: flex; gap: 30px; width: 100%; max-width: 1000px; }
+        .stat-item { 
+            flex: 1; 
+            background: linear-gradient(135deg, rgba(14, 165, 233, 0.1), rgba(14, 165, 233, 0.05));
+            color: var(--text); 
+            padding: 30px; 
+            border-radius: 15px;
+            animation: fadeIn 1s ease;
+            border: 1px solid rgba(14, 165, 233, 0.2);
+            box-shadow: 0 4px 20px rgba(14, 165, 233, 0.1);
+        }
+        .stat-item .val { font-size: 36px; font-weight: 900; display: block; color: var(--accent); }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .img-placeholder {
+            width: 100%;
+            height: 400px;
+            background: rgba(14, 165, 233, 0.05);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--muted-2);
+            font-weight: bold;
+            overflow: hidden;
+            border: 1px solid var(--glass-border);
+        }
+        .img-placeholder img { width: 100%; height: 100%; object-fit: cover; }
+
+        /* Стили для печати/PDF */
+        @media print {
+            * {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+                color-adjust: exact !important;
+                box-shadow: none !important;
+                text-shadow: none !important;
+                filter: none !important;
+                backdrop-filter: none !important;
+            }
+            .slide {
+                background-image: 
+                    radial-gradient(circle at 0% 100%, rgba(14, 165, 233, 0.08) 0%, transparent 40%),
+                    radial-gradient(circle at 100% 0%, rgba(3, 105, 161, 0.05) 0%, transparent 40%) !important;
+            }
+            body { 
+                background-color: white !important; 
+                overflow: visible;
+                color: #0f172a !important;
+            }
+            .presentation {
+                display: block !important;
+                transform: none !important;
+                width: 100%;
+                height: auto;
+            }
+            .slide {
+                page-break-after: always;
+                page-break-inside: avoid;
+                min-width: 100%;
+                height: auto;
+                min-height: 100vh;
+                display: block !important;
+                position: relative;
+                background-color: #ffffff !important;
+                background-image: 
+                    radial-gradient(circle at 0% 100%, rgba(14, 165, 233, 0.08) 0%, transparent 40%),
+                    radial-gradient(circle at 100% 0%, rgba(3, 105, 161, 0.05) 0%, transparent 40%) !important;
+                padding: 3% 5% !important;
+            }
+            /* Второй слайд (отрасли применения) - увеличенная высота */
+            .slide:nth-child(2) {
+                padding: 2.5% 4% !important;
+            }
+            .slide:nth-child(2) .slide-header {
+                margin-bottom: 18px !important;
+            }
+            .slide:nth-child(2) .slide-header h2 {
+                font-size: 22px !important;
+            }
+            .slide:nth-child(2) .grid-3 {
+                gap: 15px !important;
+            }
+            .slide:nth-child(2) .card {
+                padding: 18px !important;
+            }
+            .slide:nth-child(2) .card i {
+                font-size: 30px !important;
+                margin-bottom: 12px !important;
+            }
+            .slide:nth-child(2) .card h3 {
+                font-size: 17px !important;
+                margin-bottom: 10px !important;
+            }
+            .slide:nth-child(2) .card p {
+                font-size: 12px !important;
+                line-height: 1.4 !important;
+            }
+            /* Исправление последней карточки "Ваш проект" для печати */
+            .slide:nth-child(2) .card[style*="gradient"] {
+                background: #0ea5e9 !important;
+                color: white !important;
+            }
+            .slide:nth-child(2) .card[style*="gradient"] h3 {
+                color: white !important;
+            }
+            .slide:nth-child(2) .card[style*="gradient"] p {
+                color: rgba(255, 255, 255, 0.95) !important;
+            }
+            .slide:nth-child(2) .card[style*="gradient"] i {
+                color: white !important;
+            }
+            /* Альтернативный селектор для последней карточки */
+            .slide:nth-child(2) .grid-3 .card:last-child {
+                background: #0ea5e9 !important;
+                color: white !important;
+            }
+            .slide:nth-child(2) .grid-3 .card:last-child h3 {
+                color: white !important;
+            }
+            .slide:nth-child(2) .grid-3 .card:last-child p {
+                color: rgba(255, 255, 255, 0.95) !important;
+            }
+            .slide:nth-child(2) .grid-3 .card:last-child i {
+                color: white !important;
+            }
+            .slide::after,
+            .slide::before {
+                display: none !important;
+                content: none !important;
+            }
+            .controls,
+            .progress-bar {
+                display: none !important;
+            }
+            .card {
+                background: white !important;
+                border: 1px solid #e2e8f0 !important;
+                box-shadow: none !important;
+                backdrop-filter: none !important;
+            }
+            .card p, td { color: #334155 !important; }
+            .slide-header h2, .hero h1 { color: #0f172a !important; }
+            .price-tag, .card i { color: #0284c7 !important; }
+            th { background: #0ea5e9 !important; color: white !important; }
+            table {
+                box-shadow: 0 4px 20px rgba(0,0,0,0.1) !important;
+                border: 1px solid #e2e8f0 !important;
+            }
+            .stat-item {
+                background: #f8fafc !important;
+                border: 1px solid #e2e8f0 !important;
+                box-shadow: none !important;
+            }
+            .img-placeholder {
+                background: #f8fafc !important;
+                border: 1px solid #e2e8f0 !important;
+            }
+        }
+
+        /* Стили для параметра ?print-pdf */
+        body.print-pdf * {
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+            color-adjust: exact !important;
+            box-shadow: none !important;
+            text-shadow: none !important;
+            filter: none !important;
+            backdrop-filter: none !important;
+        }
+        body.print-pdf .slide {
+            background-image: 
+                radial-gradient(circle at 0% 100%, rgba(14, 165, 233, 0.08) 0%, transparent 40%),
+                radial-gradient(circle at 100% 0%, rgba(3, 105, 161, 0.05) 0%, transparent 40%) !important;
+        }
+        body.print-pdf .presentation {
+            display: block !important;
+            transform: none !important;
+            width: 100%;
+            height: auto;
+        }
+        body.print-pdf .slide {
+            page-break-after: always;
+            page-break-inside: avoid;
+            min-width: 100%;
+            height: auto;
+            min-height: 100vh;
+            display: block !important;
+            position: relative;
+            background-color: #ffffff !important;
+            background-image: 
+                radial-gradient(circle at 0% 100%, rgba(14, 165, 233, 0.08) 0%, transparent 40%),
+                radial-gradient(circle at 100% 0%, rgba(3, 105, 161, 0.05) 0%, transparent 40%) !important;
+            padding: 3% 5% !important;
+        }
+        /* Второй слайд (отрасли применения) - увеличенная высота */
+        body.print-pdf .slide:nth-child(2) {
+            padding: 2.5% 4% !important;
+        }
+        body.print-pdf .slide:nth-child(2) .slide-header {
+            margin-bottom: 18px !important;
+        }
+        body.print-pdf .slide:nth-child(2) .slide-header h2 {
+            font-size: 22px !important;
+        }
+        body.print-pdf .slide:nth-child(2) .grid-3 {
+            gap: 15px !important;
+        }
+        body.print-pdf .slide:nth-child(2) .card {
+            padding: 18px !important;
+        }
+        body.print-pdf .slide:nth-child(2) .card i {
+            font-size: 30px !important;
+            margin-bottom: 12px !important;
+        }
+        body.print-pdf .slide:nth-child(2) .card h3 {
+            font-size: 17px !important;
+            margin-bottom: 10px !important;
+        }
+        body.print-pdf .slide:nth-child(2) .card p {
+            font-size: 12px !important;
+            line-height: 1.4 !important;
+        }
+        /* Исправление последней карточки "Ваш проект" для печати */
+        body.print-pdf .slide:nth-child(2) .card[style*="gradient"] {
+            background: #0ea5e9 !important;
+            color: white !important;
+        }
+        body.print-pdf .slide:nth-child(2) .card[style*="gradient"] h3 {
+            color: white !important;
+        }
+        body.print-pdf .slide:nth-child(2) .card[style*="gradient"] p {
+            color: rgba(255, 255, 255, 0.95) !important;
+        }
+        body.print-pdf .slide:nth-child(2) .card[style*="gradient"] i {
+            color: white !important;
+        }
+        /* Альтернативный селектор для последней карточки */
+        body.print-pdf .slide:nth-child(2) .grid-3 .card:last-child {
+            background: #0ea5e9 !important;
+            color: white !important;
+        }
+        body.print-pdf .slide:nth-child(2) .grid-3 .card:last-child h3 {
+            color: white !important;
+        }
+        body.print-pdf .slide:nth-child(2) .grid-3 .card:last-child p {
+            color: rgba(255, 255, 255, 0.95) !important;
+        }
+        body.print-pdf .slide:nth-child(2) .grid-3 .card:last-child i {
+            color: white !important;
+        }
+        body.print-pdf .slide::after,
+        body.print-pdf .slide::before {
+            display: none !important;
+            content: none !important;
+        }
+        body.print-pdf .controls,
+        body.print-pdf .progress-bar {
+            display: none !important;
+        }
+        body.print-pdf .card {
+            background: white !important;
+            border: 1px solid #e2e8f0 !important;
+            box-shadow: none !important;
+            backdrop-filter: none !important;
+        }
+        body.print-pdf .card p,
+        body.print-pdf td { color: #334155 !important; }
+        body.print-pdf .slide-header h2,
+        body.print-pdf .hero h1 { color: #0f172a !important; }
+        body.print-pdf .price-tag,
+        body.print-pdf .card i { color: #0284c7 !important; }
+        body.print-pdf th { background: #0ea5e9 !important; color: white !important; }
+        body.print-pdf table {
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1) !important;
+            border: 1px solid #e2e8f0 !important;
+        }
+        body.print-pdf .stat-item {
+            background: #f8fafc !important;
+            border: 1px solid #e2e8f0 !important;
+            box-shadow: none !important;
+        }
+        body.print-pdf .img-placeholder {
+            background: #f8fafc !important;
+            border: 1px solid #e2e8f0 !important;
+        }
+
+        .controls {
+            display: none !important;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="progress-bar" id="progressBar"></div>
+
+    <div class="presentation" id="presentation">
+        
+        <!-- Слайд 1: Приветствие -->
+        <section class="slide">
+            <div class="hero">
+                <h1>ЭЛЕМЕНТ <span>ЭНЕРГИЯ</span></h1>
+                <p>Высокоресурсные газопоршневые установки Элемент. Разработаны для беспрерывной работы в российском климате 24/7/365.</p>
+                
+                <div class="stats">
+                    <div class="stat-item">
+                        <span class="val">от 2,5 ₽</span>
+                        <span>Цена за 1 кВт·ч</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="val">99%</span>
+                        <span>Аптайм работы</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="val">0,25 м³</span>
+                        <span>Расход газа / кВт</span>
+                    </div>
+                </div>
+                <div style="margin-top: 40px; display: flex; flex-direction: column; gap: 10px; color: var(--text); font-weight: bold;">
+                    <span><i class="fa-solid fa-certificate"></i> Российское оборудование (Сертификат СТ-1)</span>
+                    <span><i class="fa-solid fa-percent"></i> Доступен льготный лизинг 4-6%</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Слайд 2: Отрасли -->
+        <section class="slide">
+            <div class="slide-header">
+                <h2>Отрасли применения</h2>
+            </div>
+            <div class="grid-3">
+                <div class="card">
+                    <i class="fa-solid fa-industry"></i>
+                    <h3>Промышленность</h3>
+                    <p>Ликвидация лимитов мощности и снижение затрат на электроэнергию (от 3 руб/кВт). Проектируем и строим энергоцентры с получением бесплатного тепла для обогрева помещений и ГВС.</p>
+                </div>
+                <div class="card">
+                    <i class="fa-solid fa-oil-well"></i>
+                    <h3>Нефтегаз</h3>
+                    <p>Энергоснабжение месторождений в любом климате. Модифицированные ГПУ превратят штрафы за сжигание ПНГ в доходную электроэнергию по себестоимости 1,5 рубля за кВт.</p>
+                </div>
+                <div class="card">
+                    <i class="fa-solid fa-microchip"></i>
+                    <h3>Майнинг</h3>
+                    <p>Генерация от 2,5 руб/кВт. Специализированные ГПУ с оптимизированным графиком ТО и низкими эксплуатационными расходами. Бесшумные решения для частного майнинга. Аптайм 99%.</p>
+                </div>
+                <div class="card">
+                    <i class="fa-solid fa-wheat-awn"></i>
+                    <h3>Агропром</h3>
+                    <p>Электричество от 3 руб/кВт плюс бесплатное тепло для теплиц, птицефабрик, животноводческих и рыбных ферм. Когенерация для круглогодичного цикла производства.</p>
+                </div>
+                <div class="card">
+                    <i class="fa-solid fa-server"></i>
+                    <h3>Дата-центры</h3>
+                    <p>Бесперебойное снабжение ЦОД с точностью синусоиды 1%. Основное и резервное электроснабжение по стандартам Tier III для критически важной IT-инфраструктуры.</p>
+                </div>
+                <div class="card" style="background: linear-gradient(135deg, var(--accent), var(--accent-dark)); color: white; border-color: var(--accent);">
+                    <i class="fa-solid fa-bolt" style="color: white;"></i>
+                    <h3 style="color: white;">Ваш проект</h3>
+                    <p style="color: rgba(255, 255, 255, 0.95);">Индивидуальные расчеты окупаемости и технического задания под ваши задачи.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Слайд 3: Модельный ряд -->
+        <section class="slide">
+            <div class="slide-header">
+                <h2>МОДЕЛЬНЫЙ РЯД</h2>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Наименование</th>
+                        <th>Свойства</th>
+                        <th>Цена (руб. с НДС)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>ГПУ Элемент 65 кВт</strong></td>
+                        <td>
+                            <div class="props-grid">
+                                <div class="prop-item"><span class="prop-key">Номинальная мощность:</span> 150 кВт</div>
+                                <div class="prop-item"><span class="prop-key">Постоянная мощность:</span> 65 кВт</div>
+                                <div class="prop-item"><span class="prop-key">Двигатель:</span> Weichai WP13</div>
+                                <div class="prop-item"><span class="prop-key">Альтернатор:</span> Element</div>
+                                <div class="prop-item"><span class="prop-key">Особенности:</span> бесшумное решение для частных домов; Большой запас по ресурсу - на базе двишятеля 150 кВт</div>
+                            </div>
+                        </td>
+                        <td class="price-tag">3 380 000</td>
+                    </tr>
+                    <tr>
+                        <td><strong>ГПУ Элемент 200 кВт</strong></td>
+                        <td>
+                            <div class="props-grid">
+                                <div class="prop-item"><span class="prop-key">Номинальная мощность:</span> 200 кВт</div>
+                                <div class="prop-item"><span class="prop-key">Постоянная мощность:</span> 150 кВт</div>
+                                <div class="prop-item"><span class="prop-key">Двигатель:</span> Weichai WP13D317E300NG</div>
+                                <div class="prop-item"><span class="prop-key">Альтернатор:</span> Element</div>
+                                <div class="prop-item"><span class="prop-key">Особенности:</span> Бесшумное исполнение</div>
+                            </div>
+                        </td>
+                        <td class="price-tag">4 730 000</td>
+                    </tr>
+                    <tr>
+                        <td><strong>ГПУ Элемент 250 кВт</strong></td>
+                        <td>
+                            <div class="props-grid">
+                                <div class="prop-item"><span class="prop-key">Номинальная мощность:</span> 250 кВт</div>
+                                <div class="prop-item"><span class="prop-key">Постоянная мощность:</span> 210 кВт</div>
+                                <div class="prop-item"><span class="prop-key">Двигатель:</span> Weichai WP13D317E300NG</div>
+                                <div class="prop-item"><span class="prop-key">Альтернатор:</span> Element</div>
+                                <div class="prop-item"><span class="prop-key">Особенности:</span> Модернизированный для российкого климата</div>
+                            </div>
+                        </td>
+                        <td class="price-tag">6 160 000</td>
+                    </tr>
+                    <tr>
+                        <td><strong>ГПУ Элемент 250 кВт Модифицированный</strong></td>
+                        <td>
+                            <div class="props-grid">
+                                <div class="prop-item"><span class="prop-key">Номинальная мощность:</span> 250 кВт</div>
+                                <div class="prop-item"><span class="prop-key">Постоянная мощность:</span> 230 кВт</div>
+                                <div class="prop-item"><span class="prop-key">Двигатель:</span> Weichai WP13D317E300NG</div>
+                                <div class="prop-item"><span class="prop-key">Альтернатор:</span> Element</div>
+                                <div class="prop-item"><span class="prop-key">Особенности:</span> Увеличенная мощность; Потребление газа улучшена: 0,23 м3 на 1 кВт*ч</div>
+                            </div>
+                        </td>
+                        <td class="price-tag">8 550 000</td>
+                    </tr>
+                    <tr>
+                        <td><strong>ГПУ Элемент 400 кВт</strong></td>
+                        <td>
+                            <div class="props-grid">
+                                <div class="prop-item"><span class="prop-key">Номинальная мощность:</span> 400 кВт</div>
+                                <div class="prop-item"><span class="prop-key">Постоянная мощность:</span> 320 кВт</div>
+                                <div class="prop-item"><span class="prop-key">Двигатель:</span> Weichai 6M33D450E310NG</div>
+                                <div class="prop-item"><span class="prop-key">Альтернатор:</span> Element</div>
+                                <div class="prop-item"><span class="prop-key">Особенности:</span> моторесурс 60 000 часов; автоматическая система заправки маслом; </div>
+                            </div>
+                        </td>
+                        <td class="price-tag">10 530 000</td>
+                    </tr>
+                    <tr>
+                        <td><strong>ГПУ Элемент 400 кВт Модифицированный</strong></td>
+                        <td>
+                            <div class="props-grid">
+                                <div class="prop-item"><span class="prop-key">Номинальная мощность:</span> 400 кВт</div>
+                                <div class="prop-item"><span class="prop-key">Постоянная мощность:</span> 350 кВт</div>
+                                <div class="prop-item"><span class="prop-key">Двигатель:</span> Weichai 6M33D450E310NG</div>
+                                <div class="prop-item"><span class="prop-key">Альтернатор:</span> Element</div>
+                                <div class="prop-item"><span class="prop-key">Особенности:</span> Увеличенная мощность ГПУ; отребление газа улучшена: 0,23 м3 на 1 кВт*ч</div>
+                            </div>
+                        </td>
+                        <td class="price-tag">13 500 000</td>
+                    </tr>
+                    <tr>
+                        <td><strong>ГПУ Элемент 530 кВт</strong></td>
+                        <td>
+                            <div class="props-grid">
+                                <div class="prop-item"><span class="prop-key">Номинальная мощность:</span> 530 кВт</div>
+                                <div class="prop-item"><span class="prop-key">Постоянная мощность:</span> 450 кВт</div>
+                                <div class="prop-item"><span class="prop-key">Двигатель:</span> Weichai (пром. серия)</div>
+                                <div class="prop-item"><span class="prop-key">Альтернатор:</span> Element</div>
+                                <div class="prop-item"><span class="prop-key">Особенности:</span> Система антидетонации в базе; Подходит для любого состава газа</div>
+                            </div>
+                        </td>
+                        <td class="price-tag">17 230 000</td>
+                    </tr>
+                    <tr>
+                        <td><strong>ГПУ Элемент 1250 кВт</strong></td>
+                        <td>
+                            <div class="props-grid">
+                                <div class="prop-item"><span class="prop-key">Номинальная мощность:</span> 1250 кВт</div>
+                                <div class="prop-item"><span class="prop-key">Постоянная мощность:</span> 1050 кВт</div>
+                                <div class="prop-item"><span class="prop-key">Двигатель:</span> 5 x Weichai WP13D317E300NG</div>
+                                <div class="prop-item"><span class="prop-key">Альтернатор:</span> 5 x Element</div>
+                                <div class="prop-item"><span class="prop-key">Особенности:</span> шкаф параллельной работы; синхронизация с внешней сетью; Обслуживание без просадки мощности</div>
+                            </div>
+                        </td>
+                        <td class="price-tag">30 050 000</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Слайд 4: Преимущества ГПУ -->
+        <section class="slide">
+            <header class="slide-header" style="border-left: 8px solid #0ea5e9; padding-left: 20px; margin-bottom: 25px; display: flex; justify-content: space-between; align-items: center; position: relative; z-index: 1;">
+                <div class="slide-header-content">
+                    <h2 style="font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 34px; color: #0f172a; text-transform: uppercase; letter-spacing: -0.02em; line-height: 1.1;">Почему выбирают ГПУ <span style="color: #0ea5e9;">«Элемент Энергия»</span></h2>
+                    <p class="header-subtext" style="margin-top: 5px; font-size: 14px; color: #475569; white-space: nowrap;">12 лет инженерного опыта позволили создать лучшие решения для рынка РФ по соотношению цена / качество.</p>
+                </div>
+                <div class="experience-badge" style="background: #0ea5e9; color: white; padding: 8px 16px; border-radius: 8px; font-size: 14px; font-weight: 700; text-transform: uppercase; flex-shrink: 0;">12 лет на рынке</div>
+            </header>
+
+            <div class="advantages-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; position: relative; z-index: 1; margin-top: 25px;">
+                <!-- 1: Термостабильность -->
+                <div class="adv-card" style="background: #ffffff; padding: 18px 22px; border-radius: 16px; border: 1px solid rgba(15, 23, 42, 0.08); box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04); display: flex; flex-direction: column; min-height: 155px;">
+                    <div class="adv-icon" style="width: 40px; height: 40px; background: rgba(14, 165, 233, 0.1); border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-bottom: 12px; color: #0ea5e9; font-size: 18px;"><i class="fas fa-temperature-arrow-down"></i></div>
+                    <div class="adv-title" style="font-family: 'Poppins', sans-serif; font-size: 14px; font-weight: 700; margin-bottom: 8px; color: #0f172a; text-transform: uppercase; letter-spacing: 0.02em;">Защита от перегрева</div>
+                    <div class="adv-text" style="font-size: 12px; color: #475569; line-height: 1.4;"><b style="color: #0ea5e9;">Радиаторы вдвое большей площади</b> и электрические насосы гарантируют стабильную работу при температурах до +45°C.</div>
+                </div>
+                <!-- 2: Повышенная мощность -->
+                <div class="adv-card" style="background: #ffffff; padding: 18px 22px; border-radius: 16px; border: 1px solid rgba(15, 23, 42, 0.08); box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04); display: flex; flex-direction: column; min-height: 155px;">
+                    <div class="adv-icon" style="width: 40px; height: 40px; background: rgba(14, 165, 233, 0.1); border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-bottom: 12px; color: #0ea5e9; font-size: 18px;"><i class="fas fa-bolt-lightning"></i></div>
+                    <div class="adv-title" style="font-family: 'Poppins', sans-serif; font-size: 14px; font-weight: 700; margin-bottom: 8px; color: #0f172a; text-transform: uppercase; letter-spacing: 0.02em;">Реальная мощность</div>
+                    <div class="adv-text" style="font-size: 12px; color: #475569; line-height: 1.4;">ГПУ 250 кВт выдают <b style="color: #0ea5e9;">210 кВт</b> постоянно, а наши модифицированные версии — <b style="color: #0ea5e9;">230 кВт</b> в режиме 24/7 без вреда для ресурса.</div>
+                </div>
+                <!-- 3: Экономия газа -->
+                <div class="adv-card" style="background: #ffffff; padding: 18px 22px; border-radius: 16px; border: 1px solid rgba(15, 23, 42, 0.08); box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04); display: flex; flex-direction: column; min-height: 155px;">
+                    <div class="adv-icon" style="width: 40px; height: 40px; background: rgba(14, 165, 233, 0.1); border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-bottom: 12px; color: #0ea5e9; font-size: 18px;"><i class="fas fa-gas-pump"></i></div>
+                    <div class="adv-title" style="font-family: 'Poppins', sans-serif; font-size: 14px; font-weight: 700; margin-bottom: 8px; color: #0f172a; text-transform: uppercase; letter-spacing: 0.02em;">Экономия топлива</div>
+                    <div class="adv-text" style="font-size: 12px; color: #475569; line-height: 1.4;">Расход всего <b style="color: #0ea5e9;">0,25 м³/кВт</b> (против 0,3 у конкурентов) благодаря цифровым регуляторам смеси и датчикам кислорода.</div>
+                </div>
+                <!-- 4: Надежность узлов -->
+                <div class="adv-card" style="background: #ffffff; padding: 18px 22px; border-radius: 16px; border: 1px solid rgba(15, 23, 42, 0.08); box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04); display: flex; flex-direction: column; min-height: 155px;">
+                    <div class="adv-icon" style="width: 40px; height: 40px; background: rgba(14, 165, 233, 0.1); border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-bottom: 12px; color: #0ea5e9; font-size: 18px;"><i class="fas fa-shield-halved"></i></div>
+                    <div class="adv-title" style="font-family: 'Poppins', sans-serif; font-size: 14px; font-weight: 700; margin-bottom: 8px; color: #0f172a; text-transform: uppercase; letter-spacing: 0.02em;">Надежность узлов</div>
+                    <div class="adv-text" style="font-size: 12px; color: #475569; line-height: 1.4;">Заменили ремни и ролики на <b style="color: #0ea5e9;">прямой привод</b>. Глубокая балансировка валов позволила <b style="color: #0ea5e9;">снизить вибрации на 40%</b>.</div>
+                </div>
+                <!-- 5: Обслуживание -->
+                <div class="adv-card" style="background: #ffffff; padding: 18px 22px; border-radius: 16px; border: 1px solid rgba(15, 23, 42, 0.08); box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04); display: flex; flex-direction: column; min-height: 155px;">
+                    <div class="adv-icon" style="width: 40px; height: 40px; background: rgba(14, 165, 233, 0.1); border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-bottom: 12px; color: #0ea5e9; font-size: 18px;"><i class="fas fa-wrench"></i></div>
+                    <div class="adv-title" style="font-family: 'Poppins', sans-serif; font-size: 14px; font-weight: 700; margin-bottom: 8px; color: #0f172a; text-transform: uppercase; letter-spacing: 0.02em;">Сервис в 2 раза дешевле</div>
+                    <div class="adv-text" style="font-size: 12px; color: #475569; line-height: 1.4;">Обслуживание обойдется в <b style="color: #0ea5e9;">250 000 руб./год</b> за счет доступности комплектующих и увеличенных межсервисных интервалов.</div>
+                </div>
+                <!-- 6: Сертификация -->
+                <div class="adv-card" style="background: #ffffff; padding: 18px 22px; border-radius: 16px; border: 1px solid rgba(15, 23, 42, 0.08); box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04); display: flex; flex-direction: column; min-height: 155px;">
+                    <div class="adv-icon" style="width: 40px; height: 40px; background: rgba(14, 165, 233, 0.1); border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-bottom: 12px; color: #0ea5e9; font-size: 18px;"><i class="fas fa-award"></i></div>
+                    <div class="adv-title" style="font-family: 'Poppins', sans-serif; font-size: 14px; font-weight: 700; margin-bottom: 8px; color: #0f172a; text-transform: uppercase; letter-spacing: 0.02em;">Сертификация РФ</div>
+                    <div class="adv-text" style="font-size: 12px; color: #475569; line-height: 1.4;">Сертификаты производства РФ открывают доступ к <b style="color: #0ea5e9;">льготным программам лизинга под 4%</b> и субсидиям.</div>
+                </div>
+            </div>
+
+            <!-- Итоговый блок -->
+            <div class="summary-wrapper" style="margin-top: auto; position: relative; z-index: 1; padding-top: 20px;">
+                <div class="summary-box" style="background: #ffffff; color: #0f172a; padding: 22px 40px; border-radius: 20px; display: flex; align-items: center; justify-content: space-between; border: 1px solid rgba(15, 23, 42, 0.08); box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);">
+                    <div class="summary-content" style="display: flex; flex-direction: column; gap: 4px;">
+                        <div class="summary-label" style="font-family: 'Poppins', sans-serif; font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: #0ea5e9; font-weight: 700;">Экономическая эффективность</div>
+                        <div class="summary-main-text" style="font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 400; line-height: 1.5; color: #475569;">
+                            Инженерные решения «Элемент Энергия» делают себестоимость 1 кВт/час<br>
+                            <b style="color: #0f172a; font-weight: 700;">на 20-30% выгоднее</b> любых рыночных предложений за счет низкого OPEX.
+                        </div>
+                    </div>
+                    <div class="summary-stats" style="text-align: right; display: flex; flex-direction: column; align-items: flex-end; border-left: 2px solid rgba(14, 165, 233, 0.2); padding-left: 30px;">
+                        <div class="summary-value" style="font-family: 'Poppins', sans-serif; color: #0ea5e9; font-weight: 800; font-size: 40px; line-height: 1;">−20-30%</div>
+                        <div class="summary-subvalue" style="font-family: 'Poppins', sans-serif; font-size: 10px; text-transform: uppercase; letter-spacing: 0.05em; color: #64748b; margin-top: 5px; font-weight: 700;">OPEX затраты</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Слайд 5: ПНГ -->
+        <section class="slide">
+            <div class="slide-header">
+                <h2>Для попутного нефтяного газа</h2>
+            </div>
+            <div class="grid-2">
+                <div>
+                    <h3 style="color: var(--accent); margin-bottom: 20px;">Глубокая инженерная модификация</h3>
+                    <p style="margin-bottom: 25px;">Превратите штрафы в электричество по 1,5 руб/кВт*ч.</p>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                        <div class="card" style="padding: 15px;">Охлаждаемая турбина</div>
+                        <div class="card" style="padding: 15px;">Степень сжатия 1:8</div>
+                        <div class="card" style="padding: 15px;">Блок детонации</div>
+                        <div class="card" style="padding: 15px;">Интеркулер вода-воздух</div>
+                    </div>
+                </div>
+                <div class="img-placeholder">
+                   [Изображение ГПУ в контейнере на месторождении]
+                </div>
+            </div>
+        </section>
+
+        <!-- Слайд 6: Майнинг -->
+        <section class="slide">
+            <div class="slide-header">
+                <h2>Решения для майнинга</h2>
+            </div>
+            <div class="grid-3">
+                <div class="card">
+                    <h3 style="color: var(--accent);">Воздух 210 кВт</h3>
+                    <p>60 асиков. Контейнер с фильтрацией и вентиляцией.</p>
+                    <p class="price-tag" style="margin-top: 15px;">8 470 000 ₽</p>
+                </div>
+                <div class="card">
+                    <h3 style="color: var(--accent);">Hydro 210 кВт</h3>
+                    <p>40 асиков. СУТ включена. Полная тишина (60 дБ).</p>
+                    <p class="price-tag" style="margin-top: 15px;">11 100 000 ₽</p>
+                </div>
+                <div class="card">
+                    <h3 style="color: var(--accent);">Микро 65 кВт</h3>
+                    <p>18 асиков. На базе 150 кВт. Идеально для дома.</p>
+                    <p class="price-tag" style="margin-top: 15px;">По запросу</p>
+                </div>
+            </div>
+            <div class="card" style="margin-top: 30px; border-left: 5px solid var(--accent);">
+                <strong>Преимущество:</strong> Это серийные изделия с полным пакетом документов для Ростехнадзора. Быстрый запуск без капстроительства.
+            </div>
+        </section>
+
+        <!-- Слайд 7: Финал -->
+        <section class="slide">
+            <div class="hero">
+                <h2 style="font-size: 48px; color: var(--text); margin-bottom: 30px;">КОНТАКТЫ</h2>
+                <div class="grid-2" style="width: 100%; max-width: 900px; text-align: left;">
+                    <div class="card">
+                        <p><i class="fa-solid fa-phone"></i> +7 995 623 9484</p>
+                        <p><i class="fa-solid fa-phone"></i> +7 988 655 3647</p>
+                        <p><i class="fa-solid fa-envelope"></i> sales@gkee.ru</p>
+                    </div>
+                    <div class="card">
+                        <p><i class="fa-solid fa-location-dot"></i> Йошкар-Ола, б-р Победы, 15</p>
+                        <p><i class="fa-solid fa-globe"></i> gkee.ru</p>
+                        <p>ИНН 1218002079</p>
+                    </div>
+                </div>
+                <p style="margin-top: 50px; font-weight: bold; color: var(--accent);">Срок производства: 90-120 дней</p>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Кнопки -->
+    <div class="controls">
+        <button class="btn" onclick="prevSlide()"><i class="fa-solid fa-chevron-left"></i></button>
+        <button class="btn" onclick="nextSlide()"><i class="fa-solid fa-chevron-right"></i></button>
+    </div>
+
+    <script>
+        // Проверяем параметр print-pdf
+        if (window.location.search.includes('print-pdf')) {
+            document.body.classList.add('print-pdf');
+        }
+
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const presentation = document.getElementById('presentation');
+        const progressBar = document.getElementById('progressBar');
+
+        function updateSlide() {
+            presentation.style.transform = `translateX(-${currentSlide * 100}vw)`;
+            const progress = ((currentSlide + 1) / slides.length) * 100;
+            progressBar.style.width = `${progress}%`;
+        }
+
+        function nextSlide() {
+            if (currentSlide < slides.length - 1) {
+                currentSlide++;
+                updateSlide();
+            }
+        }
+
+        function prevSlide() {
+            if (currentSlide > 0) {
+                currentSlide--;
+                updateSlide();
+            }
+        }
+
+        // Управление клавиатурой
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ') nextSlide();
+            if (e.key === 'ArrowLeft') prevSlide();
+        });
+
+        // Инициализация прогресса
+        updateSlide();
+    </script>
+</body>
+</html>

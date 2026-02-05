@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Элемент Энергия - ГПУ на ПНГ</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Poppins:wght@700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* БАЗОВАЯ СТРУКТУРА ШАБЛОНА */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            background-color: #f1f5f9;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 60px;
+            padding: 60px 0;
+            font-family: 'Inter', sans-serif;
+            color: #0f172a;
+        }
+
+        .slide-container {
+            width: 1280px;
+            height: 720px;
+            background-color: #ffffff;
+            background-image: 
+                radial-gradient(circle at 0% 100%, rgba(14, 165, 233, 0.08) 0%, transparent 40%),
+                radial-gradient(circle at 100% 0%, rgba(3, 105, 161, 0.05) 0%, transparent 40%);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            padding: 40px 80px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        /* ШАПКА */
+        .slide-header {
+            position: relative;
+            z-index: 10;
+            border-left: 8px solid #0ea5e9;
+            padding-left: 20px;
+            margin-bottom: 35px;
+        }
+
+        .main-title {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 800;
+            font-size: 58px;
+            line-height: 1;
+            text-transform: uppercase;
+            letter-spacing: -0.02em;
+            color: #0f172a;
+        }
+
+        .sub-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 28px;
+            font-weight: 400;
+            color: #64748b;
+            margin-top: 5px;
+        }
+
+        .accent { color: #0ea5e9; }
+
+        /* ГЕОМЕТРИЯ ПЕРВОГО СЛАЙДА */
+        .hero-layout {
+            display: grid;
+            grid-template-columns: 1fr 1.1fr; 
+            gap: 40px;
+            flex-grow: 1;
+            position: relative;
+            z-index: 10;
+            align-items: start;
+        }
+
+        .promo-subtitle {
+            font-size: 19px;
+            color: #475569;
+            margin-bottom: 35px;
+            line-height: 1.5;
+            max-width: 540px;
+        }
+
+        /* ТЕХНОЛОГИИ */
+        .tech-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 30px;
+        }
+
+        .tech-card {
+            background: rgba(255, 255, 255, 0.7);
+            border: 1px solid rgba(15, 23, 42, 0.08);
+            padding: 12px;
+            border-radius: 10px;
+        }
+
+        .tech-card h4 {
+            font-size: 12px;
+            font-weight: 700;
+            color: #0ea5e9;
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+
+        .tech-card p {
+            font-size: 11px;
+            line-height: 1.3;
+            color: #64748b;
+        }
+
+        /* ЦЕНЫ */
+        .pricing-row {
+            display: flex;
+            gap: 15px;
+        }
+
+        .price-item {
+            flex: 1;
+            padding: 12px 15px;
+            border-radius: 10px;
+            border: 1px solid rgba(14, 165, 233, 0.3);
+            background: rgba(14, 165, 233, 0.03);
+        }
+
+        .price-label { font-size: 10px; text-transform: uppercase; font-weight: 700; color: #64748b; }
+        .price-val { font-size: 22px; font-weight: 800; color: #0f172a; margin-top: 2px; }
+
+        .img-box {
+            position: relative;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .img-box img {
+            max-width: 100%;
+            max-height: 400px;
+            object-fit: contain;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+        }
+
+        /* ТАБЛИЦА ХАРАКТЕРИСТИК */
+        .specs-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px 60px;
+            flex-grow: 1;
+            position: relative;
+            z-index: 10;
+        }
+
+        .spec-group {
+            margin-bottom: 15px;
+        }
+
+        .group-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 12px;
+            text-transform: uppercase;
+            color: #0ea5e9;
+            font-weight: 800;
+            letter-spacing: 0.1em;
+            margin-bottom: 12px;
+            border-bottom: 1px solid rgba(14, 165, 233, 0.2);
+            padding-bottom: 6px;
+        }
+
+        .spec-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(15, 23, 42, 0.05);
+            font-size: 14px;
+        }
+
+        .spec-key { color: #64748b; }
+        .spec-value { font-weight: 700; color: #0f172a; }
+
+        /* КОНТАКТНЫЙ СЛАЙД */
+        .contact-layout {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 40px;
+            flex-grow: 1;
+            z-index: 10;
+        }
+
+        .contact-block {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            border: 1px solid rgba(15, 23, 42, 0.05);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.02);
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .contact-item {
+            display: flex;
+            gap: 15px;
+            align-items: flex-start;
+        }
+
+        .contact-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(14, 165, 233, 0.1);
+            color: #0ea5e9;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 18px;
+        }
+
+        .contact-text h5 {
+            font-size: 12px;
+            text-transform: uppercase;
+            color: #64748b;
+            margin-bottom: 4px;
+            letter-spacing: 0.05em;
+        }
+
+        .contact-text p {
+            font-size: 18px;
+            font-weight: 600;
+            color: #0f172a;
+            line-height: 1.4;
+        }
+
+        .requisites-box {
+            background: #f8fafc;
+            padding: 25px;
+            border-radius: 15px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .req-title {
+            font-weight: 800;
+            font-size: 14px;
+            margin-bottom: 15px;
+            color: #0f172a;
+        }
+
+        .req-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            font-size: 13px;
+        }
+
+        .req-label { color: #64748b; }
+        .req-val { font-weight: 600; color: #334155; }
+
+        .logo-footer {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            border-left: 2px solid #e2e8f0;
+        }
+
+        .footer-brand {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 800;
+            font-size: 42px;
+            line-height: 0.9;
+            color: #0f172a;
+            letter-spacing: -1px;
+        }
+
+        .footer-brand span { color: #0ea5e9; display: block; }
+
+    </style>
+</head>
+<body>
+
+    <!-- СЛАЙД 1: ПРОМО -->
+    <div class="slide-container">
+        <header class="slide-header">
+            <div class="main-title">ГПУ Элемент 250 кВт</div>
+            <div class="sub-title">для попутного нефтяного газа</div>
+        </header>
+
+        <div class="hero-layout">
+            <div class="promo-text">
+                <p class="promo-subtitle">
+                    Энергия из ПНГ: превратите штрафы в дешевое электричество по <b>1,5 ₽/кВт·ч</b>. Специальная модификация для работы на сложном составе газа.
+                </p>
+                
+                <div class="tech-grid">
+                    <div class="tech-card">
+                        <h4>Охлаждаемая турбина</h4>
+                        <p>Защита от перегрева на высококалорийном газе. Увеличение ресурса в 3 раза.</p>
+                    </div>
+                    <div class="tech-card">
+                        <h4>Водоохлаждаемый интеркулер</h4>
+                        <p>Стабильная температура смеси для исключения детонации.</p>
+                    </div>
+                    <div class="tech-card">
+                        <h4>Степень сжатия 1:8</h4>
+                        <p>«Всеядность» к нестабильному и тяжелому составу газа.</p>
+                    </div>
+                    <div class="tech-card">
+                        <h4>БЛОК АНТИДЕТОНАЦИИ</h4>
+                        <p>Интеллектуальная защита и коррекция работы в реальном времени.</p>
+                    </div>
+                </div>
+
+                <div class="pricing-row">
+                    <div class="price-item">
+                        <div class="price-label">На открытой раме</div>
+                        <div class="price-val">8 000 000 ₽</div>
+                    </div>
+                    <div class="price-item">
+                        <div class="price-label">В контейнере ПБК</div>
+                        <div class="price-val">9 000 000 ₽</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="img-box">
+                <img src="gpu_png_open.png" alt="ГПУ Элемент 250 кВт на ПНГ" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <div style="display:none; width: 100%; height: 350px; background: #f8fafc; border-radius: 20px; flex-direction: column; align-items: center; justify-content: center; color: #94a3b8; text-align: center; padding: 20px; border: 2px dashed #e2e8f0; font-size: 14px;">
+                    <i class="fa-solid fa-industry" style="font-size: 48px; margin-bottom: 15px; opacity: 0.5;"></i><br>
+                    Изображение gpu_png_open.png не найдено
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- СЛАЙД 2: ХАРАКТЕРИСТИКИ -->
+    <div class="slide-container">
+        <header class="slide-header">
+            <div class="main-title" style="font-size: 34px;">Технические характеристики</div>
+        </header>
+
+        <div class="specs-grid">
+            <div>
+                <div class="spec-group">
+                    <h3 class="group-title">Мощность и параметры</h3>
+                    <div class="spec-row"><span class="spec-key">Максимальная мощность</span> <span class="spec-value">250 кВт</span></div>
+                    <div class="spec-row"><span class="spec-key">Постоянная мощность</span> <span class="spec-value">150 кВт</span></div>
+                    <div class="spec-row"><span class="spec-key">Частота вращения</span> <span class="spec-value">1500 об/мин</span></div>
+                    <div class="spec-row"><span class="spec-key">Степень сжатия для ПНГ</span> <span class="spec-value">1:8</span></div>
+                </div>
+                <div class="spec-group">
+                    <h3 class="group-title">Силовой агрегат</h3>
+                    <div class="spec-row"><span class="spec-key">Базовый двигатель</span> <span class="spec-value">WEICHAI WP13 (мод.)</span></div>
+                    <div class="spec-row"><span class="spec-key">Альтернатор</span> <span class="spec-value">Element Brushless</span></div>
+                    <div class="spec-row"><span class="spec-key">КПД альтернатора</span> <span class="spec-value">93%</span></div>
+                    <div class="spec-row"><span class="spec-key">Контроллер</span> <span class="spec-value">SmartGen 9510 ПНГ-версия</span></div>
+                </div>
+            </div>
+            <div>
+                <div class="spec-group">
+                    <h3 class="group-title">Эксплуатация на ПНГ</h3>
+                    <div class="spec-row"><span class="spec-key">Допустимый состав ПНГ</span> <span class="spec-value">до 80% метана</span></div>
+                    <div class="spec-row"><span class="spec-key">Расход газа (ном.)</span> <span class="spec-value">~0.32 м³/кВт·ч</span></div>
+                    <div class="spec-row"><span class="spec-key">Ресурс до кап. ремонта</span> <span class="spec-value">36 000 ч</span></div>
+                    <div class="spec-row"><span class="spec-key">Межсервисный интервал</span> <span class="spec-value">1 000 ч</span></div>
+                </div>
+                <div class="spec-group">
+                    <h3 class="group-title">Габариты и масса</h3>
+                    <div class="spec-row"><span class="spec-key">Масса (открытая рама)</span> <span class="spec-value">2 850 кг</span></div>
+                    <div class="spec-row"><span class="spec-key">Масса (в контейнере)</span> <span class="spec-value">4 850 кг</span></div>
+                    <div class="spec-row"><span class="spec-key">Габариты контейнера</span> <span class="spec-value">6.0 x 2.4 x 2.6 м</span></div>
+                    <div class="spec-row"><span class="spec-key">Исполнение</span> <span class="spec-value">УХЛ1 (до -50°С)</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- СЛАЙД 3: КОНТАКТЫ -->
+    <div class="slide-container">
+        <header class="slide-header">
+            <div class="main-title" style="font-size: 34px;">Контактная информация</div>
+        </header>
+
+        <div class="contact-layout">
+            <div class="contact-block">
+                <div class="contact-item">
+                    <div class="contact-icon"><i class="fa-solid fa-industry"></i></div>
+                    <div class="contact-text">
+                        <h5>Производство РФ</h5>
+                        <p>Республика Марий Эл, Йошкар-Ола, б-р Победы, д.15</p>
+                    </div>
+                </div>
+                
+                <div class="contact-item">
+                    <div class="contact-icon"><i class="fa-solid fa-building"></i></div>
+                    <div class="contact-text">
+                        <h5>Офис в Москве</h5>
+                        <p>Электродная ул., 2/34, офис 216</p>
+                    </div>
+                </div>
+
+                <div class="contact-item">
+                    <div class="contact-icon"><i class="fa-solid fa-phone"></i></div>
+                    <div class="contact-text">
+                        <h5>Отдел продаж</h5>
+                        <p>+7 995 623 9484<br>+7 988 655 3647</p>
+                    </div>
+                </div>
+
+                <div class="contact-item">
+                    <div class="contact-icon"><i class="fa-solid fa-envelope"></i></div>
+                    <div class="contact-text">
+                        <h5>Email</h5>
+                        <p>sales@gkee.ru</p>
+                    </div>
+                </div>
+
+                <div class="requisites-box">
+                    <div class="req-title">ООО «ЭЛЕМЕНТ»</div>
+                    <div class="req-grid">
+                        <div class="req-label">ИНН:</div><div class="req-val">1218002079</div>
+                        <div class="req-label">КПП:</div><div class="req-val">121801001</div>
+                        <div class="req-label">БИК:</div><div class="req-val">044525092</div>
+                        <div class="req-label">Расчетный счет:</div><div class="req-val">40702810070010348277</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="logo-footer">
+                <div class="footer-brand">
+                    ЭЛЕМЕНТ
+                    <span>ЭНЕРГИЯ</span>
+                </div>
+                <div style="margin-top: 40px; color: #94a3b8; font-size: 14px;">
+                    www.gkee.ru
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

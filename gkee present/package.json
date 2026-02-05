@@ -1,0 +1,13 @@
+{
+  "name": "gkee-presentation-pdf",
+  "version": "1.0.0",
+  "description": "Конвертация HTML презентации в PDF",
+  "main": "convert-to-pdf-playwright.js",
+  "scripts": {
+    "convert": "node convert-to-pdf-playwright.js",
+    "convert-old": "node convert-to-pdf.js"
+  },
+  "dependencies": {
+    "playwright": "^1.58.0"
+  }
+}

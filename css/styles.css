@@ -1,0 +1,450 @@
+:root {
+    --accent: #0ea5e9;
+    --accent-dark: #0284c7;
+    --glass-bg: rgba(15, 23, 42, 0.65);
+    --glass-border: rgba(255, 255, 255, 0.08);
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #020617;
+    color: #f8fafc;
+    margin: 0;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* Навигация */
+.nav-container {
+    position: fixed;
+    top: 20px;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    padding: 0 16px;
+    display: flex;
+    justify-content: center;
+}
+
+.glass-nav {
+    background: rgba(15, 23, 42, 0.85);
+    backdrop-filter: blur(15px);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    width: 100%;
+    max-width: 1100px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 16px;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: clamp(10px, 1.5vw, 20px);
+    justify-content: flex-end;
+    flex: 1;
+    margin-left: 20px;
+}
+
+.dropdown-wrapper {
+    position: relative;
+    padding-bottom: 25px;
+    margin-bottom: -25px;
+}
+
+.nav-links a, .dropdown-trigger {
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #cbd5e1;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+    position: relative;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.nav-links a:not(.contact-link):after,
+.dropdown-trigger:after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -4px;
+    left: 0;
+    background-color: var(--accent);
+    transition: width 0.3s ease;
+}
+
+.dropdown-wrapper:hover .dropdown-trigger:after {
+    width: 100%;
+}
+
+.dropdown-wrapper:hover .dropdown-trigger {
+    color: var(--accent);
+}
+
+.dropdown-content {
+    position: absolute;
+    top: calc(100% - 10px);
+    left: 50%;
+    transform: translateX(-50%) translateY(10px);
+    width: 280px;
+    background: rgba(15, 23, 42, 0.98);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    padding: 12px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 1001;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.dropdown-wrapper:hover .dropdown-content {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+}
+
+.contact-wrapper .dropdown-content {
+    left: auto;
+    right: 0;
+    transform: translateY(10px);
+}
+.contact-wrapper:hover .dropdown-content {
+    transform: translateY(0);
+}
+
+.dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    text-decoration: none !important;
+    color: #e2e8f0 !important;
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    text-transform: none !important;
+    letter-spacing: normal !important;
+    padding: 12px;
+    border-radius: 10px;
+    transition: all 0.2s;
+}
+
+.dropdown-item i {
+    color: var(--accent);
+    width: 18px;
+    text-align: center;
+    font-size: 16px;
+}
+
+.dropdown-item:hover {
+    color: #ffffff !important;
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.contact-link {
+    color: #0ea5e9 !important;
+    border: 1px solid rgba(14, 165, 233, 0.3);
+    padding: 8px 16px !important;
+    border-radius: 10px;
+    background: rgba(14, 165, 233, 0.05);
+}
+
+.contact-wrapper:hover .contact-link {
+    background: var(--accent);
+    color: white !important;
+    border-color: var(--accent);
+}
+
+.glass-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid var(--glass-border);
+    border-radius: 24px;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glass-card:hover {
+    border-color: rgba(14, 165, 233, 0.4);
+    transform: translateY(-4px);
+    background: rgba(30, 41, 59, 0.8);
+    box-shadow: 0 25px 50px -12px rgba(14, 165, 233, 0.15);
+}
+
+/* Отрасли: акцентная карточка "Ваш проект" (как в презентации) */
+.project-card {
+    background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+    border-color: rgba(14, 165, 233, 0.45);
+    color: #ffffff;
+}
+
+.project-card:hover {
+    background: linear-gradient(135deg, var(--accent-dark), var(--accent));
+    border-color: rgba(14, 165, 233, 0.6);
+    box-shadow: 0 25px 50px -12px rgba(14, 165, 233, 0.35);
+}
+
+.project-card h4 { color: #ffffff; }
+.project-card p { color: rgba(255, 255, 255, 0.92); }
+
+.project-card .icon-box {
+    background: rgba(255, 255, 255, 0.18);
+    color: #ffffff;
+}
+
+.project-card .icon-box i {
+    color: #ffffff;
+}
+
+.project-link {
+    /* Как у ссылок "Подробнее" в карточках отраслей */
+    text-decoration: none;
+    color: #ffffff;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    width: fit-content;
+    transition: all 0.3s ease;
+}
+
+.project-link i { color: currentColor; }
+
+.project-link:hover {
+    color: #ffffff;
+    gap: 16px;
+}
+
+.hero-bg {
+    background: radial-gradient(circle at 20% 30%, rgba(14, 165, 233, 0.15), transparent 40%),
+                radial-gradient(circle at 80% 70%, rgba(3, 105, 161, 0.1), transparent 40%),
+                linear-gradient(rgba(2, 6, 23, 0.7), rgba(2, 6, 23, 0.9)),
+                url('https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?q=80&w=2070&auto=format&fit=crop');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+    box-shadow: 0 10px 25px -5px rgba(14, 165, 233, 0.4);
+}
+
+.industry-tag {
+    background: rgba(14, 165, 233, 0.1);
+    border: 1px solid rgba(14, 165, 233, 0.2);
+    padding: 4px 12px;
+    border-radius: 99px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--accent);
+}
+
+.spec-table-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    font-size: 13px;
+}
+
+.gpu-img-container {
+    position: relative;
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.gpu-img-container img {
+    max-height: 100%;
+    object-fit: contain;
+    filter: drop-shadow(0 20px 30px rgba(0,0,0,0.5));
+}
+
+#mobile-menu {
+    display: none;
+    position: absolute;
+    top: 80px;
+    left: 20px;
+    right: 20px;
+    background: rgba(15, 23, 42, 0.95);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    padding: 24px;
+    flex-direction: column;
+    gap: 20px;
+    text-align: center;
+}
+
+#mobile-menu.active { display: flex; }
+
+html { scroll-behavior: smooth; }
+
+/* Слайдер услуг */
+.services-scroll {
+    display: flex;
+    gap: 24px;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    padding: 20px 0 40px 0;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.services-scroll::-webkit-scrollbar {
+    display: none;
+}
+
+.service-slide-card {
+    min-width: 40%;
+    flex-shrink: 0;
+}
+
+@media (max-width: 1024px) {
+    .service-slide-card {
+        min-width: 45%;
+    }
+}
+
+@media (max-width: 640px) {
+    .service-slide-card {
+        min-width: 85%;
+    }
+}
+
+.slider-nav-btn {
+    width: 44px;
+    height: 44px;
+    background: rgba(15, 23, 42, 0.9);
+    border: 1px solid var(--glass-border);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    transition: all 0.3s;
+    cursor: pointer;
+}
+
+.slider-nav-btn:hover {
+    background: var(--accent);
+    border-color: var(--accent);
+    box-shadow: 0 0 15px rgba(14, 165, 233, 0.3);
+}
+
+/* --- НОВЫЕ СТИЛИ ДЛЯ АДАПТИВА И МОБИЛЬНОЙ ВЕРСИИ --- */
+
+/* 1 & 2: Горизонтальный слайдер для Отраслей и Линейки ГПУ в моб. версии */
+@media (max-width: 767px) {
+    #industries .grid,
+    #products .grid {
+        display: flex !important;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        gap: 16px;
+        padding-bottom: 20px;
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+
+    #industries .grid::-webkit-scrollbar,
+    #products .grid::-webkit-scrollbar {
+        display: none;
+    }
+
+    #industries .glass-card,
+    #products .glass-card {
+        min-width: 80%; /* Виден один и кусок второго */
+        scroll-snap-align: start;
+        flex-shrink: 0;
+    }
+}
+
+/* 3: Услуги ГК - мобильная версия (1 блок и часть второго) */
+@media (max-width: 640px) {
+    .service-slide-card {
+        min-width: 80% !important;
+    }
+}
+
+/* 4: Услуги ГК - десктопная версия (2 блока и половина третьего) */
+@media (min-width: 1025px) {
+    .service-slide-card {
+        min-width: calc(40% - 12px) !important; /* Уточнение для попадания в 2.5 блока */
+    }
+}
+
+/* Доп. адаптация под 5 размеров */
+/* 1. Mobile (< 640px) - Базовые стили выше */
+
+/* 2. Tablet (640px - 768px) */
+@media (min-width: 640px) and (max-width: 768px) {
+    .hero-bg h1 { font-size: 3.5rem; }
+    .service-slide-card { min-width: 60% !important; }
+}
+
+/* 3. Laptop (769px - 1024px) */
+@media (min-width: 769px) and (max-width: 1024px) {
+    #industries .grid { grid-template-columns: repeat(2, 1fr); }
+    #products .grid { grid-template-columns: repeat(2, 1fr); }
+    .service-slide-card { min-width: 45% !important; }
+}
+
+/* 4. Desktop (1025px - 1440px) */
+@media (min-width: 1025px) and (max-width: 1440px) {
+    /* 2 полных блока + кусок третьего */
+    .service-slide-card { min-width: 38% !important; }
+}
+
+/* 5. Large Desktop (> 1440px) */
+@media (min-width: 1441px) {
+     .container { max-width: 1400px; }
+     .service-slide-card { min-width: 35% !important; }
+}
+
+/* Стили для секции отраслей */
+.section-bg {
+    background: radial-gradient(circle at 50% 0%, rgba(14, 165, 233, 0.15) 0%, transparent 50%);
+}
+
+.icon-box {
+    width: 72px;
+    height: 72px;
+    background: rgba(14, 165, 233, 0.1);
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    color: var(--accent);
+    margin-bottom: 32px;
+    transition: all 0.3s ease;
+}
+
+.glass-card:hover .icon-box {
+    background: var(--accent);
+    color: white;
+    transform: scale(1.1) rotate(-5deg);
+}
+
+.partner-section {
+    background: linear-gradient(135deg, rgba(15, 23, 42, 0.9) 0%, rgba(2, 6, 23, 1) 100%);
+    border: 1px solid rgba(14, 165, 233, 0.2);
+    border-radius: 40px;
+    position: relative;
+    z-index: 1;
+}
