@@ -22,6 +22,12 @@ body {
     -webkit-font-smoothing: antialiased;
 }
 
+/* Utility: allow long tokens (e.g. model names) to wrap instead of overflowing. */
+.break-anywhere {
+    overflow-wrap: anywhere;
+    word-break: break-word;
+}
+
 /* Utility classes used across pages (Tailwind CDN doesn't know our custom tokens) */
 .text-accent {
     color: var(--accent);
@@ -318,6 +324,15 @@ section {
     transform: translateY(-4px);
     background: var(--glass-strong);
     box-shadow: 0 28px 60px rgba(14, 165, 233, 0.10);
+}
+
+/* Lighter shadow for small metric cards (e.g. in Projects hero). */
+.glass-card.metric-card {
+    box-shadow: 0 10px 24px rgba(15, 23, 42, 0.06);
+}
+
+.glass-card.metric-card:hover {
+    box-shadow: 0 16px 36px rgba(14, 165, 233, 0.08);
 }
 
 /* Contacts page */

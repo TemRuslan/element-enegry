@@ -60,6 +60,7 @@ const headerHTML = `
 							                        <a href="datacenters.html#main-5mw" class="dropdown-item dropdown-subitem"><i class="fas fa-bolt"></i> Основной 5 МВт</a>
 						                    </div>
 						                </div>
+						                <a href="projects.html">Проекты</a>
 						                <a href="leasing.html">Лизинг</a>
 						                <a href="contacts.html">Контакты</a>
 
@@ -93,6 +94,7 @@ const headerHTML = `
 										                <a href="catalog.html" class="text-slate-900 font-bold">Каталог ГПУ</a>
 										                <a href="gpu-250-210.html" class="text-slate-900 font-bold">ГПУ 250 кВт (210 пост.)</a>
 										                <a href="services.html" class="text-slate-900 font-bold">Услуги</a>
+										                <a href="projects.html" class="text-slate-900 font-bold">Проекты</a>
 										                <a href="ngpu.html" class="text-slate-900 font-bold">ГПУ 250 кВт для ПНГ</a>
 											                <a href="promyshlennost.html" class="text-slate-900 font-bold">Промышленность</a>
 												                <a href="proizvodstvo.html" class="text-slate-900 font-bold mobile-subitem">Энергия для производства</a>
