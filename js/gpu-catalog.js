@@ -184,12 +184,12 @@
                                 <div class="text-xl font-black text-slate-900 tracking-tight leading-none truncate">${price}</div>
                             </div>
                             ${detailsUrl ? `
-	                                <a class="shrink-0 inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-slate-900 hover:bg-accent font-black uppercase text-[10px] tracking-widest text-white transition-colors" href="${detailsUrl}">
+	                                <a class="btn-primary shrink-0 inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl font-black uppercase text-[10px] tracking-widest text-white transition hover:brightness-110" href="${detailsUrl}">
 	                                    <span>Подробнее</span>
 	                                    <i class="fa-solid fa-arrow-right text-white/70"></i>
 	                                </a>
                             ` : `
-                                <button class="shrink-0 inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-slate-900 hover:bg-accent font-black uppercase text-[10px] tracking-widest text-white transition-colors" data-gpu-open="${item.id}">
+                                <button class="btn-primary shrink-0 inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl font-black uppercase text-[10px] tracking-widest text-white transition hover:brightness-110" data-gpu-open="${item.id}">
                                     <span>Подробнее</span>
                                     <i class="fa-solid fa-arrow-right text-white/70"></i>
                                 </button>
@@ -639,6 +639,11 @@
                         if (industry === 'industry') return !mining && !oilgas;
                         if (industry === 'agro') return !mining && !oilgas && !tags.includes('контейнер') && !tags.includes('модифицированная');
                         if (industry === 'dc') return container && !mining;
+                        if (industry === 'zhkh') {
+                            const kw = Number(x.continuous_kw || x.nominal_kw || 0);
+                            // Approximation: municipal/utility cases tend to use smaller standard sets.
+                            return !mining && !oilgas && Number.isFinite(kw) && kw > 0 && kw <= 250;
+                        }
                         return true;
                     });
                 });
@@ -822,7 +827,6 @@
         }, { passive: true });
 
         window.addEventListener('resize', () => {
-            if (!mobileToolbarEl) return;
             if (!isMobileLayout()) {
                 closeMobileFilters();
                 return;
@@ -830,6 +834,7 @@
         });
 
         syncRangesFromPriceInputs();
+        if (!isMobileLayout()) closeMobileFilters();
         apply();
     }
 

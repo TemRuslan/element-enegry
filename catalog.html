@@ -149,6 +149,12 @@
             display: none;
         }
 
+        @media (min-width: 1280px) {
+            .gpu-mobile-sheet-header {
+                display: none !important;
+            }
+        }
+
         @media (max-width: 1279px) {
             body.gpu-mobile-filters-open .gpu-mobile-sheet-header {
                 display: flex;
@@ -525,6 +531,13 @@
 	                                        Дата-центры
 	                                    </span>
 	                                </label>
+	                                <label class="gpu-chip cursor-pointer">
+	                                    <input class="sr-only" type="checkbox" name="gpu-industry" value="zhkh">
+	                                    <span
+	                                        class="inline-flex items-center px-3 py-2 rounded-xl border border-slate-200 bg-white/60 text-slate-900 text-[11px] font-black uppercase tracking-wider transition hover:bg-white">
+	                                        ЖКХ
+	                                    </span>
+	                                </label>
 	                            </div>
 	                        </fieldset>
 
@@ -651,6 +664,13 @@
 	                                    <span
 	                                        class="inline-flex items-center px-3 py-2 rounded-xl border border-slate-200 bg-white/60 text-slate-900 text-[11px] font-black uppercase tracking-wider transition hover:bg-white">
 	                                        465
+	                                    </span>
+	                                </label>
+	                                <label class="gpu-chip cursor-pointer">
+	                                    <input class="sr-only" type="checkbox" name="gpu-power-cont" value="1100">
+	                                    <span
+	                                        class="inline-flex items-center px-3 py-2 rounded-xl border border-slate-200 bg-white/60 text-slate-900 text-[11px] font-black uppercase tracking-wider transition hover:bg-white">
+	                                        1100
 	                                    </span>
 	                                </label>
 	                            </div>
