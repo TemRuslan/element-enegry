@@ -48,6 +48,7 @@ body {
 }
 
 .page-light>section,
+.page-light>main,
 .page-light>#footer-placeholder {
     position: relative;
     z-index: 1;

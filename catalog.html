@@ -23,21 +23,21 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@700&display=swap"
         rel="stylesheet">
-    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
-	    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
-	    <link rel="stylesheet" href="css/styles.css">
-	    <style>
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon/favicon-16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/favicon/apple-touch-icon.png">
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
         /* Sidebar in the left "gutter" (between viewport edge and the centered 1280px container).
            Requirements:
            - stays on the side (not above) on desktop
            - does NOT move cards (out of flow)
            - does NOT follow scroll (not fixed/sticky; it scrolls naturally with the page)
         */
-	        @media (min-width: 1280px) {
-	            .gpu-catalog-sidebar {
-	                position: absolute;
-	                top: 0;
+        @media (min-width: 1280px) {
+            .gpu-catalog-sidebar {
+                position: absolute;
+                top: 0;
                 /* Build a whole gutter column from the viewport edge up to the product grid. */
                 left: calc(-1 * (max(0px, calc((100vw - 1280px) / 2)) + 24px));
                 width: calc(max(0px, calc((100vw - 1280px) / 2)) + 24px);
@@ -55,13 +55,111 @@
 	            .gpu-catalog-sidebar .glass-card {
 	                border-top-left-radius: 0;
 	                border-bottom-left-radius: 0;
-	            }
-	        }
+            }
+        }
 
-	        /* Make the sidebar panel feel closer to the page background (less "cardy"). */
-	        .gpu-catalog-sidebar-panel .glass-card {
-	            background: transparent;
-	            border-color: transparent;
+        /* Mobile: filters/sort live in a modal, opened by a floating button. */
+        @media (max-width: 1279px) {
+            .gpu-catalog-sidebar {
+                display: none;
+            }
+
+            body.gpu-mobile-filters-open .gpu-catalog-sidebar {
+                display: block;
+                position: fixed;
+                inset: 0;
+                z-index: 1600;
+                left: 0;
+                width: auto;
+                padding: 0;
+                pointer-events: auto;
+                background: rgba(15, 23, 42, 0.36);
+                backdrop-filter: blur(8px);
+                -webkit-backdrop-filter: blur(8px);
+            }
+
+            body.gpu-mobile-filters-open .gpu-catalog-sidebar-panel {
+                position: absolute;
+                left: 12px;
+                right: 12px;
+                top: 80px;
+                bottom: 16px;
+                width: auto;
+                padding-right: 0;
+                margin-left: 0;
+                overflow: auto;
+            }
+
+            .gpu-mobile-sheet {
+                background: rgba(255, 255, 255, 0.96);
+                border: 1px solid rgba(15, 23, 42, 0.10);
+                border-radius: 22px;
+                box-shadow: 0 22px 60px rgba(15, 23, 42, 0.18);
+            }
+
+            .gpu-mobile-sheet-header {
+                position: sticky;
+                top: 0;
+                z-index: 5;
+                background: rgba(255, 255, 255, 0.92);
+                backdrop-filter: blur(10px);
+                -webkit-backdrop-filter: blur(10px);
+                border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+                border-top-left-radius: 22px;
+                border-top-right-radius: 22px;
+            }
+
+            .gpu-mobile-fab {
+                position: fixed;
+                right: 14px;
+                bottom: 14px;
+                z-index: 1500;
+                transition: transform 220ms ease, opacity 220ms ease;
+            }
+
+            .gpu-mobile-fab.is-hidden {
+                opacity: 0;
+                transform: translateY(16px);
+                pointer-events: none;
+            }
+
+            .gpu-mobile-fab-btn {
+                display: inline-flex;
+                align-items: center;
+                gap: 10px;
+                padding: 12px 14px;
+                border-radius: 16px;
+                background: #0f172a;
+                color: #ffffff;
+                border: 1px solid rgba(255, 255, 255, 0.18);
+                box-shadow: 0 16px 36px rgba(15, 23, 42, 0.22);
+                font-weight: 900;
+                text-transform: uppercase;
+                letter-spacing: 0.14em;
+                font-size: 11px;
+                line-height: 1;
+            }
+
+            .gpu-mobile-fab-badge {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                min-width: 22px;
+                height: 22px;
+                padding: 0 7px;
+                border-radius: 999px;
+                background: var(--accent);
+                color: #ffffff;
+                font-size: 11px;
+                font-weight: 900;
+                letter-spacing: 0;
+            }
+        }
+
+        /* Make the sidebar panel feel closer to the page background (less "cardy"). */
+        .gpu-catalog-sidebar-panel .glass-card {
+            background: transparent;
+            border-color: transparent;
 	            box-shadow: none;
 	            backdrop-filter: none;
 	            -webkit-backdrop-filter: none;
@@ -76,10 +174,10 @@
 	            box-shadow: none;
 	        }
 
-	        /* Slight left inset so controls don't hug the panel edge. */
-	        .gpu-catalog-sidebar-panel fieldset {
-	            padding-left: 10px;
-	        }
+        /* Slight left inset so controls don't hug the panel edge. */
+        .gpu-catalog-sidebar-panel fieldset {
+            padding-left: 10px;
+        }
 
 	        .gpu-catalog-sidebar-panel .gpu-sidebar-footer {
 	            padding-left: 10px;
@@ -201,10 +299,22 @@
     <!-- MAIN GRID -->
     <main class="max-w-7xl mx-auto px-6 pb-24 relative">
         <!-- SIDEBAR FILTERS: above grid on small screens; in left gutter (absolute) on wide screens -->
-	        <aside class="gpu-catalog-sidebar pb-10">
-	            <div class="gpu-catalog-sidebar-panel">
-	                <div class="glass-card p-5">
-	                    <form id="gpu-controls" class="space-y-5">
+        <aside class="gpu-catalog-sidebar pb-10">
+            <div class="gpu-catalog-sidebar-panel">
+                <div class="gpu-mobile-sheet">
+                    <div class="gpu-mobile-sheet-header px-4 py-3 flex items-center justify-between gap-3">
+                        <div class="text-xs font-black uppercase tracking-[0.22em] text-slate-900">
+                            Фильтр и сортировка
+                        </div>
+                        <button type="button" id="gpu-mobile-close"
+                            class="w-10 h-10 rounded-xl border border-slate-200 bg-white/70 hover:bg-white text-slate-900 transition inline-flex items-center justify-center"
+                            aria-label="Закрыть">
+                            <i class="fa-solid fa-xmark"></i>
+                        </button>
+                    </div>
+
+                    <div class="p-5">
+                        <form id="gpu-controls" class="space-y-5">
 	                        <div class="text-xs font-black uppercase tracking-[0.22em] text-slate-900 pl-2">
 	                            Сортировка
 	                        </div>
@@ -569,13 +679,22 @@
 	                            Очистить
 	                        </button>
 	                    </div>
-	                    </form>
-	                </div>
+	                        </form>
+                    </div>
 	            </div>
 	        </aside>
 
-        <div id="gpu-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"></div>
-    </main>
+	        <div id="gpu-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"></div>
+	    </main>
+
+        <!-- Mobile floating action button -->
+        <div id="gpu-mobile-fab" class="gpu-mobile-fab">
+            <button type="button" id="gpu-mobile-open" class="gpu-mobile-fab-btn" aria-label="Открыть фильтр и сортировку">
+                <i class="fa-solid fa-sliders"></i>
+                <span>Фильтр</span>
+                <span id="gpu-mobile-badge" class="gpu-mobile-fab-badge" style="display:none;">0</span>
+            </button>
+        </div>
 
     <!-- FOOTER PLACEHOLDER -->
     <div id="footer-placeholder"></div>

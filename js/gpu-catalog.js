@@ -360,6 +360,10 @@
         const controlsEl = document.getElementById('gpu-controls');
         const countEl = document.getElementById('gpu-count');
         const resetEl = document.getElementById('gpu-reset');
+        const mobileFabEl = document.getElementById('gpu-mobile-fab');
+        const mobileOpenEl = document.getElementById('gpu-mobile-open');
+        const mobileCloseEl = document.getElementById('gpu-mobile-close');
+        const mobileBadgeEl = document.getElementById('gpu-mobile-badge');
         const priceMinEl = document.getElementById('gpu-price-min');
         const priceMaxEl = document.getElementById('gpu-price-max');
         const priceMinRangeEl = document.getElementById('gpu-price-min-range');
@@ -508,6 +512,43 @@
             if (!anyCheckedNow && !anyOtherChecked && anyEl) anyEl.checked = true;
         }
 
+        function isMobileLayout() {
+            return typeof window !== 'undefined'
+                && window.matchMedia
+                && window.matchMedia('(max-width: 1279px)').matches;
+        }
+
+        function openMobileFilters() {
+            document.body.classList.add('gpu-mobile-filters-open');
+            if (mobileFabEl) mobileFabEl.classList.add('is-hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeMobileFilters() {
+            document.body.classList.remove('gpu-mobile-filters-open');
+            if (mobileFabEl) mobileFabEl.classList.remove('is-hidden');
+            document.body.style.overflow = '';
+        }
+
+        function activeFiltersCount() {
+            let n = 0;
+            const type = readRadio('gpu-type', 'all') || 'all';
+            const gas = readRadio('gpu-gas', 'any') || 'any';
+            const execSel = readMulti('gpu-exec');
+            const industrySel = readMulti('gpu-industry');
+            const nominalSel = readMulti('gpu-power-nom');
+            const continuousSel = readMulti('gpu-power-cont');
+
+            if (type !== 'all') n++;
+            if (gas !== 'any') n++;
+            if (execSel.length && !(execSel.length === 1 && execSel[0] === 'any')) n++;
+            if (industrySel.length && !(industrySel.length === 1 && industrySel[0] === 'any')) n++;
+            if (nominalSel.length && !(nominalSel.length === 1 && nominalSel[0] === 'any')) n++;
+            if (continuousSel.length && !(continuousSel.length === 1 && continuousSel[0] === 'any')) n++;
+            if (readNum(priceMinEl) !== null || readNum(priceMaxEl) !== null) n++;
+            return n;
+        }
+
         function apply() {
             const type = readRadio('gpu-type', 'all') || 'all';
             const gas = readRadio('gpu-gas', 'any') || 'any';
@@ -654,6 +695,12 @@
             host.innerHTML = list.map((item) => renderCard(item)).join('');
 
             if (countEl) countEl.textContent = `Позиции: ${list.length}`;
+
+            if (mobileBadgeEl) {
+                const k = activeFiltersCount();
+                mobileBadgeEl.textContent = String(k);
+                mobileBadgeEl.style.display = k > 0 ? '' : 'none';
+            }
         }
 
         if (controlsEl) {
@@ -712,6 +759,50 @@
                 apply();
             });
         }
+
+        // Mobile: floating button that appears on scroll up and hides on scroll down.
+        if (mobileOpenEl) mobileOpenEl.addEventListener('click', () => openMobileFilters());
+        if (mobileCloseEl) mobileCloseEl.addEventListener('click', () => closeMobileFilters());
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeMobileFilters();
+        });
+
+        // Close when tapping on the dark backdrop area (outside panel).
+        document.addEventListener('click', (e) => {
+            if (!document.body.classList.contains('gpu-mobile-filters-open')) return;
+            if (!isMobileLayout()) return;
+            const sidebarPanel = document.querySelector('.gpu-catalog-sidebar-panel');
+            if (sidebarPanel && sidebarPanel.contains(e.target)) return;
+            // Clicked outside panel.
+            closeMobileFilters();
+        });
+
+        let lastY = window.scrollY || 0;
+        let raf = 0;
+        window.addEventListener('scroll', () => {
+            if (!mobileFabEl) return;
+            if (!isMobileLayout()) return;
+            if (document.body.classList.contains('gpu-mobile-filters-open')) return;
+            if (raf) return;
+            raf = window.requestAnimationFrame(() => {
+                raf = 0;
+                const y = window.scrollY || 0;
+                const d = y - lastY;
+                if (d > 12) mobileFabEl.classList.add('is-hidden');
+                else if (d < -12) mobileFabEl.classList.remove('is-hidden');
+                lastY = y;
+            });
+        }, { passive: true });
+
+        window.addEventListener('resize', () => {
+            if (!mobileFabEl) return;
+            if (!isMobileLayout()) {
+                closeMobileFilters();
+                return;
+            }
+        });
+
         syncRangesFromPriceInputs();
         apply();
     }

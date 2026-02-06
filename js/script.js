@@ -5,7 +5,7 @@ const headerHTML = `
 		        <nav class="glass-nav">
 		            <div class="nav-inner max-w-7xl mx-auto px-6">
 		            <a href="index.html" class="logo shrink-0">
-		                <img src="logo.png" alt="Элемент Энергия" style="height: 36px; width: auto; display: block;">
+		                <img src="assets/brand/logo.png" alt="Элемент Энергия" style="height: 36px; width: auto; display: block;">
 		                <div style="line-height: 1; white-space: nowrap;">ЭЛЕМЕНТ <span style="color: #0ea5e9;">ЭНЕРГИЯ</span></div>
 		            </a>
 
