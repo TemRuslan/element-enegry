@@ -1,8 +1,0 @@
-js/script.js:15:			                    <div class="dropdown-trigger">Продукция <i class="fas fa-chevron-down text-[9px]"></i></div>
-js/script.js:23:			                    <div class="dropdown-trigger">Услуги <i class="fas fa-chevron-down text-[9px]"></i></div>
-js/script.js:33:					                    <div class="dropdown-trigger">Отрасли <i class="fas fa-chevron-down text-[9px]"></i></div>
-js/script.js:47:	                    <div class="dropdown-trigger contact-link">
-components/header.html:13:			                    <div class="dropdown-trigger">Продукция <i class="fas fa-chevron-down text-[9px]"></i></div>
-components/header.html:21:	                    <div class="dropdown-trigger">Услуги <i class="fas fa-chevron-down text-[9px]"></i></div>
-components/header.html:31:		                    <div class="dropdown-trigger">Отрасли <i class="fas fa-chevron-down text-[9px]"></i></div>
-components/header.html:46:                    <div class="dropdown-trigger contact-link">
