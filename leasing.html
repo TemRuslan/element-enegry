@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Лизинг. Страница в разработке.">
+    <title>Лизинг | Элемент Энергия</title>
+
+    <script>
+        // Tailwind CDN config: adds custom "accent" utilities used across the site (bg-accent/..., text-accent, etc.)
+        window.tailwind = window.tailwind || {};
+        window.tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        accent: '#0ea5e9',
+                        'accent-dark': '#0284c7',
+                    }
+                }
+            }
+        };
+    </script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@700&display=swap"
+        rel="stylesheet">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+    <!-- HEADER PLACEHOLDER -->
+    <div id="header-placeholder"></div>
+
+    <div class="page-light">
+        <div class="bg-blob blob-1"></div>
+        <div class="bg-blob blob-2"></div>
+
+        <main class="max-w-7xl mx-auto px-6 pt-32 pb-24">
+            <section class="text-center">
+                <div class="inline-flex items-center gap-3 bg-white/70 border border-slate-900/10 px-4 py-2 rounded-full backdrop-blur-md shadow-sm">
+                    <span class="relative inline-flex rounded-full h-2 w-2 bg-accent"></span>
+                    <span class="text-xs font-bold uppercase tracking-[0.2em] text-slate-600">Раздел</span>
+                </div>
+                <h1 class="text-4xl md:text-6xl font-black uppercase tracking-tight mt-6 mb-4">Лизинг</h1>
+                <p class="text-slate-500 max-w-2xl mx-auto leading-relaxed">Страница в разработке. Добавим условия, программы и примеры расчетов.</p>
+
+                <div class="mt-10 max-w-xl mx-auto glass-card p-10">
+                    <div class="icon-box"><i class="fa-solid fa-coins"></i></div>
+                    <div class="text-sm text-slate-500 leading-relaxed">Пока можно оставить запрос в контактах, и мы подберем подходящую программу.</div>
+                    <a href="contacts.html" class="btn-primary mt-8 w-full py-5 rounded-xl text-white font-black uppercase tracking-widest text-center block">Перейти к контактам</a>
+                </div>
+            </section>
+        </main>
+
+        <!-- FOOTER PLACEHOLDER -->
+        <div id="footer-placeholder"></div>
+    </div>
+
+    <script src="js/script.js"></script>
+</body>
+
+</html>

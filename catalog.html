@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Каталог ГПУ | Элемент Энергия</title>
+    <script>
+        window.tailwind = window.tailwind || {};
+        window.tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        accent: '#0ea5e9',
+                        'accent-dark': '#0284c7',
+                    }
+                }
+            }
+        };
+    </script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@700&display=swap"
+        rel="stylesheet">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
+	    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+	    <link rel="stylesheet" href="css/styles.css">
+	    <style>
+        /* Sidebar in the left "gutter" (between viewport edge and the centered 1280px container).
+           Requirements:
+           - stays on the side (not above) on desktop
+           - does NOT move cards (out of flow)
+           - does NOT follow scroll (not fixed/sticky; it scrolls naturally with the page)
+        */
+	        @media (min-width: 1280px) {
+	            .gpu-catalog-sidebar {
+	                position: absolute;
+	                top: 0;
+                /* Build a whole gutter column from the viewport edge up to the product grid. */
+                left: calc(-1 * (max(0px, calc((100vw - 1280px) / 2)) + 24px));
+                width: calc(max(0px, calc((100vw - 1280px) / 2)) + 24px);
+                z-index: 40;
+                pointer-events: none; /* let only the panel itself capture input */
+            }
+
+            .gpu-catalog-sidebar-panel {
+                width: min(320px, 100%);
+                margin-left: auto; /* stick to the product grid edge */
+                padding-right: 12px; /* tiny breathing room from cards */
+                pointer-events: auto;
+            }
+
+	            .gpu-catalog-sidebar .glass-card {
+	                border-top-left-radius: 0;
+	                border-bottom-left-radius: 0;
+	            }
+	        }
+
+	        /* Make the sidebar panel feel closer to the page background (less "cardy"). */
+	        .gpu-catalog-sidebar-panel .glass-card {
+	            background: transparent;
+	            border-color: transparent;
+	            box-shadow: none;
+	            backdrop-filter: none;
+	            -webkit-backdrop-filter: none;
+	            transition: none;
+	        }
+
+	        /* Disable global glass-card hover lift for this block. */
+	        .gpu-catalog-sidebar-panel .glass-card:hover {
+	            transform: none;
+	            background: transparent;
+	            border-color: transparent;
+	            box-shadow: none;
+	        }
+
+	        /* Slight left inset so controls don't hug the panel edge. */
+	        .gpu-catalog-sidebar-panel fieldset {
+	            padding-left: 10px;
+	        }
+
+	        .gpu-catalog-sidebar-panel .gpu-sidebar-footer {
+	            padding-left: 10px;
+	        }
+
+	        /* Selected state for radios without relying on Tailwind peer-checked variants (CDN can miss them). */
+	        .gpu-chip input:checked + span,
+	        .gpu-option input:checked + span {
+	            background: var(--accent) !important;
+            border-color: var(--accent) !important;
+            color: #ffffff !important;
+        }
+
+        /* Keep any "dark" chip variants aligned with the site accent too. */
+        .gpu-chip.gpu-chip--dark input:checked + span {
+            background: var(--accent) !important;
+            border-color: var(--accent) !important;
+            color: #ffffff !important;
+        }
+
+	        /* Dual range slider */
+	        .gpu-range {
+	            position: relative;
+	            height: 28px;
+	        }
+
+        .gpu-range-track {
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            height: 8px;
+            border-radius: 999px;
+            background: rgba(15, 23, 42, 0.08);
+            border: 1px solid rgba(15, 23, 42, 0.12);
+        }
+
+        .gpu-range-fill {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            height: 8px;
+            border-radius: 999px;
+            background: linear-gradient(90deg, var(--accent), var(--accent-dark));
+        }
+
+	        .gpu-range input[type="range"] {
+	            position: absolute;
+	            left: 0;
+	            right: 0;
+	            top: 50%;
+	            transform: translateY(-50%);
+	            width: 100%;
+	            height: 8px;
+	            margin: 0;
+	            padding: 0;
+	            background: transparent;
+	            pointer-events: none;
+	            -webkit-appearance: none;
+	            appearance: none;
+	        }
+
+	        .gpu-range input[type="range"]::-webkit-slider-thumb {
+	            -webkit-appearance: none;
+	            appearance: none;
+	            width: 18px;
+	            height: 18px;
+	            border-radius: 999px;
+	            background: #ffffff;
+	            border: 2px solid rgba(15, 23, 42, 0.18);
+	            box-shadow: 0 8px 18px rgba(15, 23, 42, 0.14);
+	            /* Center thumb relative to 8px track (18 - 8) / -2 = -5 */
+	            margin-top: -5px;
+	            pointer-events: auto;
+	        }
+
+        .gpu-range input[type="range"]::-moz-range-thumb {
+            width: 18px;
+            height: 18px;
+            border-radius: 999px;
+            background: #ffffff;
+            border: 2px solid rgba(15, 23, 42, 0.18);
+            box-shadow: 0 8px 18px rgba(15, 23, 42, 0.14);
+            pointer-events: auto;
+        }
+
+        .gpu-range input[type="range"]::-webkit-slider-runnable-track {
+            height: 8px;
+            background: transparent;
+        }
+
+        .gpu-range input[type="range"]::-moz-range-track {
+            height: 8px;
+            background: transparent;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- HEADER PLACEHOLDER -->
+    <div id="header-placeholder"></div>
+
+    <!-- CATALOG HERO & FILTERS -->
+    <section class="pt-32 pb-12 relative overflow-hidden">
+        <div class="absolute inset-0 bg-accent/5 -z-10"></div>
+        <div class="container mx-auto px-6 relative z-10 w-full max-w-7xl">
+            <div class="mb-10">
+                <h1 class="text-4xl md:text-6xl font-black mb-6 uppercase tracking-tighter">
+                    Каталог <span class="text-accent">ГПУ</span>
+                </h1>
+                <p class="text-lg text-slate-400 max-w-2xl leading-relaxed">
+                    Подбор газопоршневых установок по мощности, исполнению и цене.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- MAIN GRID -->
+    <main class="max-w-7xl mx-auto px-6 pb-24 relative">
+        <!-- SIDEBAR FILTERS: above grid on small screens; in left gutter (absolute) on wide screens -->
+	        <aside class="gpu-catalog-sidebar pb-10">
+	            <div class="gpu-catalog-sidebar-panel">
+	                <div class="glass-card p-5">
+	                    <form id="gpu-controls" class="space-y-5">
+	                        <div class="text-xs font-black uppercase tracking-[0.22em] text-slate-900 pl-2">
+	                            Сортировка
+	                        </div>
+	                        <fieldset>
+	                            <legend class="sr-only">Сортировка</legend>
+	                            <div class="grid grid-cols-1 gap-2">
+	                                <label class="gpu-option cursor-pointer">
+	                                    <input class="sr-only" type="radio" name="gpu-sort" value="popular" checked>
+	                                    <span
+	                                        class="flex items-center justify-between gap-3 px-4 py-2.5 rounded-xl border border-slate-200 bg-white/60 text-slate-900 text-[11px] font-black uppercase tracking-wider transition hover:bg-white">
+	                                        <span>По популярности</span>
+	                                        <i class="fa-solid fa-star text-current/70"></i>
+	                                    </span>
+	                                </label>
+	                                <label class="gpu-option cursor-pointer">
+	                                    <input class="sr-only" type="radio" name="gpu-sort" value="power_asc">
+	                                    <span
+	                                        class="flex items-center justify-between gap-3 px-4 py-2.5 rounded-xl border border-slate-200 bg-white/60 text-slate-900 text-[11px] font-black uppercase tracking-wider transition hover:bg-white">
+	                                        <span>По мощности (возр.)</span>
+	                                        <i class="fa-solid fa-arrow-up-short-wide text-current/70"></i>
+	                                    </span>
+	                                </label>
+	                                <label class="gpu-option cursor-pointer">
+	                                    <input class="sr-only" type="radio" name="gpu-sort" value="power_desc">
+	                                    <span
+	                                        class="flex items-center justify-between gap-3 px-4 py-2.5 rounded-xl border border-slate-200 bg-white/60 text-slate-900 text-[11px] font-black uppercase tracking-wider transition hover:bg-white">
+	                                        <span>По мощности (убыв.)</span>
+	                                        <i class="fa-solid fa-arrow-down-short-wide text-current/70"></i>
+	                                    </span>
+	                                </label>
+	                                <label class="gpu-option cursor-pointer">
+	                                    <input class="sr-only" type="radio" name="gpu-sort" value="price_asc">
+	                                    <span
+	                                        class="flex items-center justify-between gap-3 px-4 py-2.5 rounded-xl border border-slate-200 bg-white/60 text-slate-900 text-[11px] font-black uppercase tracking-wider transition hover:bg-white">
+	                                        <span>Цена (возр.)</span>
+	                                        <i class="fa-solid fa-arrow-up-short-wide text-current/70"></i>
+	                                    </span>
+	                                </label>
+	                                <label class="gpu-option cursor-pointer">
+	                                    <input class="sr-only" type="radio" name="gpu-sort" value="price_desc">
+	                                    <span
+	                                        class="flex items-center justify-between gap-3 px-4 py-2.5 rounded-xl border border-slate-200 bg-white/60 text-slate-900 text-[11px] font-black uppercase tracking-wider transition hover:bg-white">
+	                                        <span>Цена (убыв.)</span>
+	                                        <i class="fa-solid fa-arrow-down-short-wide text-current/70"></i>
+	                                    </span>
+	                                </label>
+	                            </div>
+	                        </fieldset>
+
+	                        <div class="pt-4 border-t border-slate-200/70 text-xs font-black uppercase tracking-[0.22em] text-slate-900 pl-2">
+	                            Фильтр
+	                        </div>
+	                        <fieldset>
+	                            <legend class="text-[12px] font-black text-slate-900 tracking-[0.18em] mb-2">
+	                                Тип
+	                            </legend>
+	                            <div class="flex flex-wrap gap-2">
+	                                <label class="gpu-chip cursor-pointer">
+	                                    <input class="sr-only" type="radio" name="gpu-type" value="all" checked>
+	                                    <span
+	                                        class="inline-flex items-center px-3 py-2 rounded-xl border border-slate-200 bg-white/60 text-slate-900 text-[11px] font-black uppercase tracking-wider transition hover:bg-white">
+	                                        Все
+	                                    </span>
+	                                </label>
+	                                <label class="gpu-chip cursor-pointer">
+	                                    <input class="sr-only" type="radio" name="gpu-type" value="base">
+	                                    <span
+	                                        class="inline-flex items-center px-3 py-2 rounded-xl border border-slate-200 bg-white/60 text-slate-900 text-[11px] font-black uppercase tracking-wider transition hover:bg-white">
+	                                        Базовый
+	                                    </span>
+	                                </label>
+	                                <label class="gpu-chip cursor-pointer">
+	                                    <input class="sr-only" type="radio" name="gpu-type" value="mod">
+	                                    <span
+	                                        class="inline-flex items-center px-3 py-2 rounded-xl border border-slate-200 bg-white/60 text-slate-900 text-[11px] font-black uppercase tracking-wider transition hover:bg-white">
+	                                        Модифицированный
+	                                    </span>
+	                                </label>
+	                            </div>
+	                        </fieldset>
+
+	                        <fieldset>
+	                            <legend class="text-[12px] font-black text-slate-900 tracking-[0.18em] mb-2">
+	                                Газ
+	                            </legend>
+	                            <div class="flex flex-wrap gap-2">
+	                                <label class="gpu-chip cursor-pointer">
+	                                    <input class="sr-only" type="radio" name="gpu-gas" value="any" checked>
+	                                    <span
+	                                        class="inline-flex items-center px-3 py-2 rounded-xl border border-slate-200 bg-white/60 text-slate-900 text-[11px] font-black uppercase tracking-wider transition hover:bg-white">
+	                                        Любой
+	                                    </span>
+	                                </label>
+	                                <label class="gpu-chip cursor-pointer">
+	                                    <input class="sr-only" type="radio" name="gpu-gas" value="apg">
+	                                    <span
+	                                        class="inline-flex items-center px-3 py-2 rounded-xl border border-slate-200 bg-white/60 text-slate-900 text-[11px] font-black uppercase tracking-wider transition hover:bg-white">
+	                                        Попутный нефтяной газ
+	                                    </span>
+	                                </label>
+	                                <label class="gpu-chip cursor-pointer">
+	                                    <input class="sr-only" type="radio" name="gpu-gas" value="pipe_ng">
+	                                    <span
+	                                        class="inline-flex items-center px-3 py-2 rounded-xl border border-slate-200 bg-white/60 text-slate-900 text-[11px] font-black uppercase tracking-wider transition hover:bg-white">
+	                                        Трубный природный газ
+	                                    </span>
+	                                </label>
+	                                <label class="gpu-chip cursor-pointer">
+	                                    <input class="sr-only" type="radio" name="gpu-gas" value="var">
+	                                    <span
+	                                        class="inline-flex items-center px-3 py-2 rounded-xl border border-slate-200 bg-white/60 text-slate-900 text-[11px] font-black uppercase tracking-wider transition hover:bg-white">
+	                                        Газ переменного состава
+	                                    </span>
+	                                </label>
+	                            </div>
+	                        </fieldset>
+
+	                        <fieldset>
+	                            <legend class="text-[12px] font-black text-slate-900 tracking-[0.18em] mb-2">
+	                                Исполнение
+	                            </legend>
+	                            <div class="flex flex-wrap gap-2">
+	                                <label class="gpu-chip cursor-pointer">
+	                                    <input class="sr-only" type="checkbox" name="gpu-exec" value="any" checked>
+	                                    <span
+	                                        class="inline-flex items-center px-3 py-2 rounded-xl border border-slate-200 bg-white/60 text-slate-900 text-[11px] font-black uppercase tracking-wider transition hover:bg-white">
+	                                        Любое
+	                                    </span>
+	                                </label>
+	                                <label class="gpu-chip cursor-pointer">
+	                                    <input class="sr-only" type="checkbox" name="gpu-exec" value="open">
+	                                    <span
+	                                        class="inline-flex items-center px-3 py-2 rounded-xl border border-slate-200 bg-white/60 text-slate-900 text-[11px] font-black uppercase tracking-wider transition hover:bg-white">
+	                                        Открытая рама
+	                                    </span>
+	                                </label>
+	                                <label class="gpu-chip cursor-pointer">
+	                                    <input class="sr-only" type="checkbox" name="gpu-exec" value="container">
+	                                    <span
+	                                        class="inline-flex items-center px-3 py-2 rounded-xl border border-slate-200 bg-white/60 text-slate-900 text-[11px] font-black uppercase tracking-wider transition hover:bg-white">
+	                                        Контейнер
+	                                    </span>
+	                                </label>
+	                                <label class="gpu-chip cursor-pointer">
+	                                    <input class="sr-only" type="checkbox" name="gpu-exec" value="casing">
+	                                    <span
+	                                        class="inline-flex items-center px-3 py-2 rounded-xl border border-slate-200 bg-white/60 text-slate-900 text-[11px] font-black uppercase tracking-wider transition hover:bg-white">
+	                                        Кожух
+	                                    </span>
+	                                </label>
+	                            </div>
+	                        </fieldset>
+
+	                        <fieldset>
+	                            <legend class="text-[12px] font-black text-slate-900 tracking-[0.18em] mb-2">
+	                                Отрасль
+	                            </legend>
+	                            <div class="flex flex-wrap gap-2">
+	                                <label class="gpu-chip cursor-pointer">
+	                                    <input class="sr-only" type="checkbox" name="gpu-industry" value="any" checked>
+	                                    <span
+	                                        class="inline-flex items-center px-3 py-2 rounded-xl border border-slate-200 bg-white/60 text-slate-900 text-[11px] font-black uppercase tracking-wider transition hover:bg-white">
+	                                        Любая
+	                                    </span>
+	                                </label>
+	                                <label class="gpu-chip cursor-pointer">
+	                                    <input class="sr-only" type="checkbox" name="gpu-industry" value="industry">
+	                                    <span
+	                                        class="inline-flex items-center px-3 py-2 rounded-xl border border-slate-200 bg-white/60 text-slate-900 text-[11px] font-black uppercase tracking-wider transition hover:bg-white">
+	                                        Промышленность
+	                                    </span>
+	                                </label>
+	                                <label class="gpu-chip cursor-pointer">
+	                                    <input class="sr-only" type="checkbox" name="gpu-industry" value="oilgas">
+	                                    <span
+	                                        class="inline-flex items-center px-3 py-2 rounded-xl border border-slate-200 bg-white/60 text-slate-900 text-[11px] font-black uppercase tracking-wider transition hover:bg-white">
+	                                        Нефтегаз
+	                                    </span>
+	                                </label>
+	                                <label class="gpu-chip cursor-pointer">
+	                                    <input class="sr-only" type="checkbox" name="gpu-industry" value="mining">
+	                                    <span
+	                                        class="inline-flex items-center px-3 py-2 rounded-xl border border-slate-200 bg-white/60 text-slate-900 text-[11px] font-black uppercase tracking-wider transition hover:bg-white">
+	                                        Майнинг
+	                                    </span>
+	                                </label>
+	                                <label class="gpu-chip cursor-pointer">
+	                                    <input class="sr-only" type="checkbox" name="gpu-industry" value="agro">
+	                                    <span
+	                                        class="inline-flex items-center px-3 py-2 rounded-xl border border-slate-200 bg-white/60 text-slate-900 text-[11px] font-black uppercase tracking-wider transition hover:bg-white">
+	                                        Агропром
+	                                    </span>
+	                                </label>
+	                                <label class="gpu-chip cursor-pointer">
+	                                    <input class="sr-only" type="checkbox" name="gpu-industry" value="dc">
+	                                    <span
+	                                        class="inline-flex items-center px-3 py-2 rounded-xl border border-slate-200 bg-white/60 text-slate-900 text-[11px] font-black uppercase tracking-wider transition hover:bg-white">
+	                                        Дата-центры
+	                                    </span>
+	                                </label>
+	                            </div>
+	                        </fieldset>
+
+	                        <fieldset>
+	                            <legend class="text-[12px] font-black text-slate-900 tracking-[0.18em] mb-2">
+	                                Макс. мощность (кВт)
+	                            </legend>
+	                            <div class="flex flex-wrap gap-2">
+	                                <label class="gpu-chip cursor-pointer">
+	                                    <input class="sr-only" type="checkbox" name="gpu-power-nom" value="any" checked>
+	                                    <span
+	                                        class="inline-flex items-center px-3 py-2 rounded-xl border border-slate-200 bg-white/60 text-slate-900 text-[11px] font-black uppercase tracking-wider transition hover:bg-white">
+	                                        Любая
+	                                    </span>
+	                                </label>
+	                                <label class="gpu-chip cursor-pointer">
+	                                    <input class="sr-only" type="checkbox" name="gpu-power-nom" value="90">
+	                                    <span
+	                                        class="inline-flex items-center px-3 py-2 rounded-xl border border-slate-200 bg-white/60 text-slate-900 text-[11px] font-black uppercase tracking-wider transition hover:bg-white">
+	                                        90
+	                                    </span>
+	                                </label>
+	                                <label class="gpu-chip cursor-pointer">
+	                                    <input class="sr-only" type="checkbox" name="gpu-power-nom" value="150">
+	                                    <span
+	                                        class="inline-flex items-center px-3 py-2 rounded-xl border border-slate-200 bg-white/60 text-slate-900 text-[11px] font-black uppercase tracking-wider transition hover:bg-white">
+	                                        150
+	                                    </span>
+	                                </label>
+	                                <label class="gpu-chip cursor-pointer">
+	                                    <input class="sr-only" type="checkbox" name="gpu-power-nom" value="250">
+	                                    <span
+	                                        class="inline-flex items-center px-3 py-2 rounded-xl border border-slate-200 bg-white/60 text-slate-900 text-[11px] font-black uppercase tracking-wider transition hover:bg-white">
+	                                        250
+	                                    </span>
+	                                </label>
+	                                <label class="gpu-chip cursor-pointer">
+	                                    <input class="sr-only" type="checkbox" name="gpu-power-nom" value="400">
+	                                    <span
+	                                        class="inline-flex items-center px-3 py-2 rounded-xl border border-slate-200 bg-white/60 text-slate-900 text-[11px] font-black uppercase tracking-wider transition hover:bg-white">
+	                                        400
+	                                    </span>
+	                                </label>
+	                                <label class="gpu-chip cursor-pointer">
+	                                    <input class="sr-only" type="checkbox" name="gpu-power-nom" value="530">
+	                                    <span
+	                                        class="inline-flex items-center px-3 py-2 rounded-xl border border-slate-200 bg-white/60 text-slate-900 text-[11px] font-black uppercase tracking-wider transition hover:bg-white">
+	                                        530
+	                                    </span>
+	                                </label>
+	                                <label class="gpu-chip cursor-pointer">
+	                                    <input class="sr-only" type="checkbox" name="gpu-power-nom" value="1250">
+	                                    <span
+	                                        class="inline-flex items-center px-3 py-2 rounded-xl border border-slate-200 bg-white/60 text-slate-900 text-[11px] font-black uppercase tracking-wider transition hover:bg-white">
+	                                        1250
+	                                    </span>
+	                                </label>
+	                            </div>
+	                        </fieldset>
+
+	                        <fieldset>
+	                            <legend class="text-[12px] font-black text-slate-900 tracking-[0.18em] mb-2">
+	                                Постоянная мощность (кВт)
+	                            </legend>
+	                            <div class="flex flex-wrap gap-2">
+	                                <label class="gpu-chip cursor-pointer">
+	                                    <input class="sr-only" type="checkbox" name="gpu-power-cont" value="any" checked>
+	                                    <span
+	                                        class="inline-flex items-center px-3 py-2 rounded-xl border border-slate-200 bg-white/60 text-slate-900 text-[11px] font-black uppercase tracking-wider transition hover:bg-white">
+	                                        Любая
+	                                    </span>
+	                                </label>
+	                                <label class="gpu-chip cursor-pointer">
+	                                    <input class="sr-only" type="checkbox" name="gpu-power-cont" value="65">
+	                                    <span
+	                                        class="inline-flex items-center px-3 py-2 rounded-xl border border-slate-200 bg-white/60 text-slate-900 text-[11px] font-black uppercase tracking-wider transition hover:bg-white">
+	                                        65
+	                                    </span>
+	                                </label>
+	                                <label class="gpu-chip cursor-pointer">
+	                                    <input class="sr-only" type="checkbox" name="gpu-power-cont" value="145">
+	                                    <span
+	                                        class="inline-flex items-center px-3 py-2 rounded-xl border border-slate-200 bg-white/60 text-slate-900 text-[11px] font-black uppercase tracking-wider transition hover:bg-white">
+	                                        145
+	                                    </span>
+	                                </label>
+	                                <label class="gpu-chip cursor-pointer">
+	                                    <input class="sr-only" type="checkbox" name="gpu-power-cont" value="150">
+	                                    <span
+	                                        class="inline-flex items-center px-3 py-2 rounded-xl border border-slate-200 bg-white/60 text-slate-900 text-[11px] font-black uppercase tracking-wider transition hover:bg-white">
+	                                        150
+	                                    </span>
+	                                </label>
+	                                <label class="gpu-chip cursor-pointer">
+	                                    <input class="sr-only" type="checkbox" name="gpu-power-cont" value="210">
+	                                    <span
+	                                        class="inline-flex items-center px-3 py-2 rounded-xl border border-slate-200 bg-white/60 text-slate-900 text-[11px] font-black uppercase tracking-wider transition hover:bg-white">
+	                                        210
+	                                    </span>
+	                                </label>
+	                                <label class="gpu-chip cursor-pointer">
+	                                    <input class="sr-only" type="checkbox" name="gpu-power-cont" value="230">
+	                                    <span
+	                                        class="inline-flex items-center px-3 py-2 rounded-xl border border-slate-200 bg-white/60 text-slate-900 text-[11px] font-black uppercase tracking-wider transition hover:bg-white">
+	                                        230
+	                                    </span>
+	                                </label>
+	                                <label class="gpu-chip cursor-pointer">
+	                                    <input class="sr-only" type="checkbox" name="gpu-power-cont" value="320">
+	                                    <span
+	                                        class="inline-flex items-center px-3 py-2 rounded-xl border border-slate-200 bg-white/60 text-slate-900 text-[11px] font-black uppercase tracking-wider transition hover:bg-white">
+	                                        320
+	                                    </span>
+	                                </label>
+	                                <label class="gpu-chip cursor-pointer">
+	                                    <input class="sr-only" type="checkbox" name="gpu-power-cont" value="350">
+	                                    <span
+	                                        class="inline-flex items-center px-3 py-2 rounded-xl border border-slate-200 bg-white/60 text-slate-900 text-[11px] font-black uppercase tracking-wider transition hover:bg-white">
+	                                        350
+	                                    </span>
+	                                </label>
+	                                <label class="gpu-chip cursor-pointer">
+	                                    <input class="sr-only" type="checkbox" name="gpu-power-cont" value="465">
+	                                    <span
+	                                        class="inline-flex items-center px-3 py-2 rounded-xl border border-slate-200 bg-white/60 text-slate-900 text-[11px] font-black uppercase tracking-wider transition hover:bg-white">
+	                                        465
+	                                    </span>
+	                                </label>
+	                            </div>
+	                        </fieldset>
+
+	                        <fieldset>
+	                            <legend class="text-[12px] font-black text-slate-900 tracking-[0.18em] mb-2">
+	                                Цена, ₽
+	                            </legend>
+	                        <div class="gpu-range">
+	                            <div class="gpu-range-track"></div>
+	                            <div id="gpu-price-fill" class="gpu-range-fill" style="left: 0%; right: 0%;"></div>
+	                            <input id="gpu-price-min-range" type="range" min="0" max="42000000" step="100000" value="0"
+	                                aria-label="Цена от (ползунок)">
+	                            <input id="gpu-price-max-range" type="range" min="0" max="42000000" step="100000" value="42000000"
+	                                aria-label="Цена до (ползунок)">
+	                        </div>
+
+	                        <div class="mt-2 flex items-center gap-2">
+	                            <input id="gpu-price-min" inputmode="numeric" type="text" autocomplete="off"
+	                                placeholder="3 000 000"
+	                                class="w-1/2 bg-white/60 border border-slate-200 rounded-xl px-4 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-accent transition">
+	                            <span class="text-slate-500 font-black text-sm select-none">–</span>
+	                            <input id="gpu-price-max" inputmode="numeric" type="text" autocomplete="off"
+	                                placeholder="10 000 000"
+	                                class="w-1/2 bg-white/60 border border-slate-200 rounded-xl px-4 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-accent transition">
+	                        </div>
+	                    </fieldset>
+
+	                    <div class="gpu-sidebar-footer pt-4 border-t border-slate-200/70 flex items-center justify-between gap-3">
+	                        <div id="gpu-count" class="text-xs font-black uppercase tracking-[0.2em] text-accent whitespace-nowrap">
+	                            Загрузка...
+	                        </div>
+	                        <button id="gpu-reset" type="button"
+	                            class="text-[11px] font-black uppercase tracking-widest px-4 py-2.5 rounded-xl border border-slate-200 bg-white/60 hover:bg-white text-slate-900 transition whitespace-nowrap">
+	                            Очистить
+	                        </button>
+	                    </div>
+	                    </form>
+	                </div>
+	            </div>
+	        </aside>
+
+        <div id="gpu-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"></div>
+    </main>
+
+    <!-- FOOTER PLACEHOLDER -->
+    <div id="footer-placeholder"></div>
+
+    <script src="js/gpu-catalog-data.js"></script>
+    <script src="js/gpu-catalog.js"></script>
+    <script src="js/script.js"></script>
+</body>
+
+</html>

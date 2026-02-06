@@ -1,42 +1,137 @@
 :root {
     --accent: #0ea5e9;
     --accent-dark: #0284c7;
-    --glass-bg: rgba(15, 23, 42, 0.65);
-    --glass-border: rgba(255, 255, 255, 0.08);
+    --bg-light: #f8fafc;
+    --bg-soft: #f1f5f9;
+    --text: #0f172a;
+    --text-muted: #475569;
+
+    /* "Liquid glass" */
+    --glass: rgba(255, 255, 255, 0.7);
+    --glass-strong: rgba(255, 255, 255, 0.88);
+    --glass-border: rgba(15, 23, 42, 0.08);
+    --glass-shadow: 0 18px 40px rgba(15, 23, 42, 0.10);
 }
 
 body {
     font-family: 'Inter', sans-serif;
-    background-color: #020617;
-    color: #f8fafc;
+    background-color: var(--bg-light);
+    color: var(--text);
     margin: 0;
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
 }
 
+/* Utility classes used across pages (Tailwind CDN doesn't know our custom tokens) */
+.text-accent {
+    color: var(--accent);
+}
+
+.bg-accent {
+    background-color: var(--accent);
+}
+
+.border-accent {
+    border-color: var(--accent);
+}
+
+/* HERO остается темным независимо от общей светлой темы */
+.hero-bg {
+    color: #f8fafc;
+}
+
+/* Светлый фон со 2-й секции и далее (c декоративными blobs) */
+.page-light {
+    position: relative;
+    background: var(--bg-light);
+    overflow: hidden;
+}
+
+.page-light>section,
+.page-light>#footer-placeholder {
+    position: relative;
+    z-index: 1;
+}
+
+.bg-blob {
+    position: absolute;
+    width: min(900px, 90vw);
+    height: min(900px, 90vw);
+    border-radius: 999px;
+    filter: blur(90px);
+    pointer-events: none;
+    z-index: 0;
+    background: radial-gradient(circle at 30% 30%, rgba(14, 165, 233, 0.10) 0%, rgba(14, 165, 233, 0.06) 25%, transparent 60%);
+}
+
+.bg-blob.blob-1 {
+    top: -260px;
+    left: -280px;
+}
+
+.bg-blob.blob-2 {
+    top: 420px;
+    right: -320px;
+    background: radial-gradient(circle at 70% 40%, rgba(14, 165, 233, 0.10) 0%, rgba(2, 132, 199, 0.05) 30%, transparent 62%);
+}
+
+/* Якоря с учетом липкой шапки */
+section {
+    scroll-margin-top: 96px;
+}
+
+/* For anchors on non-<section> elements (e.g. cards). */
+[id] {
+    scroll-margin-top: 96px;
+}
+
 /* Навигация */
 .nav-container {
+    /* Default: stays at the top but keeps its space in the layout (no overlap). */
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    padding: 0;
+}
+
+.nav-container.is-fixed {
+    /* On scroll: take the header out of the flow so it overlays content. */
     position: fixed;
-    top: 20px;
+    top: 0;
     left: 0;
     right: 0;
-    z-index: 1000;
-    padding: 0 16px;
-    display: flex;
-    justify-content: center;
 }
 
 .glass-nav {
-    background: rgba(15, 23, 42, 0.85);
-    backdrop-filter: blur(15px);
-    border: 1px solid var(--glass-border);
-    border-radius: 20px;
+    background: var(--glass);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    position: relative;
+    border: 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+    border-radius: 0;
     width: 100%;
-    max-width: 1100px;
+    max-width: none;
+    box-shadow: 0 16px 40px rgba(15, 23, 42, 0.08);
+}
+
+.nav-inner {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 10px 16px;
+    padding: 14px 0;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text);
+    text-decoration: none;
+    text-transform: uppercase;
 }
 
 .nav-links {
@@ -54,12 +149,13 @@ body {
     margin-bottom: -25px;
 }
 
-.nav-links a, .dropdown-trigger {
+.nav-links a,
+.dropdown-trigger {
     font-size: 13px;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    color: #cbd5e1;
+    color: var(--text);
     transition: all 0.3s ease;
     white-space: nowrap;
     position: relative;
@@ -94,13 +190,18 @@ body {
     top: calc(100% - 10px);
     left: 50%;
     transform: translateX(-50%) translateY(10px);
-    width: 280px;
-    background: rgba(15, 23, 42, 0.98);
-    backdrop-filter: blur(20px);
-    border: 1px solid var(--glass-border);
+    /* Fit dropdown to its content so long labels don't overflow the panel. */
+    width: max-content;
+    min-width: 280px;
+    max-width: min(520px, 92vw);
+    box-sizing: border-box;
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(15, 23, 42, 0.10);
     border-radius: 16px;
     padding: 12px;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+    box-shadow: 0 30px 60px rgba(15, 23, 42, 0.18);
     opacity: 0;
     visibility: hidden;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -108,6 +209,10 @@ body {
     display: flex;
     flex-direction: column;
     gap: 2px;
+}
+
+.dropdown-content .dropdown-item {
+    white-space: nowrap;
 }
 
 .dropdown-wrapper:hover .dropdown-content {
@@ -121,6 +226,7 @@ body {
     right: 0;
     transform: translateY(10px);
 }
+
 .contact-wrapper:hover .dropdown-content {
     transform: translateY(0);
 }
@@ -130,7 +236,7 @@ body {
     align-items: center;
     gap: 14px;
     text-decoration: none !important;
-    color: #e2e8f0 !important;
+    color: rgba(15, 23, 42, 0.92) !important;
     font-size: 14px !important;
     font-weight: 500 !important;
     text-transform: none !important;
@@ -148,37 +254,306 @@ body {
 }
 
 .dropdown-item:hover {
-    color: #ffffff !important;
-    background: rgba(255, 255, 255, 0.08);
+    color: var(--accent-dark) !important;
+    background: rgba(14, 165, 233, 0.10);
+}
+
+.dropdown-item.dropdown-subitem {
+    padding-left: 28px;
+}
+
+.dropdown-item.dropdown-subitem i {
+    opacity: 0.9;
+}
+
+.dropdown-item.dropdown-subitem::before {
+    content: '->';
+    display: inline-block;
+    width: 16px;
+    margin-left: -16px;
+    color: rgba(15, 23, 42, 0.35);
+    font-weight: 700;
+}
+
+.mobile-subitem {
+    padding-left: 18px;
+    position: relative;
+}
+
+.mobile-subitem::before {
+    content: '->';
+    position: absolute;
+    left: 0;
+    color: rgba(15, 23, 42, 0.45);
 }
 
 .contact-link {
-    color: #0ea5e9 !important;
-    border: 1px solid rgba(14, 165, 233, 0.3);
+    color: #ffffff !important;
+    border: 1px solid rgba(14, 165, 233, 0.35);
     padding: 8px 16px !important;
     border-radius: 10px;
-    background: rgba(14, 165, 233, 0.05);
+    background: var(--accent);
+    box-shadow: 0 10px 24px rgba(14, 165, 233, 0.22);
 }
 
 .contact-wrapper:hover .contact-link {
-    background: var(--accent);
+    background: var(--accent-dark);
     color: white !important;
-    border-color: var(--accent);
+    border-color: var(--accent-dark);
 }
 
 .glass-card {
-    background: var(--glass-bg);
-    backdrop-filter: blur(20px) saturate(180%);
+    background: var(--glass);
+    backdrop-filter: blur(8px) saturate(160%);
+    -webkit-backdrop-filter: blur(8px) saturate(160%);
     border: 1px solid var(--glass-border);
     border-radius: 24px;
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: var(--glass-shadow);
 }
 
 .glass-card:hover {
-    border-color: rgba(14, 165, 233, 0.4);
+    border-color: rgba(14, 165, 233, 0.28);
     transform: translateY(-4px);
-    background: rgba(30, 41, 59, 0.8);
-    box-shadow: 0 25px 50px -12px rgba(14, 165, 233, 0.15);
+    background: var(--glass-strong);
+    box-shadow: 0 28px 60px rgba(14, 165, 233, 0.10);
+}
+
+/* Contacts page */
+.contacts-page .contacts-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 16px;
+    border-radius: 999px;
+    background: rgba(14, 165, 233, 0.10);
+    color: var(--accent);
+    font-size: 12px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    border: 1px solid rgba(14, 165, 233, 0.18);
+    margin-bottom: 22px;
+}
+
+.contacts-page .contacts-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+}
+
+.contacts-page .contact-card {
+    position: relative;
+    overflow: hidden;
+    background: var(--glass);
+    backdrop-filter: blur(10px) saturate(160%);
+    -webkit-backdrop-filter: blur(10px) saturate(160%);
+    border: 1px solid var(--glass-border);
+    border-radius: 24px;
+    padding: 34px;
+    box-shadow: var(--glass-shadow);
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.contacts-page .contact-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(14, 165, 233, 0.28);
+    background: var(--glass-strong);
+}
+
+.contacts-page .contact-card::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 4px;
+    height: 100%;
+    background: var(--accent);
+}
+
+.contacts-page .office-type {
+    font-size: 11px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--accent);
+    margin-bottom: 14px;
+}
+
+.contacts-page .contact-item {
+    display: flex;
+    gap: 14px;
+    margin-bottom: 16px;
+    font-size: 14px;
+    line-height: 1.45;
+}
+
+.contacts-page .contact-item i {
+    width: 20px;
+    color: var(--accent);
+    margin-top: 2px;
+}
+
+.contacts-page .contact-item .label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    font-weight: 800;
+    color: var(--text-muted);
+    margin-bottom: 4px;
+}
+
+.contacts-page .contact-item .value {
+    font-weight: 600;
+    color: var(--text);
+}
+
+.contacts-page .map-section {
+    position: relative;
+    overflow: hidden;
+    border-radius: 30px;
+    border: 1px solid var(--glass-border);
+    background: var(--bg-soft);
+    height: 520px;
+    box-shadow: var(--glass-shadow);
+}
+
+.contacts-page .yandex-map {
+    width: 100%;
+    height: 100%;
+}
+
+.contacts-page .map-overlay-card {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 2;
+    width: min(320px, calc(100% - 40px));
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(15, 23, 42, 0.10);
+    border-radius: 20px;
+    padding: 18px;
+    box-shadow: 0 20px 50px rgba(15, 23, 42, 0.18);
+}
+
+.contacts-page .btn-outline-dark {
+    background: rgba(255, 255, 255, 0.65);
+    border: 1px solid rgba(15, 23, 42, 0.15);
+    color: rgba(15, 23, 42, 0.92);
+    transition: all 0.25s ease;
+}
+
+.contacts-page .btn-outline-dark:hover {
+    background: rgba(255, 255, 255, 0.9);
+    border-color: rgba(14, 165, 233, 0.35);
+    color: var(--accent-dark);
+}
+
+.contacts-page .map-fallback {
+    position: absolute;
+    inset: 20px;
+    z-index: 3;
+    background: rgba(255, 255, 255, 0.92);
+    border: 1px solid rgba(15, 23, 42, 0.10);
+    border-radius: 18px;
+    padding: 18px;
+    box-shadow: 0 20px 50px rgba(15, 23, 42, 0.18);
+}
+
+.contacts-page .fallback-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 10px 12px;
+    border-radius: 12px;
+    border: 1px solid rgba(15, 23, 42, 0.10);
+    background: rgba(14, 165, 233, 0.08);
+    color: rgba(15, 23, 42, 0.92);
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.contacts-page .fallback-link:hover {
+    border-color: rgba(14, 165, 233, 0.28);
+    background: rgba(14, 165, 233, 0.14);
+}
+
+.contacts-page .support-strip {
+    background: #0f172a;
+    color: white;
+    border-radius: 24px;
+    padding: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+    flex-wrap: wrap;
+    box-shadow: 0 26px 60px rgba(15, 23, 42, 0.22);
+}
+
+.contacts-page .support-phone {
+    margin-top: 12px;
+    font-size: 28px;
+    font-weight: 900;
+    letter-spacing: 0.02em;
+    color: var(--accent);
+}
+
+.contacts-page .support-actions {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.contacts-page .support-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 18px;
+    border-radius: 14px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    color: white;
+    text-decoration: none;
+    font-weight: 800;
+    text-transform: uppercase;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    transition: all 0.2s ease;
+}
+
+.contacts-page .support-btn:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.28);
+}
+
+@media (max-width: 900px) {
+    .contacts-page .contacts-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .contacts-page .map-section {
+        height: auto;
+        display: flex;
+        flex-direction: column-reverse;
+    }
+
+    .contacts-page .yandex-map {
+        height: 360px;
+    }
+
+    .contacts-page .map-overlay-card {
+        position: relative;
+        inset: auto;
+        width: calc(100% - 40px);
+        margin: 20px auto 0;
+        right: auto;
+        top: auto;
+    }
 }
 
 /* Отрасли: акцентная карточка "Ваш проект" (как в презентации) */
@@ -194,8 +569,13 @@ body {
     box-shadow: 0 25px 50px -12px rgba(14, 165, 233, 0.35);
 }
 
-.project-card h4 { color: #ffffff; }
-.project-card p { color: rgba(255, 255, 255, 0.92); }
+.project-card h4 {
+    color: #ffffff;
+}
+
+.project-card p {
+    color: rgba(255, 255, 255, 0.92);
+}
 
 .project-card .icon-box {
     background: rgba(255, 255, 255, 0.18);
@@ -217,7 +597,9 @@ body {
     transition: all 0.3s ease;
 }
 
-.project-link i { color: currentColor; }
+.project-link i {
+    color: currentColor;
+}
 
 .project-link:hover {
     color: #ffffff;
@@ -226,12 +608,29 @@ body {
 
 .hero-bg {
     background: radial-gradient(circle at 20% 30%, rgba(14, 165, 233, 0.15), transparent 40%),
-                radial-gradient(circle at 80% 70%, rgba(3, 105, 161, 0.1), transparent 40%),
-                linear-gradient(rgba(2, 6, 23, 0.7), rgba(2, 6, 23, 0.9)),
-                url('https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?q=80&w=2070&auto=format&fit=crop');
+        radial-gradient(circle at 80% 70%, rgba(3, 105, 161, 0.1), transparent 40%),
+        linear-gradient(rgba(2, 6, 23, 0.7), rgba(2, 6, 23, 0.9)),
+        url('https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?q=80&w=2070&auto=format&fit=crop');
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
+}
+
+.hero-bg-production {
+    background: radial-gradient(circle at 15% 20%, rgba(14, 165, 233, 0.18), transparent 45%),
+        radial-gradient(circle at 85% 75%, rgba(3, 105, 161, 0.12), transparent 45%),
+        linear-gradient(rgba(2, 6, 23, 0.72), rgba(2, 6, 23, 0.92)),
+        url('https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=2070&auto=format&fit=crop');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+@media (max-width: 768px) {
+    .hero-bg,
+    .hero-bg-production {
+        background-attachment: scroll;
+    }
 }
 
 .btn-primary {
@@ -255,7 +654,7 @@ body {
     display: flex;
     justify-content: space-between;
     padding: 12px 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    border-bottom: 1px solid rgba(15, 23, 42, 0.08);
     font-size: 13px;
 }
 
@@ -271,7 +670,7 @@ body {
 .gpu-img-container img {
     max-height: 100%;
     object-fit: contain;
-    filter: drop-shadow(0 20px 30px rgba(0,0,0,0.5));
+    filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.5));
 }
 
 #mobile-menu {
@@ -280,9 +679,10 @@ body {
     top: 80px;
     left: 20px;
     right: 20px;
-    background: rgba(15, 23, 42, 0.95);
-    backdrop-filter: blur(20px);
-    border: 1px solid var(--glass-border);
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(15, 23, 42, 0.10);
     border-radius: 20px;
     padding: 24px;
     flex-direction: column;
@@ -290,9 +690,13 @@ body {
     text-align: center;
 }
 
-#mobile-menu.active { display: flex; }
+#mobile-menu.active {
+    display: flex;
+}
 
-html { scroll-behavior: smooth; }
+html {
+    scroll-behavior: smooth;
+}
 
 /* Слайдер услуг */
 .services-scroll {
@@ -329,13 +733,13 @@ html { scroll-behavior: smooth; }
 .slider-nav-btn {
     width: 44px;
     height: 44px;
-    background: rgba(15, 23, 42, 0.9);
-    border: 1px solid var(--glass-border);
+    background: rgba(255, 255, 255, 0.85);
+    border: 1px solid rgba(15, 23, 42, 0.10);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: white;
+    color: rgba(15, 23, 42, 0.85);
     transition: all 0.3s;
     cursor: pointer;
 }
@@ -350,6 +754,7 @@ html { scroll-behavior: smooth; }
 
 /* 1 & 2: Горизонтальный слайдер для Отраслей и Линейки ГПУ в моб. версии */
 @media (max-width: 767px) {
+
     #industries .grid,
     #products .grid {
         display: flex !important;
@@ -368,7 +773,8 @@ html { scroll-behavior: smooth; }
 
     #industries .glass-card,
     #products .glass-card {
-        min-width: 80%; /* Виден один и кусок второго */
+        min-width: 80%;
+        /* Виден один и кусок второго */
         scroll-snap-align: start;
         flex-shrink: 0;
     }
@@ -384,7 +790,8 @@ html { scroll-behavior: smooth; }
 /* 4: Услуги ГК - десктопная версия (2 блока и половина третьего) */
 @media (min-width: 1025px) {
     .service-slide-card {
-        min-width: calc(40% - 12px) !important; /* Уточнение для попадания в 2.5 блока */
+        min-width: calc(40% - 12px) !important;
+        /* Уточнение для попадания в 2.5 блока */
     }
 }
 
@@ -393,27 +800,48 @@ html { scroll-behavior: smooth; }
 
 /* 2. Tablet (640px - 768px) */
 @media (min-width: 640px) and (max-width: 768px) {
-    .hero-bg h1 { font-size: 3.5rem; }
-    .service-slide-card { min-width: 60% !important; }
+    .hero-bg h1 {
+        font-size: 3.5rem;
+    }
+
+    .service-slide-card {
+        min-width: 60% !important;
+    }
 }
 
 /* 3. Laptop (769px - 1024px) */
 @media (min-width: 769px) and (max-width: 1024px) {
-    #industries .grid { grid-template-columns: repeat(2, 1fr); }
-    #products .grid { grid-template-columns: repeat(2, 1fr); }
-    .service-slide-card { min-width: 45% !important; }
+    #industries .grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    #products .grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .service-slide-card {
+        min-width: 45% !important;
+    }
 }
 
 /* 4. Desktop (1025px - 1440px) */
 @media (min-width: 1025px) and (max-width: 1440px) {
+
     /* 2 полных блока + кусок третьего */
-    .service-slide-card { min-width: 38% !important; }
+    .service-slide-card {
+        min-width: 38% !important;
+    }
 }
 
 /* 5. Large Desktop (> 1440px) */
 @media (min-width: 1441px) {
-     .container { max-width: 1400px; }
-     .service-slide-card { min-width: 35% !important; }
+    .container {
+        max-width: 1400px;
+    }
+
+    .service-slide-card {
+        min-width: 35% !important;
+    }
 }
 
 /* Стили для секции отраслей */
@@ -442,9 +870,43 @@ html { scroll-behavior: smooth; }
 }
 
 .partner-section {
-    background: linear-gradient(135deg, rgba(15, 23, 42, 0.9) 0%, rgba(2, 6, 23, 1) 100%);
-    border: 1px solid rgba(14, 165, 233, 0.2);
+    background: rgba(255, 255, 255, 0.72);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(15, 23, 42, 0.10);
     border-radius: 40px;
     position: relative;
     z-index: 1;
+}
+
+/* Каталог: легкая подложка для визуального разделения */
+.section-catalog {
+    background: var(--bg-soft);
+}
+
+/* Ссылка "Подробнее" без inline JS-цветов */
+.details-link {
+    text-decoration: none;
+    color: var(--accent);
+}
+
+.details-link:hover {
+    color: var(--accent-dark);
+}
+
+/* Production page meters */
+.meter-track {
+    height: 14px;
+    background: rgba(15, 23, 42, 0.06);
+    border-radius: 999px;
+    overflow: hidden;
+    border: 1px solid rgba(15, 23, 42, 0.08);
+}
+
+.meter-fill {
+    height: 100%;
+    width: 0%;
+    border-radius: 999px;
+    background: linear-gradient(90deg, var(--accent), var(--accent-dark));
+    transition: width 1.8s cubic-bezier(0.4, 0, 0.2, 1);
 }

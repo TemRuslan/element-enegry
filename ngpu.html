@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ГПУ на ПНГ 250 кВт | Элемент Энергия</title>
+    <script>
+        // Tailwind CDN config: adds custom "accent" utilities used across the site (bg-accent/..., text-accent, etc.)
+        window.tailwind = window.tailwind || {};
+        window.tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        accent: '#0ea5e9',
+                        'accent-dark': '#0284c7',
+                    }
+                }
+            }
+        };
+    </script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@700&display=swap"
+        rel="stylesheet">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+    <!-- HEADER PLACEHOLDER -->
+    <div id="header-placeholder"></div>
+
+    <!-- HERO -->
+    <section class="hero-bg pt-28 pb-20">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="mb-8 inline-flex items-center gap-3 bg-white/5 border border-white/10 px-4 py-2 rounded-full">
+                <span class="flex h-2 w-2 relative">
+                    <span
+                        class="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-2 w-2 bg-accent"></span>
+                </span>
+                <span class="text-xs font-bold uppercase tracking-[0.2em] text-slate-300">Нефтегаз / Попутный нефтяной
+                    газ (ПНГ)</span>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+                <div>
+                    <h1 class="text-4xl md:text-6xl font-black mb-6 leading-[1.05] uppercase tracking-tighter">
+                        ГПУ ЭЛЕМЕНТ <span class="text-accent">250 кВт</span><br>
+                        <span class="text-slate-200">для попутного нефтяного газа</span>
+                    </h1>
+
+                    <p class="text-lg md:text-xl text-slate-300 leading-relaxed max-w-2xl">
+                        Энергия из ПНГ: превратите штрафы в дешевое электричество по <span
+                            class="font-black text-white">1,5 ₽/кВт·ч</span>. Специальная модификация для работы на
+                        сложном составе газа.
+                    </p>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-10">
+                        <div class="rounded-2xl bg-white/5 border border-white/10 p-5">
+                            <div class="text-[11px] font-black uppercase tracking-[0.18em] text-accent mb-2">
+                                Охлаждаемая турбина
+                            </div>
+                            <div class="text-sm text-slate-300 leading-relaxed">
+                                Защита от перегрева на высококалорийном газе. Увеличение ресурса в 3 раза.
+                            </div>
+                        </div>
+                        <div class="rounded-2xl bg-white/5 border border-white/10 p-5">
+                            <div class="text-[11px] font-black uppercase tracking-[0.18em] text-accent mb-2">
+                                Водоохлаждаемый интеркулер
+                            </div>
+                            <div class="text-sm text-slate-300 leading-relaxed">
+                                Стабильная температура смеси для исключения детонации.
+                            </div>
+                        </div>
+                        <div class="rounded-2xl bg-white/5 border border-white/10 p-5">
+                            <div class="text-[11px] font-black uppercase tracking-[0.18em] text-accent mb-2">
+                                Степень сжатия 1:8
+                            </div>
+                            <div class="text-sm text-slate-300 leading-relaxed">
+                                «Всеядность» к нестабильному и тяжелому составу газа.
+                            </div>
+                        </div>
+                        <div class="rounded-2xl bg-white/5 border border-white/10 p-5">
+                            <div class="text-[11px] font-black uppercase tracking-[0.18em] text-accent mb-2">
+                                Блок антидетонации
+                            </div>
+                            <div class="text-sm text-slate-300 leading-relaxed">
+                                Интеллектуальная защита и коррекция работы в реальном времени.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-10">
+                        <div class="rounded-2xl bg-white/5 border border-white/10 p-6">
+                            <div class="text-[10px] uppercase font-black tracking-[0.22em] text-slate-300">
+                                На открытой раме
+                            </div>
+                            <div class="mt-2 text-3xl font-black text-white tracking-tight">8 000 000 ₽</div>
+                        </div>
+                        <div class="rounded-2xl bg-white/5 border border-white/10 p-6">
+                            <div class="text-[10px] uppercase font-black tracking-[0.22em] text-slate-300">
+                                В контейнере ПБК
+                            </div>
+                            <div class="mt-2 text-3xl font-black text-white tracking-tight">9 000 000 ₽</div>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col sm:flex-row gap-4 mt-10">
+                        <a href="#contacts"
+                            class="btn-primary px-10 py-5 rounded-2xl text-sm md:text-base font-black uppercase tracking-widest text-white transition-all hover:scale-105 text-center">
+                            Получить расчет
+                        </a>
+                        <a href="#specs"
+                            class="px-10 py-5 rounded-2xl text-sm md:text-base font-black uppercase tracking-widest text-white/90 border border-white/15 bg-white/5 hover:bg-white/10 transition text-center">
+                            Характеристики
+                        </a>
+                    </div>
+                </div>
+
+                <div class="relative">
+                    <div class="absolute -top-16 -right-16 w-80 h-80 bg-accent/15 rounded-full blur-[90px]"></div>
+                    <div class="absolute -bottom-16 -left-16 w-80 h-80 bg-sky-500/10 rounded-full blur-[90px]"></div>
+
+                    <div class="relative rounded-3xl bg-white/5 border border-white/10 p-6">
+                        <img src="assets/site-photos/gpu/gpu-250.jpg" alt="ГПУ Элемент 250 кВт для ПНГ"
+                            class="w-full h-auto rounded-2xl object-contain">
+                        <div class="mt-4 text-xs uppercase tracking-[0.18em] text-slate-300 font-bold">
+                            ЭЛЕМЕНТ 250 кВт, модификация для ПНГ
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- LIGHT PAGE -->
+    <div class="page-light">
+        <div class="bg-blob blob-1"></div>
+        <div class="bg-blob blob-2"></div>
+
+        <main class="max-w-7xl mx-auto px-6 pt-20 pb-24">
+            <!-- SPECS -->
+            <section id="specs" class="mb-16">
+                <div class="max-w-4xl mb-10">
+                    <h2 class="text-3xl md:text-5xl font-black uppercase tracking-tight mb-3">Технические характеристики
+                    </h2>
+                    <p class="text-slate-500 leading-relaxed">
+                        Ключевые параметры силового агрегата и особенности эксплуатации на попутном нефтяном газе.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <article class="glass-card p-10">
+                        <div class="text-xs font-black uppercase tracking-[0.18em] text-accent mb-6">
+                            Мощность и параметры
+                        </div>
+                        <div class="space-y-1">
+                            <div class="spec-table-row"><span class="text-slate-500">Максимальная мощность</span><span
+                                    class="font-bold">250 кВт</span></div>
+                            <div class="spec-table-row"><span class="text-slate-500">Постоянная мощность</span><span
+                                    class="font-bold">150 кВт</span></div>
+                            <div class="spec-table-row"><span class="text-slate-500">Частота вращения</span><span
+                                    class="font-bold">1500 об/мин</span></div>
+                            <div class="spec-table-row border-none"><span class="text-slate-500">Степень сжатия для
+                                    ПНГ</span><span class="font-bold">1:8</span></div>
+                        </div>
+
+                        <div class="mt-10 text-xs font-black uppercase tracking-[0.18em] text-accent mb-6">
+                            Силовой агрегат
+                        </div>
+                        <div class="space-y-1">
+                            <div class="spec-table-row"><span class="text-slate-500">Базовый двигатель</span><span
+                                    class="font-bold">WEICHAI WP13 (мод.)</span></div>
+                            <div class="spec-table-row"><span class="text-slate-500">Альтернатор</span><span
+                                    class="font-bold">Element Brushless</span></div>
+                            <div class="spec-table-row"><span class="text-slate-500">КПД альтернатора</span><span
+                                    class="font-bold">93%</span></div>
+                            <div class="spec-table-row border-none"><span
+                                    class="text-slate-500">Контроллер</span><span class="font-bold">SmartGen 9510
+                                    ПНГ-версия</span></div>
+                        </div>
+                    </article>
+
+                    <article class="glass-card p-10">
+                        <div class="text-xs font-black uppercase tracking-[0.18em] text-accent mb-6">
+                            Эксплуатация на ПНГ
+                        </div>
+                        <div class="space-y-1">
+                            <div class="spec-table-row"><span class="text-slate-500">Допустимый состав ПНГ</span><span
+                                    class="font-bold">до 80% метана</span></div>
+                            <div class="spec-table-row"><span class="text-slate-500">Расход газа (ном.)</span><span
+                                    class="font-bold">~0.32 м³/кВт·ч</span></div>
+                            <div class="spec-table-row"><span class="text-slate-500">Ресурс до кап. ремонта</span><span
+                                    class="font-bold">36 000 ч</span></div>
+                            <div class="spec-table-row border-none"><span class="text-slate-500">Межсервисный
+                                    интервал</span><span class="font-bold">1 000 ч</span></div>
+                        </div>
+
+                        <div class="mt-10 text-xs font-black uppercase tracking-[0.18em] text-accent mb-6">
+                            Габариты и масса
+                        </div>
+                        <div class="space-y-1">
+                            <div class="spec-table-row"><span class="text-slate-500">Масса (открытая рама)</span><span
+                                    class="font-bold">2 850 кг</span></div>
+                            <div class="spec-table-row"><span class="text-slate-500">Масса (в контейнере)</span><span
+                                    class="font-bold">4 850 кг</span></div>
+                            <div class="spec-table-row"><span class="text-slate-500">Габариты контейнера</span><span
+                                    class="font-bold">6.0 x 2.4 x 2.6 м</span></div>
+                            <div class="spec-table-row border-none"><span class="text-slate-500">Исполнение</span><span
+                                    class="font-bold">УХЛ1 (до -50°С)</span></div>
+                        </div>
+                    </article>
+                </div>
+            </section>
+
+            <!-- CONTACTS -->
+            <section id="contacts" class="mb-6">
+                <div class="max-w-4xl mb-10">
+                    <h2 class="text-3xl md:text-5xl font-black uppercase tracking-tight mb-3">Контактная информация</h2>
+                    <p class="text-slate-500 leading-relaxed">Свяжитесь с отделом продаж для КП, сроков и комплектации.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    <article class="glass-card p-10 lg:col-span-2">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="flex gap-4">
+                                <div
+                                    class="w-12 h-12 rounded-2xl bg-accent/10 text-accent flex items-center justify-center shrink-0">
+                                    <i class="fa-solid fa-industry text-lg"></i>
+                                </div>
+                                <div>
+                                    <div class="text-[11px] uppercase font-black tracking-[0.18em] text-slate-500 mb-1">
+                                        Производство РФ</div>
+                                    <div class="font-semibold text-slate-900 leading-snug">
+                                        Республика Марий Эл, Йошкар-Ола, б-р Победы, д.15
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="flex gap-4">
+                                <div
+                                    class="w-12 h-12 rounded-2xl bg-accent/10 text-accent flex items-center justify-center shrink-0">
+                                    <i class="fa-solid fa-building text-lg"></i>
+                                </div>
+                                <div>
+                                    <div class="text-[11px] uppercase font-black tracking-[0.18em] text-slate-500 mb-1">
+                                        Офис в Москве</div>
+                                    <div class="font-semibold text-slate-900 leading-snug">
+                                        Электродная ул., 2/34, офис 216
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="flex gap-4">
+                                <div
+                                    class="w-12 h-12 rounded-2xl bg-accent/10 text-accent flex items-center justify-center shrink-0">
+                                    <i class="fa-solid fa-phone text-lg"></i>
+                                </div>
+                                <div>
+                                    <div class="text-[11px] uppercase font-black tracking-[0.18em] text-slate-500 mb-1">
+                                        Отдел продаж</div>
+                                    <div class="font-semibold text-slate-900 leading-snug">
+                                        <a class="hover:text-accent transition" href="tel:+79956239484">+7 995 623
+                                            9484</a><br>
+                                        <a class="hover:text-accent transition" href="tel:+79886553647">+7 988 655
+                                            3647</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="flex gap-4">
+                                <div
+                                    class="w-12 h-12 rounded-2xl bg-accent/10 text-accent flex items-center justify-center shrink-0">
+                                    <i class="fa-solid fa-envelope text-lg"></i>
+                                </div>
+                                <div>
+                                    <div class="text-[11px] uppercase font-black tracking-[0.18em] text-slate-500 mb-1">
+                                        Email</div>
+                                    <div class="font-semibold text-slate-900 leading-snug">
+                                        <a class="hover:text-accent transition"
+                                            href="mailto:sales@gkee.ru">sales@gkee.ru</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-10 rounded-2xl bg-white/70 border border-slate-900/10 p-8">
+                            <div class="text-sm font-black uppercase tracking-wider mb-6">ООО «ЭЛЕМЕНТ»</div>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-y-3 gap-x-8 text-sm">
+                                <div class="text-slate-500">ИНН: <span class="font-semibold text-slate-800">1218002079</span></div>
+                                <div class="text-slate-500">КПП: <span class="font-semibold text-slate-800">121801001</span></div>
+                                <div class="text-slate-500">БИК: <span class="font-semibold text-slate-800">044525092</span></div>
+                                <div class="text-slate-500">Расчетный счет: <span
+                                        class="font-semibold text-slate-800">40702810070010348277</span></div>
+                            </div>
+                        </div>
+                    </article>
+
+                    <aside class="glass-card p-10 flex flex-col items-center justify-center text-center">
+                        <div class="font-black uppercase tracking-tighter text-slate-900 text-3xl leading-[0.95]"
+                            style="font-family: 'Poppins', sans-serif;">
+                            ЭЛЕМЕНТ<br><span class="text-accent">ЭНЕРГИЯ</span>
+                        </div>
+                        <div class="mt-8 text-xs uppercase tracking-[0.18em] text-slate-500 font-bold">
+                            www.gkee.ru
+                        </div>
+                        <a href="contacts.html"
+                            class="btn-primary mt-10 w-full py-4 rounded-2xl text-white font-black uppercase tracking-widest text-xs">
+                            Перейти в контакты
+                        </a>
+                    </aside>
+                </div>
+            </section>
+        </main>
+
+        <!-- FOOTER PLACEHOLDER -->
+        <div id="footer-placeholder"></div>
+    </div>
+
+    <script src="js/script.js"></script>
+</body>
+
+</html>

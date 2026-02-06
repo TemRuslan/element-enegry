@@ -1,29 +1,52 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Элемент Энергия | Ресурсные ГПУ 24/7</title>
+    <script>
+        // Tailwind CDN config: adds custom "accent" utilities used across the site (bg-accent/..., text-accent, etc.)
+        window.tailwind = window.tailwind || {};
+        window.tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        accent: '#0ea5e9',
+                        'accent-dark': '#0284c7',
+                    }
+                }
+            }
+        };
+    </script>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/styles.css">
-</head>
+	    <link
+	        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@700&display=swap"
+	        rel="stylesheet">
+	    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+	    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
+	    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+	    <link rel="stylesheet" href="css/styles.css">
+	</head>
+
 <body>
 
     <!-- HEADER PLACEHOLDER -->
-    <div id="header-placeholder"></div>
-
-    <!-- HERO -->
-    <section class="hero-bg min-h-screen flex items-center pt-32 pb-20 px-6">
-        <div class="container mx-auto">
-            <div class="max-w-5xl">
-                <div class="mb-6 inline-flex items-center gap-3 bg-white/5 border border-white/10 px-4 py-2 rounded-full">
+	    <div id="header-placeholder"></div>
+	
+	    <!-- HERO -->
+		    <section class="hero-bg min-h-screen flex items-center pt-20 pb-20">
+			        <div class="max-w-7xl mx-auto px-6 w-full">
+	                <div
+	                    class="mb-6 inline-flex items-center gap-3 bg-white/5 border border-white/10 px-4 py-2 rounded-full">
                     <span class="flex h-2 w-2 relative">
-                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75"></span>
+                        <span
+                            class="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75"></span>
                         <span class="relative inline-flex rounded-full h-2 w-2 bg-accent"></span>
                     </span>
-                    <span class="text-xs font-bold uppercase tracking-[0.2em] text-slate-300">Локализация производства 80% (СТ-1)</span>
+                    <span class="text-xs font-bold uppercase tracking-[0.2em] text-slate-300">Локализация производства
+                        80% (СТ-1)</span>
                 </div>
 
                 <h1 class="text-5xl md:text-8xl font-black mb-8 leading-[1] uppercase tracking-tighter">
@@ -37,53 +60,73 @@
                 <div class="grid grid-cols-2 md:grid-cols-3 gap-y-8 gap-x-12 mb-12">
                     <div class="flex flex-col">
                         <span id="price-counter" class="text-accent text-3xl font-black mb-1">от 6,0 ₽</span>
-                        <span class="text-slate-500 text-sm font-bold tracking-widest leading-tight">Цена электроэнергии<br> за 1 кВт·ч при цене газа 9,6 ₽</span>
+                        <span class="text-slate-500 text-sm font-bold tracking-widest leading-tight">Цена
+                            электроэнергии<br> за 1 кВт·ч при цене газа 9,6 ₽</span>
                     </div>
                     <div class="flex flex-col">
                         <span id="gas-counter" class="text-accent text-3xl font-black mb-1">от 0,32 м³</span>
-                        <span class="text-slate-500 text-sm font-bold tracking-widest leading-tight">Потребление газа<br> на 1 кВт·ч</span>
+                        <span class="text-slate-500 text-sm font-bold tracking-widest leading-tight">Потребление
+                            газа<br> на 1 кВт·ч</span>
                     </div>
                     <div class="flex flex-col">
                         <span id="uptime-counter" class="text-accent text-3xl font-black mb-1">80% Аптайм</span>
-                        <span class="text-slate-500 text-sm font-bold tracking-widest leading-tight">Время работы ГПУ</span>
+                        <span class="text-slate-500 text-sm font-bold tracking-widest leading-tight">Время работы
+                            ГПУ</span>
                     </div>
                 </div>
 
                 <div class="flex flex-col sm:flex-row gap-5">
-                    <button onclick="window.location.href='#contacts'" class="btn-primary px-10 py-5 rounded-2xl text-lg font-black uppercase tracking-widest text-white transition-all hover:scale-105">Получить расчет</button>
-                    <div class="flex items-center gap-2 px-6 border-l-2 border-white/10 cursor-pointer" onmouseover="changeColor(true)" onmouseout="changeColor(false)">
-                        <i id="leasing-icon" class="fa-solid fa-coins text-2xl text-accent hover:text-white transition-colors"></i>
-                        <span id="leasing-text" class="text-base text-white font-bold leading-snug hover:text-accent transition-colors" style="color: white;">Доступен льготный лизинг</span>
-                        <i id="leasing-arrow" class="fa-solid fa-arrow-right text-sm text-white hover:text-accent hover:translate-x-1 transition-all duration-300" style="color: white;"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+                    <button onclick="window.location.href='#contacts'"
+                        class="btn-primary px-10 py-5 rounded-2xl text-lg font-black uppercase tracking-widest text-white transition-all hover:scale-105">Получить
+                        расчет</button>
+                    <div class="flex items-center gap-2 px-6 border-l-2 border-white/10 cursor-pointer"
+                        onmouseover="changeColor(true)" onmouseout="changeColor(false)">
+                        <i id="leasing-icon"
+                            class="fa-solid fa-coins text-2xl text-accent hover:text-white transition-colors"></i>
+	                        <span id="leasing-text"
+	                            class="text-base text-white font-bold leading-snug hover:text-accent transition-colors"
+	                            >Доступен льготный лизинг</span>
+		                        <i id="leasing-arrow"
+		                            class="fa-solid fa-arrow-right text-sm text-white hover:text-accent hover:translate-x-1 transition-all duration-300"
+		                            ></i>
+		                    </div>
+		                </div>
+	        </div>
+		    </section>
 
-    <!-- ОТРАСЛИ -->
-    <section id="industries" class="py-32">
-        <div class="container mx-auto px-6">
+	    <!-- Светлый фон со 2-й секции -->
+	    <div class="page-light">
+	        <div class="bg-blob blob-1"></div>
+	        <div class="bg-blob blob-2"></div>
+
+	        <!-- ОТРАСЛИ -->
+		        <section id="industries" class="py-32">
+		        <div class="max-w-7xl mx-auto px-6">
 
             <!-- Заголовок секции -->
             <div class="max-w-4xl mb-24">
                 <h2 class="text-5xl md:text-7xl font-black uppercase mb-8 leading-[1.1] tracking-tight">
-                    ОТРАСЛИ <br> <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-sky-600">ПРИМЕНЕНИЯ</span>
+                    ОТРАСЛИ <br> <span
+                        class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-sky-600">ПРИМЕНЕНИЯ</span>
                 </h2>
             </div>
 
-            <!-- Сетка отраслей -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-32">
+	            <!-- Сетка отраслей -->
+	            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-32">
 
-                <!-- Промышленность -->
-                <div class="glass-card p-10 flex flex-col">
-                    <div class="icon-box">
-                        <i class="fa-solid fa-industry"></i>
-                    </div>
-                    <h4 class="text-2xl font-black uppercase mb-6 tracking-widest">Промышленность</h4>
-                    <p class="text-slate-400 mb-10 flex-grow leading-relaxed text-base">Ликвидация лимитов мощности и снижение затрат на электроэнергию (от 3 руб/кВт). Проектируем и строим энергоцентры с получением бесплатного тепла для обогрева помещений и ГВС.</p>
-                    <a href="#" class="text-accent font-bold uppercase text-sm tracking-widest flex items-center gap-2 hover:gap-4 transition-all" onmouseover="this.style.color='white'; this.querySelector('i').style.color='white'" onmouseout="this.style.color='#0ea5e9'; this.querySelector('i').style.color='#0ea5e9'" style="color: #0ea5e9;">Подробнее <i class="fa-solid fa-arrow-right" style="color: #0ea5e9;"></i></a>
-                </div>
+	                <!-- Производство -->
+	                <div class="glass-card p-10 flex flex-col">
+	                    <div class="icon-box">
+	                        <i class="fa-solid fa-industry"></i>
+	                    </div>
+	                    <h4 class="text-2xl font-black uppercase mb-6 tracking-widest">Производство</h4>
+	                    <p class="text-slate-400 mb-10 flex-grow leading-relaxed text-base">Электроэнергия на 20–25% дешевле
+	                        сетей без капитальных затрат. Устанавливаем станцию за свой счет и поставляем кВт·ч по
+	                        фиксированному тарифу.</p>
+				                    <a href="proizvodstvo.html"
+				                        class="details-link font-bold uppercase text-sm tracking-widest flex items-center gap-2 hover:gap-4 transition-all">Подробнее
+				                        <i class="fa-solid fa-arrow-right"></i></a>
+				                </div>
 
                 <!-- Нефтегаз -->
                 <div class="glass-card p-10 flex flex-col">
@@ -91,9 +134,13 @@
                         <i class="fa-solid fa-oil-well"></i>
                     </div>
                     <h4 class="text-2xl font-black uppercase mb-6 tracking-widest">Нефтегаз</h4>
-                    <p class="text-slate-400 mb-10 flex-grow leading-relaxed text-base">Энергоснабжение месторождений в любом климате. Модифицированные ГПУ превратят штрафы за сжигание ПНГ в доходную электроэнергию по себестоимости 1,5 рубля за кВт.</p>
-                    <a href="#" class="text-accent font-bold uppercase text-sm tracking-widest flex items-center gap-2 hover:gap-4 transition-all" onmouseover="this.style.color='white'; this.querySelector('i').style.color='white'" onmouseout="this.style.color='#0ea5e9'; this.querySelector('i').style.color='#0ea5e9'" style="color: #0ea5e9;">Подробнее <i class="fa-solid fa-arrow-right" style="color: #0ea5e9;"></i></a>
-                </div>
+                    <p class="text-slate-400 mb-10 flex-grow leading-relaxed text-base">Энергоснабжение месторождений в
+                        любом климате. Модифицированные ГПУ превратят штрафы за сжигание ПНГ в доходную электроэнергию
+                        по себестоимости 1,5 рубля за кВт.</p>
+		                    <a href="ngpu.html"
+		                        class="details-link font-bold uppercase text-sm tracking-widest flex items-center gap-2 hover:gap-4 transition-all">Подробнее
+		                        <i class="fa-solid fa-arrow-right"></i></a>
+		                </div>
 
                 <!-- Майнинг -->
                 <div class="glass-card p-10 flex flex-col">
@@ -101,9 +148,13 @@
                         <i class="fa-solid fa-microchip"></i>
                     </div>
                     <h4 class="text-2xl font-black uppercase mb-6 tracking-widest">Майнинг</h4>
-                    <p class="text-slate-400 mb-10 flex-grow leading-relaxed text-base">Генерация от 2,5 руб/кВт. Специализированные ГПУ с оптимизированным графиком ТО и низкими эксплуатационными расходами. Бесшумные решения для частного майнинга. Аптайм 99%.</p>
-                    <a href="#" class="text-accent font-bold uppercase text-sm tracking-widest flex items-center gap-2 hover:gap-4 transition-all" onmouseover="this.style.color='white'; this.querySelector('i').style.color='white'" onmouseout="this.style.color='#0ea5e9'; this.querySelector('i').style.color='#0ea5e9'" style="color: #0ea5e9;">Подробнее <i class="fa-solid fa-arrow-right" style="color: #0ea5e9;"></i></a>
-                </div>
+                    <p class="text-slate-400 mb-10 flex-grow leading-relaxed text-base">Генерация от 2,5 руб/кВт.
+                        Специализированные ГПУ с оптимизированным графиком ТО и низкими эксплуатационными расходами.
+                        Бесшумные решения для частного майнинга. Аптайм 99%.</p>
+	                    <a href="#"
+	                        class="details-link font-bold uppercase text-sm tracking-widest flex items-center gap-2 hover:gap-4 transition-all">Подробнее
+	                        <i class="fa-solid fa-arrow-right"></i></a>
+	                </div>
 
                 <!-- Агропром -->
                 <div class="glass-card p-10 flex flex-col">
@@ -111,308 +162,170 @@
                         <i class="fa-solid fa-seedling"></i>
                     </div>
                     <h4 class="text-2xl font-black uppercase mb-6 tracking-widest">Агропром</h4>
-                    <p class="text-slate-400 mb-10 flex-grow leading-relaxed text-base">Электричество от 3 руб/кВт плюс бесплатное тепло для теплиц, птицефабрик, животноводческих и рыбных ферм. Когенерация для круглогодичного цикла производства.</p>
-                    <a href="#" class="text-accent font-bold uppercase text-sm tracking-widest flex items-center gap-2 hover:gap-4 transition-all" onmouseover="this.style.color='white'; this.querySelector('i').style.color='white'" onmouseout="this.style.color='#0ea5e9'; this.querySelector('i').style.color='#0ea5e9'" style="color: #0ea5e9;">Подробнее <i class="fa-solid fa-arrow-right" style="color: #0ea5e9;"></i></a>
-                </div>
+                    <p class="text-slate-400 mb-10 flex-grow leading-relaxed text-base">Электричество от 3 руб/кВт плюс
+                        бесплатное тепло для теплиц, птицефабрик, животноводческих и рыбных ферм. Когенерация для
+                        круглогодичного цикла производства.</p>
+	                    <a href="#"
+	                        class="details-link font-bold uppercase text-sm tracking-widest flex items-center gap-2 hover:gap-4 transition-all">Подробнее
+	                        <i class="fa-solid fa-arrow-right"></i></a>
+	                </div>
 
-                <!-- Дата-центры -->
-                <div class="glass-card p-10 flex flex-col">
+	                <!-- Дата-центры -->
+	                <div class="glass-card p-10 flex flex-col">
                     <div class="icon-box">
                         <i class="fa-solid fa-server"></i>
                     </div>
                     <h4 class="text-2xl font-black uppercase mb-6 tracking-widest">Дата-центры</h4>
-                    <p class="text-slate-400 mb-10 flex-grow leading-relaxed text-base">Бесперебойное снабжение ЦОД с точностью синусоиды 1%. Основное и резервное электроснабжение по стандартам Tier III для критически важной IT-инфраструктуры.</p>
-                    <a href="#" class="text-accent font-bold uppercase text-sm tracking-widest flex items-center gap-2 hover:gap-4 transition-all" onmouseover="this.style.color='white'; this.querySelector('i').style.color='white'" onmouseout="this.style.color='#0ea5e9'; this.querySelector('i').style.color='#0ea5e9'" style="color: #0ea5e9;">Подробнее <i class="fa-solid fa-arrow-right" style="color: #0ea5e9;"></i></a>
-                </div>
+                    <p class="text-slate-400 mb-10 flex-grow leading-relaxed text-base">Бесперебойное снабжение ЦОД с
+                        точностью синусоиды 1%. Основное и резервное электроснабжение по стандартам Tier III для
+                        критически важной IT-инфраструктуры.</p>
+	                    <a href="#"
+	                        class="details-link font-bold uppercase text-sm tracking-widest flex items-center gap-2 hover:gap-4 transition-all">Подробнее
+	                        <i class="fa-solid fa-arrow-right"></i></a>
+	                </div>
 
-                <!-- Ваш проект (как в презентации) -->
-                <div class="glass-card p-10 flex flex-col project-card">
+	                <!-- ЖКХ -->
+	                <div class="glass-card p-10 flex flex-col">
+	                    <div class="icon-box">
+	                        <i class="fa-solid fa-building"></i>
+	                    </div>
+	                    <h4 class="text-2xl font-black uppercase mb-6 tracking-widest">ЖКХ</h4>
+	                    <p class="text-slate-400 mb-10 flex-grow leading-relaxed text-base">Надежное энергоснабжение и снижение затрат для котельных, насосных станций и объектов городской инфраструктуры. Резерв и автономия 24/7.</p>
+	                    <a href="#"
+	                        class="details-link font-bold uppercase text-sm tracking-widest flex items-center gap-2 hover:gap-4 transition-all">Подробнее
+	                        <i class="fa-solid fa-arrow-right"></i></a>
+	                </div>
+
+	                <!-- Ваш проект (как в презентации) -->
+	                <div class="glass-card p-10 flex flex-col project-card">
                     <div class="icon-box">
                         <i class="fa-solid fa-bolt"></i>
                     </div>
                     <h4 class="text-2xl font-black uppercase mb-6 tracking-widest">Ваш проект</h4>
-                    <p class="mb-10 flex-grow leading-relaxed text-base">Индивидуальные расчеты окупаемости и технического задания под ваши задачи.</p>
-                    <a href="#contacts" class="project-link font-bold uppercase text-sm tracking-widest flex items-center gap-2 transition-all">
+                    <p class="mb-10 flex-grow leading-relaxed text-base">Индивидуальные расчеты окупаемости и
+                        технического задания под ваши задачи.</p>
+                    <a href="#contacts"
+                        class="project-link font-bold uppercase text-sm tracking-widest flex items-center gap-2 transition-all">
                         Получить расчет <i class="fa-solid fa-arrow-right"></i>
                     </a>
                 </div>
 
-            </div>
+	            </div>
+	        </div>
+	    </section>
 
-            <!-- Блок для партнеров -->
-            <div class="partner-section p-10 md:p-20 flex flex-col lg:flex-row items-center justify-between gap-12">
-                <div class="max-w-2xl text-center lg:text-left">
-                    <h3 class="text-3xl md:text-5xl font-black uppercase mb-6 leading-tight tracking-tight">Приглашаем <span class="text-accent">партнеров</span></h3>
-                    <p class="text-slate-400 text-lg">Дилерские условия для проектных институтов и монтажных организаций. Техническая база и шеф-монтаж под ключ.</p>
-                </div>
-                <button class="group relative overflow-hidden bg-white text-black font-black uppercase text-sm tracking-widest px-14 py-7 rounded-2xl transition-all duration-500 hover:scale-105 active:scale-95 shadow-2xl">
-                    <span class="relative z-10">Стать партнером</span>
-                    <div class="absolute inset-0 bg-accent translate-y-full group-hover:translate-y-0 transition-transform duration-500"></div>
-                </button>
-            </div>
-        </div>
-    </section>
+	    <!-- КАТАЛОГ -->
+		    <section id="products" class="section-catalog py-24">
+		        <div class="max-w-7xl mx-auto px-6">
+		            <div class="text-center mb-16">
+		            <h2 class="text-4xl md:text-6xl font-black mb-6 uppercase">Линейка ГПУ <span
+		                    class="text-accent">ЭЛЕМЕНТ</span></h2>
+		            </div>
 
-    <!-- КАТАЛОГ -->
-    <section id="products" class="py-24 container mx-auto px-6">
-        <div class="text-center mb-16">
-            <h2 class="text-4xl md:text-6xl font-black mb-6 uppercase">Линейка ГПУ <span class="text-accent">ЭЛЕМЕНТ</span></h2>
-            <div class="flex justify-center gap-2 p-1 bg-white/5 rounded-2xl w-fit mx-auto border border-white/10">
-                <button class="bg-accent px-8 py-3 rounded-xl font-black uppercase text-xs tracking-widest text-white">Для трубного газа</button>
-                <button class="px-8 py-3 rounded-xl font-black uppercase text-xs tracking-widest text-slate-500 hover:text-white transition">Для ПНГ</button>
-            </div>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <div class="glass-card p-10 group">
-                <div class="gpu-img-container">
-                    <img src="https://via.placeholder.com/400x200/0ea5e9/ffffff?text=ELEMENT+150" alt="ГПУ ЭЛЕМЕНТ 150">
-                </div>
-                <h3 class="text-2xl font-black uppercase mb-2">ЭЛЕМЕНТ 150 <span class="text-accent">КВт</span></h3>
-                <p class="text-xs text-slate-500 font-bold uppercase tracking-widest mb-8">Базовая модель / Открытая рама</p>
-                <div class="space-y-1 mb-10">
-                    <div class="spec-table-row"><span class="text-slate-500">Двигатель</span><span class="font-bold">WEICHAI WP13</span></div>
-                    <div class="spec-table-row"><span class="text-slate-500">Электрический КПД</span><span class="font-bold">33%</span></div>
-                    <div class="spec-table-row border-none"><span class="text-slate-500">Ресурс (до кап.)</span><span class="font-bold">36 000 ч.</span></div>
-                </div>
-                <button onclick="window.location.href='#contacts'" class="btn-primary w-full py-4 rounded-xl font-black uppercase text-xs tracking-widest text-white transition-all hover:brightness-110">Получить КП</button>
-            </div>
-
-            <div class="glass-card p-10 border-accent/40 bg-accent/5 relative overflow-hidden group">
-                <div class="absolute top-4 right-4 industry-tag bg-accent text-white border-none shadow-lg">Хит продаж</div>
-                <div class="gpu-img-container">
-                    <img src="https://via.placeholder.com/400x200/0ea5e9/ffffff?text=ELEMENT+300" alt="ГПУ ЭЛЕМЕНТ 300">
-                </div>
-                <h3 class="text-2xl font-black uppercase mb-2">ЭЛЕМЕНТ 300 <span class="text-accent">КВт</span></h3>
-                <p class="text-xs text-slate-500 font-bold uppercase tracking-widest mb-8">Контейнерное исполнение «СЕВЕР»</p>
-                <div class="space-y-1 mb-10">
-                    <div class="spec-table-row"><span class="text-slate-500">Двигатель</span><span class="font-bold">WEICHAI WP17</span></div>
-                    <div class="spec-table-row"><span class="text-slate-500">Темп. режим</span><span class="font-bold">-60°С ... +50°С</span></div>
-                    <div class="spec-table-row border-none"><span class="text-slate-500">Защита</span><span class="font-bold">IP54 / Пожаротушение</span></div>
-                </div>
-                <button onclick="window.location.href='#contacts'" class="btn-primary w-full py-4 rounded-xl font-black uppercase text-xs tracking-widest text-white transition-all hover:brightness-110">Получить КП</button>
-            </div>
-
-            <div class="glass-card p-10 group">
-                <div class="gpu-img-container">
-                    <img src="https://via.placeholder.com/400x200/0ea5e9/ffffff?text=ELEMENT+500" alt="ГПУ ЭЛЕМЕНТ 500">
-                </div>
-                <h3 class="text-2xl font-black uppercase mb-2">ЭЛЕМЕНТ 500 <span class="text-accent">КВт</span></h3>
-                <p class="text-xs text-slate-500 font-bold uppercase tracking-widest mb-8">Высокая мощность / Пром. серия</p>
-                <div class="space-y-1 mb-10">
-                    <div class="spec-table-row"><span class="text-slate-500">Двигатель</span><span class="font-bold">WEICHAI 12M33</span></div>
-                    <div class="spec-table-row"><span class="text-slate-500">Напряжение</span><span class="font-bold">0.4 / 6.3 / 10.5 кВ</span></div>
-                    <div class="spec-table-row border-none"><span class="text-slate-500">Ресурс (до кап.)</span><span class="font-bold">40 000 ч.</span></div>
-                </div>
-                <button onclick="window.location.href='#contacts'" class="btn-primary w-full py-4 rounded-xl font-black uppercase text-xs tracking-widest text-white transition-all hover:brightness-110">Получить КП</button>
-            </div>
-        </div>
-    </section>
-
-    <!-- УСЛУГИ СЛАЙДЕРОМ -->
-    <section id="services-full" class="py-24 bg-slate-900/30 overflow-hidden">
-        <div class="container mx-auto px-6">
-            <div class="mb-12">
-                <h2 class="text-3xl md:text-5xl font-black uppercase mb-6 whitespace-nowrap overflow-hidden text-ellipsis">Услуги ГК <span class="text-accent">Элемент энергия</span></h2>
-
-                <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
-                    <p class="text-slate-400 text-lg leading-relaxed border-l-4 border-accent pl-6 max-w-4xl">
-                        Мы обеспечиваем полный цикл реализации энергопроектов: от льготного финансирования до пожизненного сервисного сопровождения ваших мощностей.
-                    </p>
-                    <div class="flex gap-3 shrink-0">
-                        <button onclick="scrollServices('left')" class="slider-nav-btn">
-                            <i class="fas fa-chevron-left"></i>
-                        </button>
-                        <button onclick="scrollServices('right')" class="slider-nav-btn">
-                            <i class="fas fa-chevron-right"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="relative">
-                <div id="services-scroll" class="services-scroll">
-                    <!-- Группа: Финансы -->
-                    <div class="service-slide-card glass-card p-8 border-t-4 border-t-accent">
-                        <div class="flex items-center gap-4 mb-4">
-                            <div class="w-12 h-12 rounded-xl bg-accent/20 flex items-center justify-center text-accent">
-                                <i class="fas fa-coins text-xl"></i>
-                            </div>
-                            <h4 class="text-xl font-bold text-white uppercase tracking-tight">Финансы</h4>
-                        </div>
-                        <p class="text-sm text-slate-400 mb-6 leading-relaxed">
-                            Финансы — это комплекс инструментов для масштабирования вашего бизнеса без изъятия оборотных средств через льготные программы.
+                    <div class="max-w-3xl mx-auto text-center mb-10">
+                        <p class="text-slate-500 leading-relaxed">
+                            Короткая витрина каталога. Полный список моделей, цены и характеристики доступны на странице
+                            каталога.
                         </p>
-                        <ul class="space-y-4">
-                            <li class="group">
-                                <p class="font-bold text-slate-200 text-sm group-hover:text-accent transition">МСП лизинг 6%</p>
-                                <p class="text-[11px] text-slate-500 mt-1">Льготная программа для приобретения ГПУ.</p>
-                            </li>
-                            <li class="group">
-                                <p class="font-bold text-slate-200 text-sm group-hover:text-accent transition">Лизинг</p>
-                                <p class="text-[11px] text-slate-500 mt-1">Минимальный аванс от партнеров ГК.</p>
-                            </li>
-                        </ul>
                     </div>
 
-                    <!-- Группа: Газификация -->
-                    <div class="service-slide-card glass-card p-8 border-t-4 border-t-accent">
-                        <div class="flex items-center gap-4 mb-4">
-                            <div class="w-12 h-12 rounded-xl bg-accent/20 flex items-center justify-center text-accent">
-                                <i class="fas fa-gas-pump text-xl"></i>
-                            </div>
-                            <h4 class="text-xl font-bold text-white uppercase tracking-tight">Газ</h4>
-                        </div>
-                        <p class="text-sm text-slate-400 mb-6 leading-relaxed">
-                            Обеспечение лимитами и проектирование газовой инфраструктуры для стабильной работы объектов генерации.
-                        </p>
-                        <ul class="space-y-4">
-                            <li class="group">
-                                <p class="font-bold text-slate-200 text-sm group-hover:text-accent transition">Участки с газом</p>
-                                <p class="text-[11px] text-slate-500 mt-1">База площадок с лимитами газа.</p>
-                            </li>
-                            <li class="group">
-                                <p class="font-bold text-slate-200 text-sm group-hover:text-accent transition">ТУ на газ</p>
-                                <p class="text-[11px] text-slate-500 mt-1">Оформление условий под ваши задачи.</p>
-                            </li>
-                        </ul>
+		            <div id="catalog-preview-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"></div>
+
+                    <div class="mt-12 text-center">
+                        <a href="catalog.html"
+                            class="btn-primary inline-flex items-center justify-center px-10 py-5 rounded-2xl text-sm md:text-base font-black uppercase tracking-widest text-white transition-all hover:scale-105">
+                            Открыть каталог
+                            <i class="fa-solid fa-arrow-right ml-3"></i>
+                        </a>
                     </div>
+	        </div>
+		    </section>
 
-                    <!-- Группа: Сервис -->
-                    <div class="service-slide-card glass-card p-8 border-t-4 border-t-accent">
-                        <div class="flex items-center gap-4 mb-4">
-                            <div class="w-12 h-12 rounded-xl bg-accent/20 flex items-center justify-center text-accent">
-                                <i class="fas fa-screwdriver-wrench text-xl"></i>
-                            </div>
-                            <h4 class="text-xl font-bold text-white uppercase tracking-tight">Сервис</h4>
-                        </div>
-                        <p class="text-sm text-slate-400 mb-6 leading-relaxed">
-                            Профессиональное обслуживание и поддержка 24/7 для минимизации простоев и сохранения ресурса оборудования.
-                        </p>
-                        <ul class="space-y-4">
-                            <li class="group">
-                                <p class="font-bold text-slate-200 text-sm group-hover:text-accent transition">Обслуживание</p>
-                                <p class="text-[11px] text-slate-500 mt-1">Регламентное ТО двигателей Weichai.</p>
-                            </li>
-                            <li class="group">
-                                <p class="font-bold text-slate-200 text-sm group-hover:text-accent transition">Аренда мест</p>
-                                <p class="text-[11px] text-slate-500 mt-1">Места под ГПУ в наших центрах.</p>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <!-- Группа: Строительство -->
-                    <div class="service-slide-card glass-card p-8 border-t-4 border-t-accent">
-                        <div class="flex items-center gap-4 mb-4">
-                            <div class="w-12 h-12 rounded-xl bg-accent/20 flex items-center justify-center text-accent">
-                                <i class="fas fa-trowel-bricks text-xl"></i>
-                            </div>
-                            <h4 class="text-xl font-bold text-white uppercase tracking-tight">Объекты</h4>
-                        </div>
-                        <p class="text-sm text-slate-400 mb-6 leading-relaxed">
-                            Возведение энергетической инфраструктуры любой сложности, адаптированной под специфические нужды клиента.
-                        </p>
-                        <ul class="space-y-4">
-                            <li class="group">
-                                <p class="font-bold text-slate-200 text-sm group-hover:text-accent transition">Энергоцентры</p>
-                                <p class="text-[11px] text-slate-500 mt-1">Возведение объектов «под ключ».</p>
-                            </li>
-                            <li class="group">
-                                <p class="font-bold text-slate-200 text-sm group-hover:text-accent transition">Майнинг отель</p>
-                                <p class="text-[11px] text-slate-500 mt-1">Хостинг для оборудования на ГПУ.</p>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <!-- Группа: Энергоснабжение -->
-                    <div class="service-slide-card glass-card p-8 border-t-4 border-t-accent">
-                        <div class="flex items-center gap-4 mb-4">
-                            <div class="w-12 h-12 rounded-xl bg-accent/20 flex items-center justify-center text-accent">
-                                <i class="fas fa-plug-circle-bolt text-xl"></i>
-                            </div>
-                            <h4 class="text-xl font-bold text-white uppercase tracking-tight">Энергия</h4>
-                        </div>
-                        <p class="text-sm text-slate-400 mb-6 leading-relaxed">
-                            Прямая поставка дешевой электроэнергии и управление энергетическими активами для снижения OPEX.
-                        </p>
-                        <ul class="space-y-4">
-                            <li class="group">
-                                <p class="font-bold text-slate-200 text-sm group-hover:text-accent transition">Электричество</p>
-                                <p class="text-[11px] text-slate-500 mt-1">Договоры на дешевую энергию.</p>
-                            </li>
-                            <li class="group">
-                                <p class="font-bold text-slate-200 text-sm group-hover:text-accent transition">Майнинг ток</p>
-                                <p class="text-[11px] text-slate-500 mt-1">Гарантированная мощь для майнинга.</p>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ПОЛУЧИТЬ КП (CTA) -->
-    <section id="contacts" class="py-24 relative overflow-hidden">
-        <div class="absolute inset-0 bg-accent/5 -z-10"></div>
-        <div class="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-accent/30 to-transparent"></div>
-
-        <div class="container mx-auto px-6">
-            <div class="glass-card p-12 md:p-20 relative overflow-hidden">
+		    <!-- ПОЛУЧИТЬ КП (CTA) -->
+			    <section id="contacts" class="py-24 relative overflow-hidden">
+	        <div class="absolute inset-0 bg-accent/5 -z-10"></div>
+	        <div class="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-accent/30 to-transparent">
+	        </div>
+	
+	        <div class="max-w-7xl mx-auto px-6">
+	            <div class="glass-card p-12 md:p-20 relative overflow-hidden">
                 <div class="absolute -top-24 -right-24 w-96 h-96 bg-accent/10 rounded-full blur-[100px]"></div>
 
                 <div class="flex flex-col lg:flex-row items-center gap-12 relative z-10">
                     <div class="lg:w-3/5 text-center lg:text-left">
-                        <h2 class="text-4xl md:text-6xl font-black uppercase mb-6 leading-tight">Получить <br class="hidden md:block"> <span class="text-accent">предложение</span></h2>
-                        <p class="text-xl text-slate-400 mb-8 max-w-2xl">Оставьте заявку и получите детальное КП на оборудование, строительство энергоцентра или услуги по эксплуатации.</p>
+                        <h2 class="text-4xl md:text-6xl font-black uppercase mb-6 leading-tight">Получить <br
+                                class="hidden md:block"> <span class="text-accent">предложение</span></h2>
+                        <p class="text-xl text-slate-400 mb-8 max-w-2xl">Оставьте заявку и получите детальное КП на
+                            оборудование, строительство энергоцентра или услуги по эксплуатации.</p>
 
                         <div class="flex flex-wrap justify-center lg:justify-start gap-6 mb-12">
                             <div class="flex items-center gap-3">
-                                <div class="w-12 h-12 rounded-full bg-accent/20 flex items-center justify-center text-accent">
+                                <div
+                                    class="w-12 h-12 rounded-full bg-accent/20 flex items-center justify-center text-accent">
                                     <i class="fas fa-calculator"></i>
                                 </div>
                                 <span class="text-sm font-bold uppercase tracking-wider">Точные расчеты</span>
                             </div>
                             <div class="flex items-center gap-3">
-                                <div class="w-12 h-12 rounded-full bg-accent/20 flex items-center justify-center text-accent">
+                                <div
+                                    class="w-12 h-12 rounded-full bg-accent/20 flex items-center justify-center text-accent">
                                     <i class="fas fa-clock"></i>
                                 </div>
                                 <span class="text-sm font-bold uppercase tracking-wider">Ответ за 24ч</span>
                             </div>
                         </div>
 
-                        <div class="p-6 bg-slate-950/40 rounded-2xl border border-white/5 inline-flex items-center gap-6">
-                            <div class="relative">
-                                <img src="https://i.pravatar.cc/100?img=11" alt="Engineer" class="w-16 h-16 rounded-full border-2 border-accent">
-                                <div class="absolute bottom-0 right-0 w-4 h-4 bg-green-500 rounded-full border-2 border-slate-900"></div>
-                            </div>
-                            <div class="text-left">
-                                <p class="text-white font-black uppercase text-sm mb-1 tracking-tighter">Связаться с инженером</p>
-                                <p class="text-xs text-slate-500 max-w-[200px]">Инженер произведет расчеты и подготовит лучшее предложение</p>
-                            </div>
-                        </div>
+	                        <div
+	                            class="p-6 bg-white/70 rounded-2xl border border-slate-900/10 inline-flex items-center gap-6 backdrop-blur-md shadow-sm">
+	                            <div class="relative">
+	                                <img src="https://i.pravatar.cc/100?img=11" alt="Engineer"
+	                                    class="w-16 h-16 rounded-full border-2 border-accent">
+	                                <div
+	                                    class="absolute bottom-0 right-0 w-4 h-4 bg-green-500 rounded-full border-2 border-white">
+	                                </div>
+	                            </div>
+	                            <div class="text-left">
+	                                <p class="text-slate-900 font-black uppercase text-sm mb-1 tracking-tighter">Связаться с
+	                                    инженером</p>
+	                                <p class="text-xs text-slate-500 max-w-[200px]">Инженер произведет расчеты и подготовит
+	                                    лучшее предложение</p>
+	                            </div>
+	                        </div>
                     </div>
 
-                    <div class="lg:w-2/5 w-full">
-                        <form class="space-y-4 bg-slate-900/50 p-8 rounded-3xl border border-white/10">
-                            <div>
-                                <label class="text-[10px] uppercase font-black text-slate-500 tracking-[0.2em] mb-2 block">Ваше имя</label>
-                                <input type="text" placeholder="Иван Иванов" class="w-full bg-slate-950 border border-white/10 rounded-xl px-5 py-4 text-white focus:outline-none focus:border-accent transition">
-                            </div>
-                            <div>
-                                <label class="text-[10px] uppercase font-black text-slate-500 tracking-[0.2em] mb-2 block">Телефон / Telegram</label>
-                                <input type="text" placeholder="+7 (900) 000-00-00" class="w-full bg-slate-950 border border-white/10 rounded-xl px-5 py-4 text-white focus:outline-none focus:border-accent transition">
-                            </div>
-                            <div>
-                                <label class="text-[10px] uppercase font-black text-slate-500 tracking-[0.2em] mb-2 block">Тип услуги</label>
-                                <select class="w-full bg-slate-950 border border-white/10 rounded-xl px-5 py-4 text-white focus:outline-none focus:border-accent transition appearance-none">
-                                    <option>Покупка ГПУ</option>
-                                    <option>Майнинг отель</option>
-                                    <option>Лизинг</option>
-                                    <option>Строительство</option>
-                                </select>
-                            </div>
-                            <button type="button" class="btn-primary w-full py-5 rounded-xl text-white font-black uppercase tracking-widest mt-4">Отправить запрос</button>
-                            <p class="text-[9px] text-center text-slate-600 mt-4 uppercase">Нажимая кнопку, вы соглашаетесь с политикой конфиденциальности</p>
+	                    <div class="lg:w-2/5 w-full">
+	                        <form class="space-y-4 bg-white/70 backdrop-blur-md p-8 rounded-3xl border border-slate-900/10 shadow-sm">
+	                            <div>
+	                                <label
+	                                    class="text-[10px] uppercase font-black text-slate-500 tracking-[0.2em] mb-2 block">Ваше
+	                                    имя</label>
+	                                <input type="text" placeholder="Иван Иванов"
+	                                    class="w-full bg-white border border-slate-900/10 rounded-xl px-5 py-4 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-accent transition">
+	                            </div>
+	                            <div>
+	                                <label
+	                                    class="text-[10px] uppercase font-black text-slate-500 tracking-[0.2em] mb-2 block">Телефон
+	                                    / Telegram</label>
+	                                <input type="text" placeholder="+7 (900) 000-00-00"
+	                                    class="w-full bg-white border border-slate-900/10 rounded-xl px-5 py-4 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-accent transition">
+	                            </div>
+	                            <div>
+	                                <label
+	                                    class="text-[10px] uppercase font-black text-slate-500 tracking-[0.2em] mb-2 block">Тип
+	                                    услуги</label>
+	                                <select
+	                                    class="w-full bg-white border border-slate-900/10 rounded-xl px-5 py-4 text-slate-900 focus:outline-none focus:border-accent transition appearance-none">
+	                                    <option>Покупка ГПУ</option>
+	                                    <option>Майнинг отель</option>
+	                                    <option>Лизинг</option>
+	                                    <option>Строительство</option>
+	                                </select>
+	                            </div>
+                            <button type="button"
+                                class="btn-primary w-full py-5 rounded-xl text-white font-black uppercase tracking-widest mt-4">Отправить
+                                запрос</button>
+                            <p class="text-[9px] text-center text-slate-600 mt-4 uppercase">Нажимая кнопку, вы
+                                соглашаетесь с политикой конфиденциальности</p>
                         </form>
                     </div>
                 </div>
@@ -420,10 +333,15 @@
         </div>
     </section>
 
-    <!-- FOOTER PLACEHOLDER -->
-    <div id="footer-placeholder"></div>
+	    <!-- FOOTER PLACEHOLDER -->
+	    <div id="footer-placeholder"></div>
 
-    <script src="js/script.js"></script>
+	    </div>
+
+	    <script src="js/gpu-catalog-data.js"></script>
+	    <script src="js/gpu-catalog.js"></script>
+	    <script src="js/script.js"></script>
 
 </body>
+
 </html>
