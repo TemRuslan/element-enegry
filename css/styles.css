@@ -692,22 +692,109 @@ section {
 #mobile-menu {
     display: none;
     position: absolute;
-    top: 80px;
-    left: 20px;
-    right: 20px;
-    background: rgba(255, 255, 255, 0.92);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(15, 23, 42, 0.10);
-    border-radius: 20px;
-    padding: 24px;
+    /* Continue the main nav panel (not a floating card). */
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: #ffffff;
+    border-top: 1px solid rgba(15, 23, 42, 0.10);
+    border-radius: 0;
+    padding: 18px 20px 20px 20px;
     flex-direction: column;
-    gap: 20px;
-    text-align: center;
+    gap: 14px;
+    text-align: left;
 }
 
 #mobile-menu.active {
     display: flex;
+}
+
+/* Mobile menu accordion */
+.mobile-menu-link {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px;
+    width: 100%;
+    text-decoration: none;
+    color: var(--text);
+    font-weight: 800;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.mobile-acc-toggle {
+    appearance: none;
+    -webkit-appearance: none;
+    border: 0;
+    background: transparent;
+    color: var(--text);
+    font: inherit;
+    padding: 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    gap: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-weight: 800;
+    font-size: 13px;
+}
+
+.mobile-acc-toggle i {
+    transition: transform 0.2s ease;
+}
+
+.mobile-acc-toggle[aria-expanded="true"] i {
+    transform: rotate(180deg);
+}
+
+.mobile-acc-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 10px 0 6px 14px;
+    border-left: 2px solid rgba(15, 23, 42, 0.10);
+}
+
+.mobile-acc-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    width: 100%;
+}
+
+.mobile-acc-row .mobile-menu-link {
+    flex: 1;
+}
+
+.mobile-acc-subtoggle {
+    appearance: none;
+    -webkit-appearance: none;
+    border: 0;
+    background: transparent;
+    color: var(--text);
+    padding: 8px 10px;
+    cursor: pointer;
+    flex: 0 0 auto;
+}
+
+.mobile-acc-subtoggle i {
+    transition: transform 0.2s ease;
+}
+
+.mobile-acc-subtoggle[aria-expanded="true"] i {
+    transform: rotate(180deg);
+}
+
+.mobile-acc-panel--nested {
+    padding-left: 12px;
+    border-left: 0;
+    gap: 10px;
 }
 
 html {
@@ -813,6 +900,26 @@ html {
 
 /* Доп. адаптация под 5 размеров */
 /* 1. Mobile (< 640px) - Базовые стили выше */
+@media (max-width: 639px) {
+    /* Make the Hero title scale with viewport width so long words (e.g. "Газопоршневые")
+       don't overflow on small screens. */
+    .hero-bg h1 {
+        font-size: clamp(2rem, 8.5vw, 3rem);
+    }
+
+    /* Keep the "Локализация производства 80% (СТ-1)" badge on a single line on mobile. */
+    .hero-bg .hero-badge {
+        padding-left: 0.75rem;
+        padding-right: 0.75rem;
+        gap: 0.5rem;
+    }
+
+    .hero-bg .hero-badge-text {
+        white-space: nowrap;
+        letter-spacing: 0.12em;
+        font-size: clamp(0.55rem, 2.6vw, 0.75rem);
+    }
+}
 
 /* 2. Tablet (640px - 768px) */
 @media (min-width: 640px) and (max-width: 768px) {
