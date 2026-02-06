@@ -360,8 +360,9 @@
         const controlsEl = document.getElementById('gpu-controls');
         const countEl = document.getElementById('gpu-count');
         const resetEl = document.getElementById('gpu-reset');
-        const mobileFabEl = document.getElementById('gpu-mobile-fab');
-        const mobileOpenEl = document.getElementById('gpu-mobile-open');
+        const mobileToolbarEl = document.getElementById('gpu-mobile-toolbar');
+        const mobileFilterOpenEl = document.getElementById('gpu-mobile-filter-open');
+        const mobileSortOpenEl = document.getElementById('gpu-mobile-sort-open');
         const mobileCloseEl = document.getElementById('gpu-mobile-close');
         const mobileBadgeEl = document.getElementById('gpu-mobile-badge');
         const priceMinEl = document.getElementById('gpu-price-min');
@@ -518,15 +519,22 @@
                 && window.matchMedia('(max-width: 1279px)').matches;
         }
 
-        function openMobileFilters() {
+        function openMobileFilters(section) {
             document.body.classList.add('gpu-mobile-filters-open');
-            if (mobileFabEl) mobileFabEl.classList.add('is-hidden');
+            if (mobileToolbarEl) mobileToolbarEl.classList.add('is-hidden');
             document.body.style.overflow = 'hidden';
+
+            // Focus the requested section inside the sheet.
+            window.setTimeout(() => {
+                const id = section === 'sort' ? 'gpu-sort-section' : 'gpu-filter-section';
+                const el = document.getElementById(id);
+                if (el && el.scrollIntoView) el.scrollIntoView({ block: 'start' });
+            }, 0);
         }
 
         function closeMobileFilters() {
             document.body.classList.remove('gpu-mobile-filters-open');
-            if (mobileFabEl) mobileFabEl.classList.remove('is-hidden');
+            if (mobileToolbarEl) mobileToolbarEl.classList.remove('is-hidden');
             document.body.style.overflow = '';
         }
 
@@ -699,7 +707,7 @@
             if (mobileBadgeEl) {
                 const k = activeFiltersCount();
                 mobileBadgeEl.textContent = String(k);
-                mobileBadgeEl.style.display = k > 0 ? '' : 'none';
+                mobileBadgeEl.style.display = k > 0 ? 'inline-flex' : 'none';
             }
         }
 
@@ -760,9 +768,23 @@
             });
         }
 
-        // Mobile: floating button that appears on scroll up and hides on scroll down.
-        if (mobileOpenEl) mobileOpenEl.addEventListener('click', () => openMobileFilters());
-        if (mobileCloseEl) mobileCloseEl.addEventListener('click', () => closeMobileFilters());
+        // Mobile: top toolbar that appears on scroll up and hides on scroll down.
+        if (mobileFilterOpenEl) {
+            mobileFilterOpenEl.addEventListener('click', (e) => {
+                if (e && e.stopPropagation) e.stopPropagation();
+                openMobileFilters('filter');
+            });
+        }
+        if (mobileSortOpenEl) {
+            mobileSortOpenEl.addEventListener('click', (e) => {
+                if (e && e.stopPropagation) e.stopPropagation();
+                openMobileFilters('sort');
+            });
+        }
+        if (mobileCloseEl) mobileCloseEl.addEventListener('click', (e) => {
+            if (e && e.stopPropagation) e.stopPropagation();
+            closeMobileFilters();
+        });
 
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') closeMobileFilters();
@@ -772,6 +794,10 @@
         document.addEventListener('click', (e) => {
             if (!document.body.classList.contains('gpu-mobile-filters-open')) return;
             if (!isMobileLayout()) return;
+            if (e && e.target && e.target.closest) {
+                if (e.target.closest('#gpu-mobile-filter-open')) return;
+                if (e.target.closest('#gpu-mobile-sort-open')) return;
+            }
             const sidebarPanel = document.querySelector('.gpu-catalog-sidebar-panel');
             if (sidebarPanel && sidebarPanel.contains(e.target)) return;
             // Clicked outside panel.
@@ -781,7 +807,7 @@
         let lastY = window.scrollY || 0;
         let raf = 0;
         window.addEventListener('scroll', () => {
-            if (!mobileFabEl) return;
+            if (!mobileToolbarEl) return;
             if (!isMobileLayout()) return;
             if (document.body.classList.contains('gpu-mobile-filters-open')) return;
             if (raf) return;
@@ -789,14 +815,14 @@
                 raf = 0;
                 const y = window.scrollY || 0;
                 const d = y - lastY;
-                if (d > 12) mobileFabEl.classList.add('is-hidden');
-                else if (d < -12) mobileFabEl.classList.remove('is-hidden');
+                if (d > 12) mobileToolbarEl.classList.add('is-hidden');
+                else if (d < -12) mobileToolbarEl.classList.remove('is-hidden');
                 lastY = y;
             });
         }, { passive: true });
 
         window.addEventListener('resize', () => {
-            if (!mobileFabEl) return;
+            if (!mobileToolbarEl) return;
             if (!isMobileLayout()) {
                 closeMobileFilters();
                 return;

@@ -58,7 +58,7 @@
             }
         }
 
-        /* Mobile: filters/sort live in a modal, opened by a floating button. */
+        /* Mobile: filters/sort live in a modal, opened by a top toolbar. */
         @media (max-width: 1279px) {
             .gpu-catalog-sidebar {
                 display: none;
@@ -109,50 +109,80 @@
                 border-top-right-radius: 22px;
             }
 
-            .gpu-mobile-fab {
-                position: fixed;
-                right: 14px;
-                bottom: 14px;
-                z-index: 1500;
+            .gpu-mobile-toolbar {
+                position: sticky;
+                top: 64px; /* under site header */
+                z-index: 1400;
+                margin: 0 0 14px 0;
                 transition: transform 220ms ease, opacity 220ms ease;
             }
 
-            .gpu-mobile-fab.is-hidden {
+            .gpu-mobile-toolbar.is-hidden {
                 opacity: 0;
-                transform: translateY(16px);
+                transform: translateY(-14px);
                 pointer-events: none;
             }
 
-            .gpu-mobile-fab-btn {
+            .gpu-mobile-toolbar-inner {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 12px;
+                padding: 12px 14px;
+                border-radius: 18px;
+                background: #0f172a;
+                color: #ffffff;
+                border: 1px solid rgba(255, 255, 255, 0.16);
+                box-shadow: 0 16px 34px rgba(15, 23, 42, 0.18);
+            }
+
+            .gpu-mobile-toolbar-title {
+                font-weight: 900;
+                text-transform: uppercase;
+                letter-spacing: 0.08em;
+                font-size: 12px;
+                line-height: 1;
+                white-space: nowrap;
+            }
+
+            .gpu-mobile-toolbar-actions {
                 display: inline-flex;
                 align-items: center;
                 gap: 10px;
-                padding: 12px 14px;
-                border-radius: 16px;
-                background: #0f172a;
-                color: #ffffff;
-                border: 1px solid rgba(255, 255, 255, 0.18);
-                box-shadow: 0 16px 36px rgba(15, 23, 42, 0.22);
-                font-weight: 900;
-                text-transform: uppercase;
-                letter-spacing: 0.14em;
-                font-size: 11px;
-                line-height: 1;
             }
 
-            .gpu-mobile-fab-badge {
+            .gpu-mobile-icon-btn {
+                position: relative;
+                width: 44px;
+                height: 44px;
+                border-radius: 14px;
                 display: inline-flex;
                 align-items: center;
                 justify-content: center;
-                min-width: 22px;
-                height: 22px;
-                padding: 0 7px;
+                background: rgba(255, 255, 255, 0.06);
+                border: 1px solid rgba(255, 255, 255, 0.12);
+                color: #ffffff;
+            }
+
+            .gpu-mobile-icon-btn:active {
+                transform: scale(0.98);
+            }
+
+            .gpu-mobile-icon-badge {
+                position: absolute;
+                top: 6px;
+                right: 6px;
+                min-width: 18px;
+                height: 18px;
+                padding: 0 6px;
                 border-radius: 999px;
                 background: var(--accent);
                 color: #ffffff;
-                font-size: 11px;
+                font-size: 10px;
                 font-weight: 900;
-                letter-spacing: 0;
+                line-height: 18px;
+                text-align: center;
+                display: none;
             }
         }
 
@@ -315,7 +345,7 @@
 
                     <div class="p-5">
                         <form id="gpu-controls" class="space-y-5">
-	                        <div class="text-xs font-black uppercase tracking-[0.22em] text-slate-900 pl-2">
+	                        <div id="gpu-sort-section" class="text-xs font-black uppercase tracking-[0.22em] text-slate-900 pl-2">
 	                            Сортировка
 	                        </div>
 	                        <fieldset>
@@ -364,7 +394,7 @@
 	                            </div>
 	                        </fieldset>
 
-	                        <div class="pt-4 border-t border-slate-200/70 text-xs font-black uppercase tracking-[0.22em] text-slate-900 pl-2">
+	                        <div id="gpu-filter-section" class="pt-4 border-t border-slate-200/70 text-xs font-black uppercase tracking-[0.22em] text-slate-900 pl-2">
 	                            Фильтр
 	                        </div>
 	                        <fieldset>
@@ -684,17 +714,24 @@
 	            </div>
 	        </aside>
 
+            <!-- Mobile top toolbar -->
+            <div id="gpu-mobile-toolbar" class="gpu-mobile-toolbar lg:hidden">
+                <div class="gpu-mobile-toolbar-inner">
+                    <div class="gpu-mobile-toolbar-title">Каталог <span class="text-accent">GPU</span></div>
+                    <div class="gpu-mobile-toolbar-actions">
+                        <button type="button" id="gpu-mobile-sort-open" class="gpu-mobile-icon-btn" aria-label="Сортировка">
+                            <i class="fa-solid fa-arrow-down-wide-short"></i>
+                        </button>
+                        <button type="button" id="gpu-mobile-filter-open" class="gpu-mobile-icon-btn" aria-label="Фильтр">
+                            <i class="fa-solid fa-sliders"></i>
+                            <span id="gpu-mobile-badge" class="gpu-mobile-icon-badge">0</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
 	        <div id="gpu-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"></div>
 	    </main>
-
-        <!-- Mobile floating action button -->
-        <div id="gpu-mobile-fab" class="gpu-mobile-fab">
-            <button type="button" id="gpu-mobile-open" class="gpu-mobile-fab-btn" aria-label="Открыть фильтр и сортировку">
-                <i class="fa-solid fa-sliders"></i>
-                <span>Фильтр</span>
-                <span id="gpu-mobile-badge" class="gpu-mobile-fab-badge" style="display:none;">0</span>
-            </button>
-        </div>
 
     <!-- FOOTER PLACEHOLDER -->
     <div id="footer-placeholder"></div>
