@@ -81,16 +81,11 @@
             color: rgba(71, 85, 105, 0.95);
             white-space: nowrap;
             border-bottom: 2px solid transparent;
-            transition: color 0.2s ease, border-color 0.2s ease;
             background: transparent;
             border-left: 0;
             border-right: 0;
             border-top: 0;
             cursor: pointer;
-        }
-
-        .product-tab:hover {
-            color: rgba(2, 132, 199, 0.95);
         }
 
         .product-tab.is-active {
@@ -104,6 +99,70 @@
 
         .product-tabpanel[hidden] {
             display: none !important;
+        }
+
+        /* Specs in tabs: simple 2-column list like the reference screenshot */
+        .specs-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 42px;
+        }
+
+        @media (max-width: 768px) {
+            .specs-grid {
+                grid-template-columns: 1fr;
+                gap: 28px;
+            }
+        }
+
+        .spec-group + .spec-group {
+            margin-top: 28px;
+        }
+
+        .spec-group__title {
+            font-weight: 900;
+            color: rgba(15, 23, 42, 0.92);
+            margin-bottom: 14px;
+        }
+
+        .spec-list {
+            display: grid;
+            gap: 10px;
+        }
+
+        .spec-row {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) auto;
+            align-items: baseline;
+            gap: 18px;
+        }
+
+        .spec-row__k {
+            color: rgba(100, 116, 139, 0.98);
+        }
+
+        .spec-row__v {
+            color: rgba(15, 23, 42, 0.92);
+            font-weight: 500;
+            text-align: right;
+            white-space: nowrap;
+        }
+
+        @media (max-width: 420px) {
+            .spec-row {
+                grid-template-columns: 1fr;
+                gap: 6px;
+            }
+            .spec-row__v {
+                text-align: left;
+                white-space: normal;
+                word-break: break-word;
+            }
+        }
+
+        /* Prevent horizontal scroll containers inside the tab card from "eating" vertical scroll. */
+        .product-tabs-shell .overflow-x-auto {
+            overflow-y: visible;
         }
 
         /* Simple lightbox for product photos */
@@ -292,359 +351,148 @@
                     <div class="product-tabs__content">
 
             <!-- SPECS -->
-            <section id="specs" class="mb-16 pt-10">
-                <div class="max-w-4xl mb-10">
-                    <h2 class="text-3xl md:text-5xl font-black uppercase tracking-tight mb-3">Технические характеристики</h2>
-                    <p class="text-slate-500 leading-relaxed">
-                        Полный перечень ключевых параметров ГПУ 250 кВт с постоянной мощностью 210 кВт. Значения
-                        соответствуют вашим материалам по ГПУ WP13.
-                    </p>
-                </div>
+            <div class="product-tabpanel" id="panel-specs" role="tabpanel" tabindex="-1" aria-labelledby="tab-specs">
+                <div class="specs-grid text-sm">
+                    <div>
+                        <div class="spec-group">
+                            <div class="spec-group__title">Общие характеристики</div>
+                            <div class="spec-list">
+                                <div class="spec-row"><div class="spec-row__k">Мощность номинальная</div><div class="spec-row__v">250 кВт</div></div>
+                                <div class="spec-row"><div class="spec-row__k">Мощность постоянная</div><div class="spec-row__v">210 кВт</div></div>
+                                <div class="spec-row"><div class="spec-row__k">Мощность резервная</div><div class="spec-row__v">275 кВт</div></div>
+                                <div class="spec-row"><div class="spec-row__k">Номинальная мощность</div><div class="spec-row__v">315,5 кВА</div></div>
+                                <div class="spec-row"><div class="spec-row__k">Резервная мощность</div><div class="spec-row__v">342,5 кВА</div></div>
+                                <div class="spec-row"><div class="spec-row__k">Номинальное напряжение</div><div class="spec-row__v">400 В / 220 В</div></div>
+                                <div class="spec-row"><div class="spec-row__k">Номинальная частота</div><div class="spec-row__v">50 Гц</div></div>
+                                <div class="spec-row"><div class="spec-row__k">Частота вращения</div><div class="spec-row__v">1500 об/мин</div></div>
+                                <div class="spec-row"><div class="spec-row__k">Номинальный ток</div><div class="spec-row__v">450 А</div></div>
+                                <div class="spec-row"><div class="spec-row__k">Фактор мощности</div><div class="spec-row__v">0,8</div></div>
+                            </div>
+                        </div>
 
-                <div class="glass-card p-10 overflow-hidden">
-                    <div class="overflow-x-auto">
-                        <table class="w-full border-collapse text-sm">
-                            <tbody>
-                                <tr>
-                                    <th colspan="2"
-                                        class="text-left py-4 border-b border-slate-900/10 text-xs font-black uppercase tracking-[0.18em] text-accent">
-                                        Мощность и электроника
-                                    </th>
-                                </tr>
-                                <tr class="border-b border-slate-900/10">
-                                    <td class="py-4 pr-6 text-slate-600">Мощность номинальная</td>
-                                    <td class="py-4 font-semibold text-slate-900 md:text-right">250 кВт</td>
-                                </tr>
-                                <tr class="border-b border-slate-900/10 bg-white/40">
-                                    <td class="py-4 pr-6 text-slate-600">Мощность постоянная</td>
-                                    <td class="py-4 font-semibold text-slate-900 md:text-right">210 кВт</td>
-                                </tr>
-                                <tr class="border-b border-slate-900/10">
-                                    <td class="py-4 pr-6 text-slate-600">Мощность резервная</td>
-                                    <td class="py-4 font-semibold text-slate-900 md:text-right">275 кВт</td>
-                                </tr>
-                                <tr class="border-b border-slate-900/10 bg-white/40">
-                                    <td class="py-4 pr-6 text-slate-600">Номинальная мощность</td>
-                                    <td class="py-4 font-semibold text-slate-900 md:text-right">315,5 кВА</td>
-                                </tr>
-                                <tr class="border-b border-slate-900/10">
-                                    <td class="py-4 pr-6 text-slate-600">Резервная мощность</td>
-                                    <td class="py-4 font-semibold text-slate-900 md:text-right">342,5 кВА</td>
-                                </tr>
-                                <tr class="border-b border-slate-900/10 bg-white/40">
-                                    <td class="py-4 pr-6 text-slate-600">Номинальное напряжение</td>
-                                    <td class="py-4 font-semibold text-slate-900 md:text-right">400 В / 220 В</td>
-                                </tr>
-                                <tr class="border-b border-slate-900/10">
-                                    <td class="py-4 pr-6 text-slate-600">Номинальная частота</td>
-                                    <td class="py-4 font-semibold text-slate-900 md:text-right">50 Гц</td>
-                                </tr>
-                                <tr class="border-b border-slate-900/10 bg-white/40">
-                                    <td class="py-4 pr-6 text-slate-600">Частота вращения</td>
-                                    <td class="py-4 font-semibold text-slate-900 md:text-right">1500 об/мин</td>
-                                </tr>
-                                <tr class="border-b border-slate-900/10">
-                                    <td class="py-4 pr-6 text-slate-600">Номинальный ток</td>
-                                    <td class="py-4 font-semibold text-slate-900 md:text-right">450 А</td>
-                                </tr>
-                                <tr class="border-b border-slate-900/10 bg-white/40">
-                                    <td class="py-4 pr-6 text-slate-600">Фактор мощности</td>
-                                    <td class="py-4 font-semibold text-slate-900 md:text-right">0,8</td>
-                                </tr>
-
-                                <tr>
-                                    <th colspan="2"
-                                        class="text-left pt-10 pb-4 border-b border-slate-900/10 text-xs font-black uppercase tracking-[0.18em] text-accent">
-                                        Двигатель, газ, ресурс
-                                    </th>
-                                </tr>
-                                <tr class="border-b border-slate-900/10">
-                                    <td class="py-4 pr-6 text-slate-600">Двигатель (модель)</td>
-                                    <td class="py-4 font-semibold text-slate-900 break-words md:text-right">WEICHAI WP13D317E300NG</td>
-                                </tr>
-                                <tr class="border-b border-slate-900/10 bg-white/40">
-                                    <td class="py-4 pr-6 text-slate-600">Тип двигателя</td>
-                                    <td class="py-4 font-semibold text-slate-900 break-words md:text-right">Рядный, 4-тактный, электронное зажигание</td>
-                                </tr>
-                                <tr class="border-b border-slate-900/10">
-                                    <td class="py-4 pr-6 text-slate-600">Объем двигателя</td>
-                                    <td class="py-4 font-semibold text-slate-900 md:text-right">11,6 л</td>
-                                </tr>
-                                <tr class="border-b border-slate-900/10 bg-white/40">
-                                    <td class="py-4 pr-6 text-slate-600">Давление масла</td>
-                                    <td class="py-4 font-semibold text-slate-900 md:text-right">345–483 кПа</td>
-                                </tr>
-                                <tr class="border-b border-slate-900/10">
-                                    <td class="py-4 pr-6 text-slate-600">КПД ГПУ / электрический</td>
-                                    <td class="py-4 font-semibold text-slate-900 md:text-right">33% / 33%</td>
-                                </tr>
-                                <tr class="border-b border-slate-900/10 bg-white/40">
-                                    <td class="py-4 pr-6 text-slate-600">Суммарный КПД</td>
-                                    <td class="py-4 font-semibold text-slate-900 md:text-right">80%</td>
-                                </tr>
-                                <tr class="border-b border-slate-900/10">
-                                    <td class="py-4 pr-6 text-slate-600">Расход газа (100% нагрузка)</td>
-                                    <td class="py-4 font-semibold text-slate-900 md:text-right">57 м³/час</td>
-                                </tr>
-                                <tr class="border-b border-slate-900/10 bg-white/40">
-                                    <td class="py-4 pr-6 text-slate-600">Давление газа на вводе</td>
-                                    <td class="py-4 font-semibold text-slate-900 md:text-right">3–5 кПа</td>
-                                </tr>
-                                <tr class="border-b border-slate-900/10">
-                                    <td class="py-4 pr-6 text-slate-600">Точка ввода газа</td>
-                                    <td class="py-4 font-semibold text-slate-900 md:text-right">DN50</td>
-                                </tr>
-                                <tr class="border-b border-slate-900/10 bg-white/40">
-                                    <td class="py-4 pr-6 text-slate-600">Макс. температура выхлопа</td>
-                                    <td class="py-4 font-semibold text-slate-900 md:text-right">600℃ ± 25</td>
-                                </tr>
-                                <tr class="border-b border-slate-900/10">
-                                    <td class="py-4 pr-6 text-slate-600">Моторесурс</td>
-                                    <td class="py-4 font-semibold text-slate-900 md:text-right">36 000 часов</td>
-                                </tr>
-
-                                <tr>
-                                    <th colspan="2"
-                                        class="text-left pt-10 pb-4 border-b border-slate-900/10 text-xs font-black uppercase tracking-[0.18em] text-accent">
-                                        Габариты и масса
-                                    </th>
-                                </tr>
-                                <tr class="border-b border-slate-900/10">
-                                    <td class="py-4 pr-6 text-slate-600">Габариты на раме (Д×Ш×В)</td>
-                                    <td class="py-4 font-semibold text-slate-900 md:text-right">3650×1000×2240 мм</td>
-                                </tr>
-                                <tr class="border-b border-slate-900/10 bg-white/40">
-                                    <td class="py-4 pr-6 text-slate-600">Масса на раме</td>
-                                    <td class="py-4 font-semibold text-slate-900 md:text-right">2275 кг</td>
-                                </tr>
-                                <tr class="border-b border-slate-900/10">
-                                    <td class="py-4 pr-6 text-slate-600">Контейнер (Д×Ш×В)</td>
-                                    <td class="py-4 font-semibold text-slate-900 md:text-right">4000×2160×2210 мм</td>
-                                </tr>
-                                <tr class="border-b border-slate-900/10 bg-white/40">
-                                    <td class="py-4 pr-6 text-slate-600">Масса в контейнере</td>
-                                    <td class="py-4 font-semibold text-slate-900 md:text-right">4350 кг</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        <div class="spec-group">
+                            <div class="spec-group__title">Газ</div>
+                            <div class="spec-list">
+                                <div class="spec-row"><div class="spec-row__k">Расход газа (100% нагрузка)</div><div class="spec-row__v">57 м³/час</div></div>
+                                <div class="spec-row"><div class="spec-row__k">Давление газа на вводе</div><div class="spec-row__v">3–5 кПа</div></div>
+                                <div class="spec-row"><div class="spec-row__k">Точка ввода газа</div><div class="spec-row__v">DN50</div></div>
+                            </div>
+                        </div>
                     </div>
 
-                    <div class="mt-10 rounded-2xl bg-white/70 border border-slate-900/10 p-8">
-                        <div class="text-xs font-black uppercase tracking-[0.18em] text-accent mb-3">Гарантия и срок службы</div>
-                        <p class="text-slate-600 leading-relaxed">
-                            В коммерческих материалах указаны: гарантийный срок хранения 12 месяцев (до ввода в эксплуатацию),
-                            гарантийный срок эксплуатации 12 месяцев со дня ввода или 1500 моточасов (что наступит раньше),
-                            нормативный срок службы не менее 15 лет.
-                        </p>
-                        <p class="text-xs text-slate-500 mt-5 leading-relaxed">
-                            Для проекта с непрерывной нагрузкой важно заранее согласовать регламент ТО, запасные части на складе
-                            и формат мониторинга: это напрямую влияет на uptime и себестоимость кВт·ч.
-                        </p>
+                    <div>
+                        <div class="spec-group">
+                            <div class="spec-group__title">Двигатель и ресурс</div>
+                            <div class="spec-list">
+                                <div class="spec-row"><div class="spec-row__k">Двигатель (модель)</div><div class="spec-row__v">WEICHAI WP13D317E300NG</div></div>
+                                <div class="spec-row"><div class="spec-row__k">Тип двигателя</div><div class="spec-row__v">Рядный, 4-тактный, электронное зажигание</div></div>
+                                <div class="spec-row"><div class="spec-row__k">Объем двигателя</div><div class="spec-row__v">11,6 л</div></div>
+                                <div class="spec-row"><div class="spec-row__k">Давление масла</div><div class="spec-row__v">345–483 кПа</div></div>
+                                <div class="spec-row"><div class="spec-row__k">КПД ГПУ / электрический</div><div class="spec-row__v">33% / 33%</div></div>
+                                <div class="spec-row"><div class="spec-row__k">Суммарный КПД</div><div class="spec-row__v">80%</div></div>
+                                <div class="spec-row"><div class="spec-row__k">Макс. температура выхлопа</div><div class="spec-row__v">600℃ ± 25</div></div>
+                                <div class="spec-row"><div class="spec-row__k">Моторесурс</div><div class="spec-row__v">36 000 часов</div></div>
+                            </div>
+                        </div>
+
+                        <div class="spec-group">
+                            <div class="spec-group__title">Габариты и масса</div>
+                            <div class="spec-list">
+                                <div class="spec-row"><div class="spec-row__k">Габариты на раме (Д×Ш×В)</div><div class="spec-row__v">3650×1000×2240 мм</div></div>
+                                <div class="spec-row"><div class="spec-row__k">Масса на раме</div><div class="spec-row__v">2275 кг</div></div>
+                                <div class="spec-row"><div class="spec-row__k">Контейнер (Д×Ш×В)</div><div class="spec-row__v">4000×2160×2210 мм</div></div>
+                                <div class="spec-row"><div class="spec-row__k">Масса в контейнере</div><div class="spec-row__v">4350 кг</div></div>
+                            </div>
+                        </div>
+
+                        <div class="spec-group">
+                            <div class="spec-group__title">Дополнительная информация</div>
+                            <div class="spec-list">
+                                <div class="spec-row"><div class="spec-row__k">Гарантия хранения</div><div class="spec-row__v">12 месяцев</div></div>
+                                <div class="spec-row"><div class="spec-row__k">Гарантия эксплуатации</div><div class="spec-row__v">12 месяцев или 1500 моточасов</div></div>
+                                <div class="spec-row"><div class="spec-row__k">Срок службы</div><div class="spec-row__v">не менее 15 лет</div></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </section>
+            </div>
 
             <!-- DESCRIPTION -->
-            <section class="mb-16" id="description">
-                <div class="max-w-4xl mb-10">
-                    <h2 class="text-3xl md:text-5xl font-black uppercase tracking-tight mb-3">Подробное описание</h2>
-                    <p class="text-slate-500 leading-relaxed">
-                        Эта ГПУ нужна тем, кому важны не «пиковые» киловатты на минуту, а предсказуемая, стабильная
-                        генерация на постоянной нагрузке. Именно поэтому в нашем исполнении ключевой показатель
-                        вынесен вперед: 210 кВт постоянной мощности при номинале 250 кВт.
-                    </p>
-                </div>
-
-                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                    <article class="glass-card p-10 lg:col-span-2">
-                        <h3 class="text-xl font-black uppercase tracking-tight mb-4">Для каких задач подходит</h3>
-                        <p class="text-slate-500 leading-relaxed">
-                            ГПУ 250/210 закрывает задачи энергоцентра на трубопроводном газе и проекты, где нагрузка
-                            держится в течение суток: промышленность, инженерные сети, распределенные площадки,
-                            автономные объекты, инфраструктурные узлы. Если нагрузка «не прощает» перепадов и требует
-                            стабильного качества, критична точность выдачи электроэнергии и предсказуемость поведения
-                            установки на длительной дистанции.
+            <div class="product-tabpanel" id="panel-description" role="tabpanel" tabindex="-1" aria-labelledby="tab-description" hidden>
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
+                    <div class="lg:col-span-7">
+                        <p class="text-slate-600 leading-relaxed">
+                            Эта ГПУ нужна тем, кому важны не «пиковые» киловатты на минуту, а предсказуемая, стабильная генерация на постоянной
+                            нагрузке. Именно поэтому в нашем исполнении ключевой показатель вынесен вперед: 210 кВт постоянной мощности при
+                            номинале 250 кВт.
                         </p>
-                        <p class="text-slate-500 leading-relaxed mt-6">
-                            По нашим материалам установка проектировалась именно под непрерывный режим 24/7/365: без
-                            перегрева и дерейта, с акцентом на систему охлаждения и защиту по температурным датчикам.
-                            Это уменьшает риск «срыва» проекта на жаре и снижает вероятность скрытых потерь мощности в
-                            эксплуатации.
+                        <p class="text-slate-600 leading-relaxed mt-5">
+                            ГПУ 250/210 закрывает задачи энергоцентра на трубопроводном газе и проекты, где нагрузка держится в течение суток:
+                            промышленность, инженерные сети, распределенные площадки, автономные объекты, инфраструктурные узлы.
                         </p>
-                    </article>
+                        <p class="text-slate-600 leading-relaxed mt-5">
+                            По материалам установка проектировалась под непрерывный режим 24/7/365: без перегрева и дерейта, с акцентом на систему
+                            охлаждения и защиту по температурным датчикам.
+                        </p>
+                    </div>
 
-                    <aside class="glass-card p-10">
-                        <div class="text-[11px] font-black uppercase tracking-[0.18em] text-accent mb-4">Что вы покупаете</div>
-                        <ul class="text-sm text-slate-500 leading-relaxed space-y-3">
-                            <li class="flex gap-3"><i class="fa-solid fa-check text-accent mt-1"></i><span><b>Силовой агрегат</b> на базе WEICHAI WP13 с настройками под постоянную нагрузку.</span></li>
-                            <li class="flex gap-3"><i class="fa-solid fa-check text-accent mt-1"></i><span><b>Альтернатор Element</b> с заявленным КПД 93% и решением под нагруженные ГПУ.</span></li>
-                            <li class="flex gap-3"><i class="fa-solid fa-check text-accent mt-1"></i><span><b>Контроллер SmartGen</b>, разработанный под генераторные установки.</span></li>
-                            <li class="flex gap-3"><i class="fa-solid fa-check text-accent mt-1"></i><span><b>Комплект доработок</b> базовой комплектации (охлаждение, привод, датчики), чтобы держать 210 кВт постоянно.</span></li>
+                    <div class="lg:col-span-5">
+                        <div class="text-[11px] font-black uppercase tracking-[0.18em] text-slate-500 mb-3">Что вы покупаете</div>
+                        <ul class="text-sm text-slate-600 leading-relaxed space-y-2 list-disc pl-5">
+                            <li><b class="text-slate-900">Силовой агрегат</b> на базе WEICHAI WP13 с настройками под постоянную нагрузку.</li>
+                            <li><b class="text-slate-900">Альтернатор Element</b> с заявленным КПД 93%.</li>
+                            <li><b class="text-slate-900">Контроллер SmartGen</b>, разработанный под генераторные установки.</li>
+                            <li><b class="text-slate-900">Комплект доработок</b> базовой комплектации под 210 кВт постоянно.</li>
                         </ul>
-                    </aside>
+                    </div>
                 </div>
-            </section>
+            </div>
 
             <!-- EXECUTION -->
-            <section class="mb-16" id="execution">
-                <div class="max-w-4xl mb-10">
-                    <h2 class="text-3xl md:text-5xl font-black uppercase tracking-tight mb-3">Варианты исполнения</h2>
-                    <p class="text-slate-500 leading-relaxed">
-                        Подбираем исполнение под условия площадки: помещение/улица, шум, логистика, сроки запуска и требования по обслуживанию.
-                    </p>
-                </div>
-
+            <div class="product-tabpanel" id="panel-execution" role="tabpanel" tabindex="-1" aria-labelledby="tab-execution" hidden>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    <article class="bg-white border border-slate-900/10 rounded-3xl p-8">
-                        <div class="w-12 h-12 rounded-2xl bg-accent/10 text-accent flex items-center justify-center">
-                            <i class="fa-solid fa-bolt"></i>
-                        </div>
-                        <h3 class="mt-5 text-lg font-black uppercase tracking-tight text-slate-900">Открытое</h3>
-                        <ul class="mt-4 text-sm text-slate-600 space-y-2">
+                    <article class="bg-white border border-slate-900/10 rounded-2xl p-8">
+                        <h3 class="text-lg font-black uppercase tracking-tight text-slate-900">Открытое</h3>
+                        <ul class="mt-4 text-sm text-slate-600 space-y-2 list-disc pl-5">
                             <li>Для размещения в помещении или под навесом.</li>
                             <li>Проще доступ к сервису и обслуживанию.</li>
                             <li>Оптимально, если инфраструктура уже готова.</li>
                         </ul>
                     </article>
 
-                    <article class="bg-white border border-slate-900/10 rounded-3xl p-8">
-                        <div class="w-12 h-12 rounded-2xl bg-accent/10 text-accent flex items-center justify-center">
-                            <i class="fa-solid fa-volume-low"></i>
-                        </div>
-                        <h3 class="mt-5 text-lg font-black uppercase tracking-tight text-slate-900">В кожухе</h3>
-                        <ul class="mt-4 text-sm text-slate-600 space-y-2">
+                    <article class="bg-white border border-slate-900/10 rounded-2xl p-8">
+                        <h3 class="text-lg font-black uppercase tracking-tight text-slate-900">В кожухе</h3>
+                        <ul class="mt-4 text-sm text-slate-600 space-y-2 list-disc pl-5">
                             <li>Шумозащитный кожух и защита от внешней среды.</li>
                             <li>Подходит для площадок рядом с персоналом/объектами.</li>
                             <li>Компромисс по срокам и “готовности”.</li>
                         </ul>
                     </article>
 
-                    <article class="bg-white border border-slate-900/10 rounded-3xl p-8">
-                        <div class="w-12 h-12 rounded-2xl bg-accent/10 text-accent flex items-center justify-center">
-                            <i class="fa-solid fa-box"></i>
-                        </div>
-                        <h3 class="mt-5 text-lg font-black uppercase tracking-tight text-slate-900">В контейнере</h3>
-                        <ul class="mt-4 text-sm text-slate-600 space-y-2">
+                    <article class="bg-white border border-slate-900/10 rounded-2xl p-8">
+                        <h3 class="text-lg font-black uppercase tracking-tight text-slate-900">В контейнере</h3>
+                        <ul class="mt-4 text-sm text-slate-600 space-y-2 list-disc pl-5">
                             <li>Максимальная готовность к установке “на улице”.</li>
                             <li>Удобно для быстрой логистики и монтажа.</li>
                             <li>Проще обеспечить режим эксплуатации и безопасность.</li>
                         </ul>
                     </article>
                 </div>
-            </section>
+            </div>
 
             <!-- OPTIONS -->
-            <section class="mb-16" id="options">
-                <div class="max-w-4xl mb-10">
-                    <h2 class="text-3xl md:text-5xl font-black uppercase tracking-tight mb-3">Дополнительные опции</h2>
-                    <p class="text-slate-500 leading-relaxed">
-                        Опции выбираются под задачу: климат, режим (остров/параллель), требования по шуму, диспетчеризация и состав нагрузки.
-                    </p>
-                </div>
+            <div class="product-tabpanel" id="panel-options" role="tabpanel" tabindex="-1" aria-labelledby="tab-options" hidden>
+                <ul class="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm text-slate-600 leading-relaxed list-disc pl-5">
+                    <li>Интеркулер / доработка охлаждения под жаркий климат.</li>
+                    <li>Утилизация тепла (СУТ) для повышения общей эффективности.</li>
+                    <li>АВР, распределение нагрузки, шкафы управления/силовая часть.</li>
+                    <li>Удаленный мониторинг и диспетчеризация 24/7.</li>
+                    <li>Шумозащитные решения под нормативы площадки.</li>
+                    <li>Газовая обвязка/фильтрация под качество газа и давление.</li>
+                </ul>
+            </div>
 
-                <div class="bg-white border border-slate-900/10 rounded-3xl p-10">
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm text-slate-600">
-                        <div class="flex gap-3">
-                            <i class="fa-solid fa-check text-accent mt-1"></i>
-                            <span>Интеркулер / доработка охлаждения под жаркий климат.</span>
-                        </div>
-                        <div class="flex gap-3">
-                            <i class="fa-solid fa-check text-accent mt-1"></i>
-                            <span>Утилизация тепла (СУТ) для повышения общей эффективности.</span>
-                        </div>
-                        <div class="flex gap-3">
-                            <i class="fa-solid fa-check text-accent mt-1"></i>
-                            <span>АВР, распределение нагрузки, шкафы управления/силовая часть.</span>
-                        </div>
-                        <div class="flex gap-3">
-                            <i class="fa-solid fa-check text-accent mt-1"></i>
-                            <span>Удаленный мониторинг и диспетчеризация 24/7.</span>
-                        </div>
-                        <div class="flex gap-3">
-                            <i class="fa-solid fa-check text-accent mt-1"></i>
-                            <span>Шумозащитные решения под нормативы площадки.</span>
-                        </div>
-                        <div class="flex gap-3">
-                            <i class="fa-solid fa-check text-accent mt-1"></i>
-                            <span>Газовая обвязка/фильтрация под качество газа и давление.</span>
-                        </div>
                     </div>
-                </div>
-            </section>
-
-            <!-- DOCS -->
-            <section class="mb-16" id="docs">
-                <div class="max-w-4xl mb-10">
-                    <h2 class="text-3xl md:text-5xl font-black uppercase tracking-tight mb-3">Документы</h2>
-                    <p class="text-slate-500 leading-relaxed">
-                        Пришлем комплект документов под проект: спецификацию, габаритные чертежи, схемы подключения и коммерческие материалы.
-                    </p>
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div class="bg-white border border-slate-900/10 rounded-3xl p-10">
-                        <div class="text-xs font-black uppercase tracking-[0.18em] text-accent mb-5">По запросу</div>
-                        <ul class="space-y-3 text-sm text-slate-600">
-                            <li class="flex gap-3"><i class="fa-solid fa-file-pdf text-accent mt-1"></i><span>Техническое описание и спецификация.</span></li>
-                            <li class="flex gap-3"><i class="fa-solid fa-file-lines text-accent mt-1"></i><span>Габаритный чертеж / компоновка.</span></li>
-                            <li class="flex gap-3"><i class="fa-solid fa-diagram-project text-accent mt-1"></i><span>Схемы подключения и интерфейсы.</span></li>
-                            <li class="flex gap-3"><i class="fa-solid fa-shield text-accent mt-1"></i><span>Сертификаты/декларации (при наличии для комплектации).</span></li>
-                        </ul>
-                        <a class="btn-primary inline-flex mt-8 px-8 py-4 rounded-2xl text-white font-black uppercase tracking-widest text-xs"
-                            href="#contacts">Запросить документы</a>
-                    </div>
-
-                    <div class="bg-white border border-slate-900/10 rounded-3xl p-10">
-                        <div class="text-xs font-black uppercase tracking-[0.18em] text-accent mb-5">Что нужно от вас</div>
-                        <ul class="space-y-3 text-sm text-slate-600">
-                            <li class="flex gap-3"><i class="fa-solid fa-circle-info text-accent mt-1"></i><span>Тип газа, давление, качество.</span></li>
-                            <li class="flex gap-3"><i class="fa-solid fa-gauge-high text-accent mt-1"></i><span>Режим работы: остров/параллель, профиль нагрузки.</span></li>
-                            <li class="flex gap-3"><i class="fa-solid fa-temperature-half text-accent mt-1"></i><span>Климат и ограничения по шуму.</span></li>
-                            <li class="flex gap-3"><i class="fa-solid fa-location-dot text-accent mt-1"></i><span>Место установки и логистика (подъезды/краны).</span></li>
-                        </ul>
-                        <p class="mt-6 text-xs text-slate-500 leading-relaxed">
-                            Это позволяет дать точную спецификацию и избежать “сюрпризов” на монтаже.
-                        </p>
-                    </div>
-                </div>
-            </section>
-
-            <!-- DELIVERY -->
-            <section class="mb-16" id="delivery">
-                <div class="max-w-4xl mb-10">
-                    <h2 class="text-3xl md:text-5xl font-black uppercase tracking-tight mb-3">Получение</h2>
-                    <p class="text-slate-500 leading-relaxed">
-                        Типовой путь от запроса до запуска. Сроки зависят от исполнения, опций и готовности площадки.
-                    </p>
-                </div>
-
-                <div class="bg-white border border-slate-900/10 rounded-3xl p-10">
-                    <ol class="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm text-slate-600">
-                        <li class="flex gap-4">
-                            <div class="w-9 h-9 rounded-2xl bg-accent/10 text-accent flex items-center justify-center font-black">1</div>
-                            <div><b class="text-slate-900">Запрос</b><br />Коротко фиксируем газ, режим, климат, шум.</div>
-                        </li>
-                        <li class="flex gap-4">
-                            <div class="w-9 h-9 rounded-2xl bg-accent/10 text-accent flex items-center justify-center font-black">2</div>
-                            <div><b class="text-slate-900">ТКП</b><br />Комплектация, сроки, условия поставки.</div>
-                        </li>
-                        <li class="flex gap-4">
-                            <div class="w-9 h-9 rounded-2xl bg-accent/10 text-accent flex items-center justify-center font-black">3</div>
-                            <div><b class="text-slate-900">Договор</b><br />Фиксация параметров и графика.</div>
-                        </li>
-                        <li class="flex gap-4">
-                            <div class="w-9 h-9 rounded-2xl bg-accent/10 text-accent flex items-center justify-center font-black">4</div>
-                            <div><b class="text-slate-900">Производство</b><br />Сборка и тестирование.</div>
-                        </li>
-                        <li class="flex gap-4">
-                            <div class="w-9 h-9 rounded-2xl bg-accent/10 text-accent flex items-center justify-center font-black">5</div>
-                            <div><b class="text-slate-900">Доставка</b><br />Логистика на площадку.</div>
-                        </li>
-                        <li class="flex gap-4">
-                            <div class="w-9 h-9 rounded-2xl bg-accent/10 text-accent flex items-center justify-center font-black">6</div>
-                            <div><b class="text-slate-900">Монтаж и ПНР</b><br />Подключение, запуск, обучение.</div>
-                        </li>
-                    </ol>
                 </div>
             </section>
 
@@ -1052,65 +900,68 @@
 
     <script>
         (function () {
-            const tabs = Array.from(document.querySelectorAll('.product-tab'));
+            const tabs = Array.from(document.querySelectorAll('button.product-tab[data-tab]'));
             if (tabs.length === 0) return;
 
-            const tabById = new Map();
-            const sections = [];
+            const panels = {
+                specs: document.getElementById('panel-specs'),
+                description: document.getElementById('panel-description'),
+                execution: document.getElementById('panel-execution'),
+                options: document.getElementById('panel-options'),
+            };
 
-            tabs.forEach((a) => {
-                const href = a.getAttribute('href') || '';
-                if (!href.startsWith('#')) return;
-                const id = href.slice(1);
-                const el = document.getElementById(id);
-                if (!el) return;
-                tabById.set(id, a);
-                sections.push(el);
-            });
+            function activate(name, focusPanel) {
+                if (!panels[name]) name = tabs[0].dataset.tab;
 
-            if (sections.length === 0) return;
+                tabs.forEach((t) => {
+                    const on = t.dataset.tab === name;
+                    t.classList.toggle('is-active', on);
+                    t.setAttribute('aria-selected', on ? 'true' : 'false');
+                    t.tabIndex = on ? 0 : -1;
+                });
 
-            function setActive(id) {
-                tabs.forEach((t) => t.classList.remove('is-active'));
-                const el = tabById.get(id);
-                if (!el) return;
-                el.classList.add('is-active');
-                // Keep active tab visible in the horizontal scroller.
-                try {
-                    el.scrollIntoView({ block: 'nearest', inline: 'center' });
-                } catch (_) {
-                    /* no-op */
+                Object.keys(panels).forEach((k) => {
+                    const el = panels[k];
+                    if (!el) return;
+                    el.hidden = k !== name;
+                });
+
+                // Keep active tab visible in the horizontal scroller (horizontal-only, no page jump).
+                const active = tabs.find((t) => t.dataset.tab === name);
+                const scroller = active ? active.closest('.product-tabs__scroller') : null;
+                if (active && scroller) {
+                    const r = active.getBoundingClientRect();
+                    const sr = scroller.getBoundingClientRect();
+                    const targetLeft = scroller.scrollLeft + (r.left - sr.left) - (sr.width - r.width) / 2;
+                    scroller.scrollTo({ left: Math.max(0, targetLeft), behavior: 'smooth' });
                 }
+
+                if (focusPanel && panels[name]) panels[name].focus({ preventScroll: true });
             }
 
-            // Update active tab based on scroll position.
-            let ticking = false;
-            function onScroll() {
-                if (ticking) return;
-                ticking = true;
-                window.requestAnimationFrame(() => {
-                    ticking = false;
-                    const y = window.scrollY + 160; // header + tabs offset
-                    let current = sections[0];
-                    for (const s of sections) {
-                        if (s.offsetTop <= y) current = s;
-                        else break;
-                    }
-                    setActive(current.id);
-                });
-            }
+            tabs.forEach((btn) => {
+                btn.addEventListener('click', () => activate(btn.dataset.tab, false));
+                btn.addEventListener('keydown', (e) => {
+                    const k = e && e.key ? String(e.key) : '';
+                    if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(k)) return;
+                    e.preventDefault();
 
-            window.addEventListener('scroll', onScroll, { passive: true });
-            window.addEventListener('resize', onScroll);
-            onScroll();
+                    const i = tabs.indexOf(btn);
+                    if (i < 0) return;
 
-            // Improve anchor behavior: activate immediately on click.
-            tabs.forEach((a) => {
-                a.addEventListener('click', () => {
-                    const href = a.getAttribute('href') || '';
-                    if (href.startsWith('#')) setActive(href.slice(1));
+                    let next = i;
+                    if (k === 'ArrowLeft') next = (i - 1 + tabs.length) % tabs.length;
+                    if (k === 'ArrowRight') next = (i + 1) % tabs.length;
+                    if (k === 'Home') next = 0;
+                    if (k === 'End') next = tabs.length - 1;
+
+                    tabs[next].focus();
                 });
             });
+
+            // Initial state: keep whatever is marked active in HTML.
+            const initial = (tabs.find((t) => t.classList.contains('is-active')) || tabs[0]).dataset.tab;
+            activate(initial, false);
         })();
     </script>
 
