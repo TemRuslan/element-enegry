@@ -97,7 +97,7 @@ window.projects = [
     "status": "realized",
     "priority": 80,
     "title": "Энергоцентр для майнинга 1,2 МВт",
-    "year": 2014,
+    "year": 2025,
     "industry": "Майнинг",
     "region": "Республика Марий Эл",
     "power": "1,2 МВт",

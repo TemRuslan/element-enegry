@@ -37,7 +37,7 @@
 
   const renderProject = (project) => {
     const section = document.createElement('section');
-    section.className = 'project-section mb-16 last:mb-0';
+    section.className = 'project-section py-12';
     section.setAttribute('data-slug', project.slug);
 
     const chips = [
@@ -157,13 +157,33 @@
   const sentinel = document.createElement('div');
   sentinel.className = 'project-sentinel h-10';
 
+  let renderedCount = 0;
+
+  const renderDivider = () => {
+    const divider = document.createElement('div');
+    divider.className = 'project-divider py-14';
+    divider.innerHTML = `
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="h-px bg-slate-900/10"></div>
+      </div>
+    `;
+    return divider;
+  };
+
   const appendNext = () => {
     if (projects.length === 0) return;
     if (nextIndex >= projects.length) nextIndex = 0; // loop like blog
     const section = renderProject(projects[nextIndex]);
+
+    // Add a centered divider between projects (in the middle of the vertical gap).
+    if (renderedCount > 0) {
+      stream.insertBefore(renderDivider(), sentinel);
+    }
+
     stream.insertBefore(section, sentinel);
     observeSection(section);
     nextIndex += 1;
+    renderedCount += 1;
   };
 
   const sentinelObserver = new IntersectionObserver(
@@ -186,4 +206,3 @@
   const first = projects[startIndex] || projects[0];
   if (first) updateUrl(first);
 })();
-

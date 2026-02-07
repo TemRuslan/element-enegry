@@ -46,6 +46,13 @@
             <div class="max-w-7xl mx-auto px-6 w-full">
                 <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
                     <div class="lg:col-span-6">
+                        <ol class="flex flex-wrap items-center gap-2 text-[11px] font-black uppercase tracking-[0.22em] text-slate-500 mb-6"
+                            aria-label="breadcrumbs">
+                            <li><a href="index.html" class="hover:text-accent transition">Главная</a></li>
+                            <li aria-hidden="true" class="text-slate-400">/</li>
+                            <li>Проекты</li>
+                        </ol>
+
                         <h1 class="text-5xl md:text-7xl font-black mb-6 leading-[1.02] uppercase tracking-tighter">
                             Проекты
                         </h1>
@@ -253,33 +260,39 @@
                     card.appendChild(media);
                 }
 
-                if (item.year) {
+                // Year (left) + region (right), aligned on one line.
+                if (item.year || item.region) {
+                    const metaRow = document.createElement('div');
+                    metaRow.className = 'flex items-baseline justify-between gap-4';
+
                     const year = document.createElement('div');
                     year.className = 'text-[11px] font-black uppercase tracking-[0.22em] text-slate-500';
-                    year.textContent = safeText(item.year);
-                    card.appendChild(year);
+                    year.textContent = item.year ? safeText(item.year) : '';
+                    metaRow.appendChild(year);
+
+                    const region = document.createElement('div');
+                    region.className = 'text-[11px] font-black uppercase tracking-[0.22em] text-slate-500 text-right break-anywhere';
+                    region.textContent = item.region ? safeText(item.region) : '';
+                    metaRow.appendChild(region);
+
+                    card.appendChild(metaRow);
                 }
 
                 const customerText = safeText(item.customer || '');
                 if (customerText) {
                     const customer = document.createElement('div');
-                    customer.className = (item.year ? 'mt-3 ' : '') + 'text-lg font-black uppercase tracking-tight text-slate-900 break-anywhere';
+                    customer.className = ((item.year || item.region) ? 'mt-3 ' : '') + 'text-lg font-black uppercase tracking-tight text-slate-900 break-anywhere';
                     customer.textContent = customerText;
                     card.appendChild(customer);
                 }
 
                 const title = document.createElement('div');
                 title.className =
-                    ((item.year || customerText) ? 'mt-2 ' : '') +
+                    (((item.year || item.region) || customerText) ? 'mt-2 ' : '') +
                     (customerText ? 'text-sm font-black uppercase tracking-tight text-slate-700 ' : 'text-lg font-black uppercase tracking-tight text-slate-900 ') +
                     'break-anywhere';
                 title.textContent = safeText(item.title || 'Проект');
                 card.appendChild(title);
-
-                const region = document.createElement('div');
-                region.className = 'mt-2 text-sm text-slate-600 leading-relaxed break-anywhere';
-                region.textContent = safeText(item.region || '');
-                if (region.textContent) card.appendChild(region);
 
                 const description = document.createElement('div');
                 description.className = 'mt-4 text-sm text-slate-600 leading-relaxed break-anywhere';
