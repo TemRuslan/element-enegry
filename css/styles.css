@@ -11,6 +11,9 @@
     --glass-strong: rgba(255, 255, 255, 0.88);
     --glass-border: rgba(15, 23, 42, 0.08);
     --glass-shadow: 0 18px 40px rgba(15, 23, 42, 0.10);
+
+    /* Header background alpha (scroll-driven by js/script.js). */
+    --nav-bg-alpha: 1;
 }
 
 body {
@@ -94,23 +97,17 @@ section {
 
 /* Навигация */
 .nav-container {
-    /* Default: stays at the top but keeps its space in the layout (no overlap). */
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    padding: 0;
-}
-
-.nav-container.is-fixed {
-    /* On scroll: take the header out of the flow so it overlays content. */
+    /* Always overlay the page (no layout shift when scrolling). */
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
+    z-index: 1000;
+    padding: 0;
 }
 
 .glass-nav {
-    background: var(--glass);
+    background: rgba(255, 255, 255, var(--nav-bg-alpha));
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     position: relative;
@@ -120,6 +117,7 @@ section {
     width: 100%;
     max-width: none;
     box-shadow: 0 16px 40px rgba(15, 23, 42, 0.08);
+    transition: background-color 80ms linear;
 }
 
 .nav-inner {
@@ -333,6 +331,40 @@ section {
 
 .glass-card.metric-card:hover {
     box-shadow: 0 16px 36px rgba(14, 165, 233, 0.08);
+}
+
+/* Projects page: make all cards hover like the metric cards in the hero. */
+.projects-page .glass-card {
+    box-shadow: 0 10px 24px rgba(15, 23, 42, 0.06);
+    /* +25% vs the halved radius (12px -> 15px) for Projects page. */
+    border-radius: 15px;
+}
+
+.projects-page .glass-card:hover {
+    /* Half-strength hover for Projects page: smaller lift + softer color shift. */
+    transform: translateY(-2.5px);
+    border-color: rgba(14, 165, 233, 0.18);
+    background: rgba(255, 255, 255, 0.82);
+    box-shadow: 0 16px 34px rgba(14, 165, 233, 0.075);
+}
+
+/* Projects page: make the hero media match the card radius; icons stay a bit sharper. */
+.projects-page .projects-media {
+    border-radius: 15px;
+}
+
+.projects-page .projects-adv-icon {
+    border-radius: 10px;
+}
+
+/* Projects page: full-bleed project card images (top corners rounded only). */
+.projects-page .projects-card-media {
+    /* p-10 = 2.5rem = 40px: cancel card padding so the image spans the full width */
+    margin: -40px -40px 24px -40px;
+    border-top-left-radius: 15px;  /* match projects-page card radius */
+    border-top-right-radius: 15px;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
 }
 
 /* Contacts page */

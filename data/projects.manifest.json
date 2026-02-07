@@ -1,0 +1,89 @@
+{
+  "version": 1,
+  "items": [
+    {
+      "slug": "projects-mining-energycenter-20mw",
+      "page": "projects-mining-energycenter-20mw.html"
+    },
+    {
+      "slug": "projects-mining-energycenter-1-2mw",
+      "page": "projects-mining-energycenter-1-2mw.html"
+    },
+    {
+      "slug": "projects-fast-mine-5mw",
+      "page": "projects-fast-mine-5mw.html"
+    },
+    {
+      "slug": "projects-saratov-energycenter-7mw",
+      "page": "projects-saratov-energycenter-7mw.html"
+    },
+    {
+      "slug": "projects-mining-site-3mw",
+      "page": "projects-mining-site-3mw.html"
+    },
+    {
+      "slug": "projects-case-2025-12gpus-250kw",
+      "page": "projects-case-2025-12gpus-250kw.html"
+    },
+    {
+      "slug": "projects-case-2025-10gpus-250kw-ut-heat",
+      "page": "projects-case-2025-10gpus-250kw-ut-heat.html"
+    },
+    {
+      "slug": "projects-case-2024-7gpus-250kw-ut-heat",
+      "page": "projects-case-2024-7gpus-250kw-ut-heat.html"
+    },
+    {
+      "slug": "projects-case-2024-2x400kw-2x250kw-ut-heat",
+      "page": "projects-case-2024-2x400kw-2x250kw-ut-heat.html"
+    },
+    {
+      "slug": "projects-case-2025-6gpus-250kw",
+      "page": "projects-case-2025-6gpus-250kw.html"
+    },
+    {
+      "slug": "projects-case-2025-6gpus-250kw-kirov",
+      "page": "projects-case-2025-6gpus-250kw-kirov.html"
+    },
+    {
+      "slug": "projects-case-2024-5gpus-180kw-container",
+      "page": "projects-case-2024-5gpus-180kw-container.html"
+    },
+    {
+      "slug": "projects-case-2025-2gpus-250kw-parallel",
+      "page": "projects-case-2025-2gpus-250kw-parallel.html"
+    },
+    {
+      "slug": "projects-case-2025-5gpus-250kw",
+      "page": "projects-case-2025-5gpus-250kw.html"
+    },
+    {
+      "slug": "projects-case-2025-2gpus-250kw-heat-recovery-parallel",
+      "page": "projects-case-2025-2gpus-250kw-heat-recovery-parallel.html"
+    },
+    {
+      "slug": "projects-case-2024-2gpus-180kw",
+      "page": "projects-case-2024-2gpus-180kw.html"
+    },
+    {
+      "slug": "projects-case-2024-4gpus-180kw",
+      "page": "projects-case-2024-4gpus-180kw.html"
+    },
+    {
+      "slug": "projects-case-2025-1gpu-250kw-container",
+      "page": "projects-case-2025-1gpu-250kw-container.html"
+    },
+    {
+      "slug": "projects-case-2025-1gpu-250kw-container-chelyabinsk",
+      "page": "projects-case-2025-1gpu-250kw-container-chelyabinsk.html"
+    },
+    {
+      "slug": "projects-case-2024-2gpus-180kw-container-chelyabinsk",
+      "page": "projects-case-2024-2gpus-180kw-container-chelyabinsk.html"
+    },
+    {
+      "slug": "projects-case-2025-1gpu-250kw",
+      "page": "projects-case-2025-1gpu-250kw.html"
+    }
+  ]
+}

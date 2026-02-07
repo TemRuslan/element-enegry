@@ -229,16 +229,43 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('footer-placeholder').innerHTML = footerHTML;
 
     // Header behavior:
-    // - At the top: header is `position: sticky` and does NOT overlap content.
-    // - On scroll: add `.is-fixed` to make it `position: fixed`, so it overlays content.
+    // - Header is always overlay (position: fixed) to avoid layout shift on scroll.
+    // - Background alpha fades in smoothly during the first N pixels of scroll.
     const nav = document.querySelector('.nav-container');
     if (nav) {
-        const onScroll = () => {
-            if (window.scrollY > 0) nav.classList.add('is-fixed');
-            else nav.classList.remove('is-fixed');
+        const FADE_PX = 160;
+        const ALPHA_TOP = 1.0;
+        const ALPHA_END = 0.72;
+
+        const clamp01 = (x) => {
+            if (x < 0) return 0;
+            if (x > 1) return 1;
+            return x;
         };
-        onScroll();
-        window.addEventListener('scroll', onScroll, { passive: true });
+
+        let raf = 0;
+        let lastAlpha = null; // string, rounded (to skip redundant style updates)
+
+        const applyAlpha = () => {
+            raf = 0;
+            const y = window.scrollY || 0;
+            const t = clamp01(y / FADE_PX);
+            const alpha = ALPHA_TOP + (ALPHA_END - ALPHA_TOP) * t;
+            const a = alpha.toFixed(3);
+            if (a === lastAlpha) return;
+            lastAlpha = a;
+            document.documentElement.style.setProperty('--nav-bg-alpha', a);
+        };
+
+        const schedule = () => {
+            if (raf) return;
+            raf = window.requestAnimationFrame(applyAlpha);
+        };
+
+        // Initial paint + scroll updates.
+        applyAlpha();
+        window.addEventListener('scroll', schedule, { passive: true });
+        window.addEventListener('resize', schedule, { passive: true });
     }
 
     // Запуск анимаций счетчиков

@@ -32,7 +32,7 @@
     <link rel="stylesheet" href="css/styles.css">
 </head>
 
-<body>
+<body class="projects-page">
     <!-- HEADER PLACEHOLDER -->
     <div id="header-placeholder"></div>
 
@@ -83,7 +83,7 @@
                             <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
                                 <div class="flex items-start gap-3">
                                     <div
-                                        class="shrink-0 w-10 h-10 rounded-2xl bg-accent/10 border border-accent/20 flex items-center justify-center text-accent">
+	                                        class="projects-adv-icon shrink-0 w-10 h-10 rounded-lg bg-accent/10 border border-accent/20 flex items-center justify-center text-accent">
                                         <i class="fa-solid fa-helmet-safety"></i>
                                     </div>
                                     <div>
@@ -97,7 +97,7 @@
                                 </div>
                                 <div class="flex items-start gap-3">
                                     <div
-                                        class="shrink-0 w-10 h-10 rounded-2xl bg-accent/10 border border-accent/20 flex items-center justify-center text-accent">
+	                                        class="projects-adv-icon shrink-0 w-10 h-10 rounded-lg bg-accent/10 border border-accent/20 flex items-center justify-center text-accent">
                                         <i class="fa-solid fa-gauge-high"></i>
                                     </div>
                                     <div>
@@ -111,7 +111,7 @@
                                 </div>
                                 <div class="flex items-start gap-3">
                                     <div
-                                        class="shrink-0 w-10 h-10 rounded-2xl bg-accent/10 border border-accent/20 flex items-center justify-center text-accent">
+	                                        class="projects-adv-icon shrink-0 w-10 h-10 rounded-lg bg-accent/10 border border-accent/20 flex items-center justify-center text-accent">
                                         <i class="fa-solid fa-diagram-project"></i>
                                     </div>
                                     <div>
@@ -125,7 +125,7 @@
                                 </div>
                                 <div class="flex items-start gap-3">
                                     <div
-                                        class="shrink-0 w-10 h-10 rounded-2xl bg-accent/10 border border-accent/20 flex items-center justify-center text-accent">
+	                                        class="projects-adv-icon shrink-0 w-10 h-10 rounded-lg bg-accent/10 border border-accent/20 flex items-center justify-center text-accent">
                                         <i class="fa-solid fa-screwdriver-wrench"></i>
                                     </div>
                                     <div>
@@ -143,7 +143,7 @@
 
 	                    <div class="lg:col-span-6">
 	                        <div
-	                            class="relative overflow-hidden rounded-[32px] border border-slate-900/10 bg-white/40 backdrop-blur-md shadow-[0_28px_80px_rgba(15,23,42,0.10)]">
+		                            class="projects-media relative overflow-hidden border border-slate-900/10 bg-white/40 backdrop-blur-md shadow-[0_28px_80px_rgba(15,23,42,0.10)]">
 	                            <div class="aspect-square w-full">
 	                                <img src="assets/site-photos/projects/projects-hero.png" alt="Энергоцентр"
 	                                    class="absolute inset-0 w-full h-full object-cover">
@@ -212,292 +212,28 @@
     </div>
 
     <script>
-        // Render projects list as cards with a unified template.
-        document.addEventListener('DOMContentLoaded', function () {
+        // Render projects list from JSON (anonymized) and link to per-project pages.
+        document.addEventListener('DOMContentLoaded', async function () {
             const grid = document.getElementById('projects-grid');
             if (!grid) return;
 
-            // Manual cases (data to уточнить can be replaced later without changing the template).
-            const manualItems = [
-                {
-                    year: null,
-                    title: 'Энергоцентр для майнинга 20 МВт',
-                    customer: null,
-                    address: 'г. Йошкар-Ола',
-                    product: 'Крупнейший энергоцентр на газе в регионе. 80 ГПУ по 210 кВт. Поставка и ПНР.',
-                    sum: null,
-                    image: 'assets/site-photos/projects/cases/mining-20mw.jpeg',
-                },
-                {
-                    year: 2014,
-                    title: 'Энергоцентр для майнинга 1,2 МВт',
-                    customer: null,
-                    address: 'г. Йошкар-Ола',
-                    product: '3 ГПУ по 400 кВт в режиме параллельной работы подключены к майнинг контейнеру.',
-                    sum: null,
-                    image: 'assets/site-photos/projects/cases/mining-1-2mw.jpg',
-	                },
-                {
-                    year: 2025,
-                    title: 'Fast Mine Энергоцентр 5 МВт',
-                    customer: 'FAST MINE',
-                    address: 'г. Саратов',
-                    product: 'Частичная поставка, доработка клиентских ГПУ для месторождения, ПНР и обслуживание.',
-                    sum: null,
-                    image: 'assets/site-photos/projects/cases/fast-mine-5mw.jpg',
-                },
-                {
-                    year: 2025,
-                    title: 'Энергоцентр Саратов 7 МВт',
-                    customer: null,
-                    address: 'г. Саратов',
-                    product: 'Доработка клиентских ГПУ для месторождения, ПНР и обслуживание.',
-                    sum: null,
-                    image: 'assets/site-photos/projects/cases/saratov-7mw.jpg',
-                },
-                {
-                    year: 2025,
-                    title: 'Площадка для майнинга 3 МВт',
-                    customer: null,
-                    address: 'г. Йошкар-Ола',
-                    product: 'Подготовка площадки для размещения ГПУ, получение ТУ на газ и поставка ГПУ.',
-                    sum: null,
-                    image: 'assets/site-photos/projects/cases/mining-site-3mw.png',
-                },
-	            ];
+            const safeText = (v) => (v == null ? '' : String(v));
 
-            // PDF-derived list (includes years; displayed as a unified set of cards).
-            const pdfItems = [
-                {
-                    year: 2024,
-                    no: '1',
-                    customer: 'СТРОЙСОЮЗ',
-                    address: 'Республика Марий Эл, г. Йошкар-Ола',
-                    product: 'ГПУ-400 кВт/380В двигатель Weichai, генератор Leroy Somer на раме с системой утилизации тепла – 2 шт.; ГПУ-250 кВт/380В двигатель Weichai WP13, генератор Leroy Somer LSAC, SmartGen HGM9510NAIN32 на раме – 2 шт.',
-                    sum: '39 157 200,00 ₽',
-                    image: 'assets/site-photos/projects/cases/stroysoyuz.jpg',
-                },
-                {
-                    year: 2024,
-                    no: '2',
-                    customer: 'ООО «БАКСАН-АВТОЗАПЧАСТЬ»',
-                    address: '125464, г. Москва',
-                    product: 'ГПУ-180 двигатель Yuchai, генератор Leroy-Somer на раме, контроллер HGM6110 с системой утилизации тепла – 3 шт.',
-                    sum: '17 000 000,00 ₽',
-                },
-                {
-                    year: 2024,
-                    no: '3',
-                    customer: 'ООО «ДОРГРАНИТ-М»',
-                    address: '125464, г. Москва',
-                    product: 'ГПУ-180 двигатель Yuchai, генератор Leroy-Somer на раме, контроллер HGM6110 – 3 шт.',
-                    sum: '14 000 000,00 ₽',
-                },
-                {
-                    year: 2024,
-                    no: '4',
-                    customer: 'ООО «ДОРГРАНИТ-М»',
-                    address: '125464, г. Москва',
-                    product: 'ГПУ-250 кВт/380В двигатель Weichai WP13, генератор Leroy Somer LSAC, SmartGen HGM9510NAIN32 на раме с системой утилизации тепла – 7 шт.',
-                    sum: '47 000 000,00 ₽',
-                },
-                {
-                    year: 2024,
-                    no: '5',
-                    customer: 'ООО «ОСТЕК»',
-                    address: '309506, Белгородская область, г. Старый Оскол',
-                    product: 'ГПУ-250 кВт/380В двигатель Weichai WP13, генератор Leroy Somer LSAC, SmartGen HGM9510NAIN32 на раме с параллельной работой с сетью и системой утилизации тепла – 1 шт.',
-                    sum: '8 510 000,00 ₽',
-                },
-                {
-                    year: 2024,
-                    no: '6',
-                    customer: 'Панишев Юрий Григорьевич',
-                    address: '454048, Челябинская область, г. Челябинск',
-                    product: 'ГПУ-180 двигатель Yuchai, генератор Leroy-Somer на раме, контроллер HGM6110 в контейнере – 2 шт.',
-                    sum: '13 700 000,00 ₽',
-                    image: 'assets/site-photos/projects/cases/panishev.jpeg',
-                },
-	                {
-	                    year: 2024,
-	                    no: '7',
-	                    customer: 'ООО «Амбар Пласт»',
-	                    address: '192019, г. Санкт-Петербург',
-	                    product: 'ГПУ-180 двигатель Yuchai, генератор Leroy-Somer на раме, контроллер HGM9510N в контейнере с параллельной работой с сетью и системой утилизации тепла – 5 шт.',
-	                    sum: '39 430 000,00 ₽',
-	                    image: 'assets/site-photos/projects/cases/ambar-plast.jpg',
-	                },
-	                {
-	                    year: 2024,
-	                    no: '8',
-	                    customer: 'ООО «Гранд-СПб»',
-	                    address: '195298, г. Санкт-Петербург',
-	                    product: 'ГПУ-180 двигатель Yuchai, генератор Leroy-Somer на раме, контроллер HGM6110 – 2 шт.',
-	                    sum: '7 600 000,00 ₽',
-	                    image: 'assets/site-photos/projects/cases/grand-spb.png',
-	                },
-	                {
-	                    year: 2024,
-	                    no: '9',
-	                    customer: 'ООО «Гранд-СПб»',
-	                    address: '195298, г. Санкт-Петербург',
-	                    product: 'ГПУ-180 двигатель Yuchai, генератор Leroy-Somer на раме, контроллер HGM6110 – 4 шт.',
-	                    sum: '14 200 000,00 ₽',
-	                    image: 'assets/site-photos/projects/cases/grand-spb.png',
-	                },
-	                {
-	                    year: 2025,
-	                    no: '10',
-	                    customer: 'ООО «ЭКОГРУПП СПБ»',
-	                    address: '461637, Оренбургская область, г. Бугуруслан',
-	                    product: 'ГПУ-250 кВт/380В двигатель и генератор Weichai в кожухе – 5 шт.',
-	                    sum: '26 350 000,00 ₽',
-	                    image: 'assets/site-photos/projects/cases/ecogrupp-spb.jpg',
-	                },
-	                {
-	                    year: 2025,
-	                    no: '11',
-	                    customer: 'ООО «ЮГ-БЕТОН-СЕРВИС»',
-	                    address: '353562, Краснодарский край, м.р-н Славянский, г. Славянск-на-Кубани',
-	                    product: 'ГПУ-250 кВт/380В двигатель Weichai WP13, генератор Weichai, SmartGen HGM6110 на раме с модулем рекуперации тепла и параллельной работой с сетью – 2 шт.',
-	                    sum: '12 450 000,00 ₽',
-	                    image: 'assets/site-photos/projects/cases/yug-beton-servis.jpeg',
-	                },
-                {
-                    year: 2025,
-                    no: '13',
-                    customer: 'ООО «ПИОНЕРБИТ»',
-                    address: '410012, Саратовская область, г. Саратов',
-                    product: 'ГПУ-250 кВт/380В двигатель Weichai WP13, генератор Weichai, SmartGen HGM6110 на раме – 6 шт.',
-                    sum: '36 600 000,00 ₽',
-                },
-	                {
-	                    year: 2025,
-	                    no: '14',
-	                    customer: 'ООО «УралПромЭнерго»',
-	                    address: '454008, Челябинская область, г. Челябинск',
-	                    product: 'ГПУ-250 кВт/380В двигатель Weichai WP13, генератор Weichai, SmartGen HGM6110 в контейнере – 1 шт.',
-	                    sum: '6 500 000,00 ₽',
-	                    image: 'assets/site-photos/projects/cases/uralpromenergo.jpg',
-	                },
-                {
-                    year: 2025,
-                    no: '15',
-                    customer: 'ООО «Гранд-СПб»',
-                    address: '195298, г. Санкт-Петербург',
-                    product: 'ГПУ-250 кВт/380В двигатель Weichai WP13, генератор Weichai, SmartGen HGM6110 в контейнере – 1 шт.',
-                    sum: '6 800 000,00 ₽',
-                    image: 'assets/site-photos/projects/cases/grand-spb-container.png',
-                },
-                {
-                    year: 2025,
-                    no: '16',
-                    customer: 'ООО «НСК-ГРУПП»',
-                    address: '443091, Самарская область, г. Самара',
-                    product: 'ГПУ-250 кВт/380В двигатель Weichai WP13, генератор Leroy Somer LSAC, SmartGen HGM9510NAIN32 на раме с системой утилизации тепла – 10 шт.',
-                    sum: '68 200 000,00 ₽',
-                },
-                {
-                    year: 2025,
-                    no: '17',
-                    customer: 'ИП Загайнов Евгений Николаевич',
-                    address: '424006, Республика Марий Эл, г. Йошкар-Ола',
-                    product: 'ГПУ-250 кВт/380В двигатель Weichai WP13, генератор Weichai, SmartGen HGM6110 на раме – 4 шт.',
-                    sum: '24 800 000,00 ₽',
-                },
-                {
-                    year: 2025,
-                    no: '18',
-                    customer: 'ООО «СИТИГАЗ»',
-                    address: '141801, Московская область, г. Дмитров',
-                    product: 'ГПУ-250 кВт/380В двигатель Weichai WP13, генератор Weichai, SmartGen HGM6110 на раме – 4 шт.',
-                    sum: '24 851 000,00 ₽',
-                },
-	                {
-	                    year: 2025,
-	                    no: '19',
-	                    customer: 'ООО «ГУДЗОН»',
-	                    address: '603037, Нижегородская обл., г. Нижний Новгород',
-	                    product: 'ГПУ-250 кВт/380В двигатель Weichai WP13, генератор Weichai – 1 шт.',
-	                    sum: '5 000 000,00 ₽',
-	                    image: 'assets/site-photos/projects/cases/gudzon.jpg',
-	                },
-                {
-                    year: 2025,
-                    no: '20',
-                    customer: 'ИП Носков Дмитрий Николаевич',
-                    address: '610002, Кировская область, г. Киров',
-                    product: 'ГПУ-250 кВт/380В двигатель Weichai WP13, генератор Weichai, SmartGen HGM6110 на раме – 6 шт.',
-                    sum: '38 144 000,00 ₽',
-                    image: 'assets/site-photos/projects/cases/ip-noskov.jpg',
-                },
-	                {
-	                    year: 2025,
-	                    no: '21',
-	                    customer: 'ООО «Амбар Пласт»',
-	                    address: '192019, г. Санкт-Петербург',
-	                    product: 'ГПУ-250 кВт/380В двигатель Weichai WP13, генератор Weichai, SmartGen HGM6110 на раме с параллельной работой с сетью – 2 шт.',
-	                    sum: '13 500 000,00 ₽',
-	                    image: 'assets/site-photos/projects/cases/ambar-plast.jpg',
-	                },
-                {
-                    year: 2025,
-                    no: '22',
-                    customer: 'ООО «БИО-СФЕРА»',
-                    address: '141402, Московская область, г. Химки',
-                    product: 'ГПУ-250 кВт/380В двигатель Weichai WP13, генератор Leroy Somer LSAC, SmartGen HGM9510NAIN32 на раме с системой утилизации тепла и модулем параллельной работы с сетью – 12 шт.',
-                    sum: '85 000 000,00 ₽',
-                    image: 'assets/site-photos/projects/cases/bio-sfera.jpeg',
-                },
-            ];
+            const renderCard = (item) => {
+                const href = safeText(item.slug) ? `${safeText(item.slug)}.html` : 'projects.html';
 
-            const all = [...manualItems, ...pdfItems];
-
-            const parseRub = (value) => {
-                if (!value) return NaN;
-                // Keep digits and separators, drop currency symbols/spaces.
-                const cleaned = String(value)
-                    .replace(/\s+/g, '')
-                    .replace(/₽/g, '')
-                    .replace(/,/g, '.')
-                    .replace(/[^\d.]/g, '');
-                const n = Number(cleaned);
-                return Number.isFinite(n) ? n : NaN;
-            };
-
-            // Sort: projects with photos first; within that group, bigger sums first; items without sums go to the bottom.
-            all.sort((a, b) => {
-                const sa = parseRub(a.sum);
-                const sb = parseRub(b.sum);
-                const aHas = Number.isFinite(sa);
-                const bHas = Number.isFinite(sb);
-                const aImg = !!a.image;
-                const bImg = !!b.image;
-                if (aImg !== bImg) return aImg ? -1 : 1;
-
-                if (aHas && bHas) return sb - sa;
-                if (aHas && !bHas) return -1;
-                if (!aHas && bHas) return 1;
-
-                // Both without sums: keep a stable-ish order (manual cases last).
-                const aManual = !!a.title;
-                const bManual = !!b.title;
-                if (!aManual && bManual) return -1;
-                if (aManual && !bManual) return 1;
-                return 0;
-            });
-
-            for (const item of all) {
-                const card = document.createElement('article');
-                card.className = 'glass-card p-10 flex flex-col';
+                const card = document.createElement('a');
+                card.href = href;
+                card.className = 'glass-card p-10 flex flex-col no-underline';
+                card.setAttribute('aria-label', safeText(item.title || 'Проект'));
 
                 if (item.image) {
                     const media = document.createElement('div');
-                    media.className = 'relative overflow-hidden rounded-2xl border border-slate-900/10 bg-white/40';
+                    media.className = 'projects-card-media relative overflow-hidden bg-white/40';
 
                     const img = document.createElement('img');
                     img.src = item.image;
-                    img.alt = item.title || item.customer || 'Проект';
+                    img.alt = safeText(item.title || 'Проект');
                     img.loading = 'lazy';
                     img.className = 'w-full h-auto aspect-[16/10] object-cover';
 
@@ -505,49 +241,117 @@
                     card.appendChild(media);
                 }
 
-                const top = document.createElement('div');
-                top.className = 'mt-6';
+                const metaRow = document.createElement('div');
+                metaRow.className = 'flex flex-wrap items-center gap-2';
 
-                const left = document.createElement('div');
                 if (item.year) {
-                    const meta = document.createElement('div');
-                    meta.className = 'text-[11px] font-black uppercase tracking-[0.22em] text-slate-500';
-                    meta.textContent = String(item.year);
-                    left.appendChild(meta);
+                    const year = document.createElement('div');
+                    year.className = 'text-[11px] font-black uppercase tracking-[0.22em] text-slate-500';
+                    year.textContent = safeText(item.year);
+                    metaRow.appendChild(year);
                 }
 
-                const customer = document.createElement('div');
-                customer.className = (item.year ? 'mt-2 ' : '') + 'text-lg font-black uppercase tracking-tight text-slate-900 break-anywhere';
-                customer.textContent = item.customer || item.title || '';
+                const nda = document.createElement('div');
+                nda.className = 'text-[11px] font-black uppercase tracking-[0.18em] text-slate-500';
+                nda.textContent = safeText(item.ndaLabel || '');
+                if (nda.textContent) metaRow.appendChild(nda);
 
-                const address = document.createElement('div');
-                address.className = 'mt-2 text-sm text-slate-600 leading-relaxed break-anywhere';
-                address.textContent = item.address;
+                if (metaRow.childElementCount) card.appendChild(metaRow);
 
-                left.appendChild(customer);
-                left.appendChild(address);
+                const title = document.createElement('div');
+                title.className = (metaRow.childElementCount ? 'mt-3 ' : '') + 'text-lg font-black uppercase tracking-tight text-slate-900 break-anywhere';
+                title.textContent = safeText(item.title || 'Проект');
+                card.appendChild(title);
 
-                top.appendChild(left);
+                const region = document.createElement('div');
+                region.className = 'mt-2 text-sm text-slate-600 leading-relaxed break-anywhere';
+                region.textContent = safeText(item.region || '');
+                if (region.textContent) card.appendChild(region);
 
-                card.appendChild(top);
+                const details = document.createElement('div');
+                details.className = 'mt-6 pt-6 border-t border-slate-900/10';
 
-                const productWrap = document.createElement('div');
-                productWrap.className = 'mt-6 pt-6 border-t border-slate-900/10';
+                const paramsLabel = document.createElement('div');
+                paramsLabel.className = 'text-[11px] font-black uppercase tracking-[0.22em] text-slate-500';
+                paramsLabel.textContent = 'Параметры';
+                details.appendChild(paramsLabel);
 
-                const productLabel = document.createElement('div');
-                productLabel.className = 'text-[11px] font-black uppercase tracking-[0.22em] text-slate-500';
-                productLabel.textContent = 'Продукция';
+                const params = document.createElement('div');
+                params.className = 'mt-3 text-sm text-slate-600 leading-relaxed space-y-1';
+                const power = safeText(item.power);
+                const units = safeText(item.units);
+                const mode = safeText(item.mode);
+                const industry = safeText(item.industry);
 
-                const product = document.createElement('div');
-                product.className = 'mt-3 text-sm text-slate-600 leading-relaxed break-anywhere';
-                product.textContent = item.product;
+                if (power) {
+                    const line = document.createElement('div');
+                    line.innerHTML = `<span class="text-slate-500">Мощность:</span> ${power}`;
+                    params.appendChild(line);
+                }
+                if (units) {
+                    const line = document.createElement('div');
+                    line.innerHTML = `<span class="text-slate-500">Агрегаты:</span> ${units}`;
+                    params.appendChild(line);
+                }
+                if (mode) {
+                    const line = document.createElement('div');
+                    line.innerHTML = `<span class="text-slate-500">Режим:</span> ${mode}`;
+                    params.appendChild(line);
+                }
+                if (industry) {
+                    const line = document.createElement('div');
+                    line.innerHTML = `<span class="text-slate-500">Отрасль:</span> ${industry}`;
+                    params.appendChild(line);
+                }
+                details.appendChild(params);
 
-                productWrap.appendChild(productLabel);
-                productWrap.appendChild(product);
+                const scope = Array.isArray(item.scope) ? item.scope.filter(Boolean) : [];
+                if (scope.length) {
+                    const scopeLabel = document.createElement('div');
+                    scopeLabel.className = 'mt-6 text-[11px] font-black uppercase tracking-[0.22em] text-slate-500';
+                    scopeLabel.textContent = 'Состав работ';
+                    details.appendChild(scopeLabel);
 
-                card.appendChild(productWrap);
+                    const scopeText = document.createElement('div');
+                    scopeText.className = 'mt-3 text-sm text-slate-600 leading-relaxed break-anywhere';
+                    scopeText.textContent = scope.join(' · ');
+                    details.appendChild(scopeText);
+                }
 
-                grid.appendChild(card);
+                card.appendChild(details);
+                return card;
+            };
+
+            try {
+                const res = await fetch('data/projects.json', { cache: 'no-store' });
+                if (!res.ok) throw new Error('Failed to load projects.json');
+                const json = await res.json();
+                const items = Array.isArray(json) ? json : (Array.isArray(json.items) ? json.items : []);
+
+                const realized = items.filter((i) => (i && (i.status || 'realized') === 'realized'));
+                realized.sort((a, b) => {
+                    const ap = Number(a.priority || 0);
+                    const bp = Number(b.priority || 0);
+                    if (bp !== ap) return bp - ap;
+                    const ai = !!a.image;
+                    const bi = !!b.image;
+                    if (ai !== bi) return ai ? -1 : 1;
+                    const ay = Number(a.year || 0);
+                    const by = Number(b.year || 0);
+                    return by - ay;
+                });
+
+                for (const item of realized) grid.appendChild(renderCard(item));
+            } catch (e) {
+                grid.innerHTML = `
+                    <div class="glass-card p-10 md:col-span-2">
+                        <div class="text-[11px] font-black uppercase tracking-[0.22em] text-slate-500">Ошибка</div>
+                        <div class="mt-3 text-slate-600 leading-relaxed">
+                            Не удалось загрузить список проектов. Если вы открываете страницу локально (file://),
+                            запустите любой локальный сервер или откройте сайт по домену.
+                        </div>
+                    </div>
+                `;
             }
         });
     </script>
