@@ -30,10 +30,63 @@
     function normalizeName(name) {
         let s = String(name || '').trim();
         if (!s) return '';
-        s = s.replace(/^гпу\b/i, 'ГПУ');
+        s = s.replace(/^гпу(?=\s|$)/i, 'ГПУ');
         s = s.replace(/квт/gi, 'кВт');
         s = s.replace(/\s+/g, ' ');
         return s;
+    }
+
+    // Card titles are uppercase and relatively large, so long names can overflow/truncate visually.
+    // We keep the full title in the tooltip, but shorten the rendered title for readability.
+    function shortenTitleForCard(fullTitle) {
+        let t = String(fullTitle || '').trim();
+        if (!t) return '';
+        if (t.length <= 48) return t;
+
+        t = t.replace(/\s*\+\s*/g, ' + ');
+        t = t.replace(/\s*-\s*/g, ' - ');
+        t = t.replace(/\s*\|\s*/g, ' | ');
+
+        // Normalize some verbose phrases.
+        t = t.replace(/Система\s*Утилизации\s*Тепла\s*\(СУТ\)\s*100%/gi, 'СУТ 100%');
+        t = t.replace(/Система\s*Утилизации\s*Тепла\s*\(СУТ\)/gi, 'СУТ');
+        t = t.replace(/параллельная\s+работ[аa]т?\s+с\s+сетью/gi, 'параллель с сетью');
+
+        // "Модифицированный" variants.
+        t = t.replace(/модифицированный\s*\(МОД\)/gi, 'МОД');
+        t = t.replace(/мод\s*\(модифицированная\)/gi, 'МОД');
+        t = t.replace(/(^|\s)мод(?=\s|$)/gi, '$1МОД');
+
+        // Remove marketing wording, keep key options (pills already cover most options).
+        t = t.replace(/(^|\s)для\s+производственников(?=\s|$)/gi, '$1');
+        t = t.replace(/(^|\s)для\s+производства(?=\s|$)/gi, '$1');
+
+        // Container/placement wording.
+        t = t.replace(/для\s+размещения\s+в\s+контейнере/gi, '(контейнер)');
+        t = t.replace(/в\s+контейнере/gi, '(контейнер)');
+
+        // Common short forms.
+        t = t.replace(/майнинг\s+остров/gi, 'майнинг-остров');
+        t = t.replace(/для\s+водяных\s+асиков/gi, 'ASIC (вода)');
+        t = t.replace(/для\s+воздушных\s+асиков/gi, 'ASIC (воздух)');
+
+        // Cleanup spacing/punctuation.
+        t = t.replace(/\s+\+/g, ' +');
+        t = t.replace(/\+\s+/g, ' + ');
+        t = t.replace(/\s+/g, ' ').trim();
+        t = t.replace(/\s+\)/g, ')');
+        t = t.replace(/\(\s+/g, '(');
+        t = t.replace(/\s+,/g, ',');
+        t = t.replace(/,\s*\+/g, ' +');
+
+        // If still too long, compress separators a bit.
+        if (t.length > 64) {
+            t = t.replace(/\s*\|\s*/g, ' | ');
+            t = t.replace(/\s*-\s*/g, ' | ');
+            t = t.replace(/\s+/g, ' ').trim();
+        }
+
+        return t;
     }
 
     function uniq(arr) {
@@ -115,7 +168,8 @@
     }
 
     function renderCard(item) {
-        const title = normalizeName(item.display_name || item.matrix_name);
+        const fullTitle = normalizeName(item.display_name || item.matrix_name);
+        const title = shortenTitleForCard(fullTitle);
         const pills = getPills(item);
         const imgSrc = pickCardImage(item);
         const price = formatRub(item.price_rrc_rub);
@@ -146,7 +200,7 @@
             <article class="bg-white/75 backdrop-blur border border-slate-200/70 rounded-2xl overflow-hidden group hover:border-accent/50 transition-all duration-300 relative flex flex-col h-full shadow-[0_14px_30px_rgba(15,23,42,0.06)] hover:shadow-[0_20px_44px_rgba(15,23,42,0.08)]">
                 <!-- Image Section -->
                 <div class="h-56 relative overflow-hidden bg-slate-100 border-b border-slate-200/70">
-                    <img src="${imgSrc}" alt="${title}" loading="lazy" 
+                    <img src="${imgSrc}" alt="${fullTitle}" loading="lazy" 
                         class="w-full h-full object-cover transform group-hover:scale-[1.04] transition-transform duration-500">
                     
                     <!-- Floating Badge -->
@@ -161,8 +215,8 @@
 
                 <!-- Content Section -->
                 <div class="p-5 flex flex-col flex-grow relative z-20">
-                    <!-- Title (Truncated 1 line) -->
-                    <h3 class="text-lg font-black uppercase tracking-tight text-slate-900 leading-tight mb-4 truncate" title="${title}">
+                    <!-- Title (wraps fully; shortened if needed) -->
+                    <h3 class="text-[15px] md:text-base font-black uppercase tracking-tight text-slate-900 leading-snug mb-3 break-words" title="${fullTitle}">
                         ${title}
                     </h3>
                     
