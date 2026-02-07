@@ -202,7 +202,7 @@
                     </h2>
                 </div>
 
-                <div id="projects-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8"></div>
+                <div id="projects-grid" class="grid grid-cols-1 md:grid-cols-3 gap-8"></div>
 
             </section>
         </main>
@@ -241,25 +241,15 @@
                     card.appendChild(media);
                 }
 
-                const metaRow = document.createElement('div');
-                metaRow.className = 'flex flex-wrap items-center gap-2';
-
                 if (item.year) {
                     const year = document.createElement('div');
                     year.className = 'text-[11px] font-black uppercase tracking-[0.22em] text-slate-500';
                     year.textContent = safeText(item.year);
-                    metaRow.appendChild(year);
+                    card.appendChild(year);
                 }
 
-                const nda = document.createElement('div');
-                nda.className = 'text-[11px] font-black uppercase tracking-[0.18em] text-slate-500';
-                nda.textContent = safeText(item.ndaLabel || '');
-                if (nda.textContent) metaRow.appendChild(nda);
-
-                if (metaRow.childElementCount) card.appendChild(metaRow);
-
                 const title = document.createElement('div');
-                title.className = (metaRow.childElementCount ? 'mt-3 ' : '') + 'text-lg font-black uppercase tracking-tight text-slate-900 break-anywhere';
+                title.className = (item.year ? 'mt-3 ' : '') + 'text-lg font-black uppercase tracking-tight text-slate-900 break-anywhere';
                 title.textContent = safeText(item.title || 'Проект');
                 card.appendChild(title);
 
@@ -291,57 +281,7 @@
                     card.appendChild(sumRow);
                 }
 
-                const details = document.createElement('div');
-                details.className = 'mt-6 pt-6 border-t border-slate-900/10';
-
-                const paramsLabel = document.createElement('div');
-                paramsLabel.className = 'text-[11px] font-black uppercase tracking-[0.22em] text-slate-500';
-                paramsLabel.textContent = 'Параметры';
-                details.appendChild(paramsLabel);
-
-                const params = document.createElement('div');
-                params.className = 'mt-3 text-sm text-slate-600 leading-relaxed space-y-1';
-                const power = safeText(item.power);
-                const units = safeText(item.units);
-                const mode = safeText(item.mode);
-                const industry = safeText(item.industry);
-
-                if (power) {
-                    const line = document.createElement('div');
-                    line.innerHTML = `<span class="text-slate-500">Мощность:</span> ${power}`;
-                    params.appendChild(line);
-                }
-                if (units) {
-                    const line = document.createElement('div');
-                    line.innerHTML = `<span class="text-slate-500">Агрегаты:</span> ${units}`;
-                    params.appendChild(line);
-                }
-                if (mode) {
-                    const line = document.createElement('div');
-                    line.innerHTML = `<span class="text-slate-500">Режим:</span> ${mode}`;
-                    params.appendChild(line);
-                }
-                if (industry) {
-                    const line = document.createElement('div');
-                    line.innerHTML = `<span class="text-slate-500">Отрасль:</span> ${industry}`;
-                    params.appendChild(line);
-                }
-                details.appendChild(params);
-
-                const scope = Array.isArray(item.scope) ? item.scope.filter(Boolean) : [];
-                if (scope.length) {
-                    const scopeLabel = document.createElement('div');
-                    scopeLabel.className = 'mt-6 text-[11px] font-black uppercase tracking-[0.22em] text-slate-500';
-                    scopeLabel.textContent = 'Состав работ';
-                    details.appendChild(scopeLabel);
-
-                    const scopeText = document.createElement('div');
-                    scopeText.className = 'mt-3 text-sm text-slate-600 leading-relaxed break-anywhere';
-                    scopeText.textContent = scope.join(' · ');
-                    details.appendChild(scopeText);
-                }
-
-                card.appendChild(details);
+                // "Параметры" на карточке списка проектов не показываем (как вы попросили).
 
                 const more = document.createElement('div');
                 more.className = 'mt-8 inline-flex items-center gap-2 text-[11px] font-black uppercase tracking-[0.22em] text-accent';

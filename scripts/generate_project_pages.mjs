@@ -40,7 +40,6 @@ const render = (item) => {
     item.industry,
     item.region,
     item.mode ? `Режим: ${item.mode}` : null,
-    item.ndaLabel,
   ]
     .filter(Boolean)
     .map(chip)
@@ -73,7 +72,6 @@ const render = (item) => {
 
   const resultText = item.result ? htmlEscape(item.result) : '';
   const descriptionText = item.description ? htmlEscape(item.description) : '';
-  const ndaText = item.ndaLabel ? htmlEscape(item.ndaLabel) : '';
 
   return `<!DOCTYPE html>
 <html lang="ru">
@@ -136,41 +134,32 @@ const render = (item) => {
           </div>
 
           <div class="lg:col-span-5 flex flex-col gap-8">
-            <div class="glass-card p-10">
+            <div class="lg:pl-2">
               <div class="text-[11px] font-black uppercase tracking-[0.22em] text-slate-500">Описание проекта</div>
               <div class="mt-4 text-sm text-slate-600 leading-relaxed">
-                ${descriptionText || 'Описание проекта ограничено в текущей версии.'}
+                ${descriptionText || 'Описание проекта.'}
               </div>
-            </div>
 
-            <div class="glass-card p-10">
-              <div class="text-[11px] font-black uppercase tracking-[0.22em] text-slate-500">Параметры</div>
-              <div class="mt-4 space-y-2 text-sm text-slate-600 leading-relaxed">
-                ${params || '<div>Детали проекта в публичной версии ограничены.</div>'}
+              <div class="mt-8 pt-8 border-t border-slate-900/10">
+                <div class="text-[11px] font-black uppercase tracking-[0.22em] text-slate-500">Параметры</div>
+                <div class="mt-4 space-y-2 text-sm text-slate-600 leading-relaxed">
+                  ${params || '<div>Параметры проекта.</div>'}
+                </div>
               </div>
-            </div>
 
-            <div class="glass-card p-10">
-              <div class="text-[11px] font-black uppercase tracking-[0.22em] text-slate-500">Состав работ</div>
-              <ul class="mt-4 space-y-2">
-                ${scopeItems || '<li class="text-sm text-slate-600 leading-relaxed">Поставка / ПНР / сервис (по проекту).</li>'}
-              </ul>
-            </div>
-          </div>
-        </div>
+              <div class="mt-8 pt-8 border-t border-slate-900/10">
+                <div class="text-[11px] font-black uppercase tracking-[0.22em] text-slate-500">Состав работ</div>
+                <ul class="mt-4 space-y-2">
+                  ${scopeItems || '<li class="text-sm text-slate-600 leading-relaxed">Поставка / ПНР / сервис (по проекту).</li>'}
+                </ul>
+              </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
-          <div class="glass-card p-10">
-            <div class="text-[11px] font-black uppercase tracking-[0.22em] text-slate-500">Результат</div>
-            <div class="mt-4 text-sm text-slate-600 leading-relaxed">
-              ${resultText || 'Результат описан в публичной версии без коммерческих деталей.'}
-            </div>
-          </div>
-
-          <div class="glass-card p-10">
-            <div class="text-[11px] font-black uppercase tracking-[0.22em] text-slate-500">Ограничения</div>
-            <div class="mt-4 text-sm text-slate-600 leading-relaxed">
-              ${ndaText || 'Часть информации по проекту ограничена условиями NDA.'}
+              <div class="mt-8 pt-8 border-t border-slate-900/10">
+                <div class="text-[11px] font-black uppercase tracking-[0.22em] text-slate-500">Результат</div>
+                <div class="mt-4 text-sm text-slate-600 leading-relaxed">
+                  ${resultText || 'Результат проекта.'}
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -203,7 +192,6 @@ const main = async () => {
     if (!item.scope || !Array.isArray(item.scope) || item.scope.length === 0) missing.push('scope');
     if (!item.description) missing.push('description');
     if (!item.result) missing.push('result');
-    if (!item.ndaLabel) missing.push('ndaLabel');
 
     if (missing.length) {
       throw new Error(`Item "${item.slug || '(no slug)'}" missing fields: ${missing.join(', ')}`);
