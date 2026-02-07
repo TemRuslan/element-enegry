@@ -164,7 +164,7 @@
             && !tags.includes('полки');
         if (is210Base) return 'gpu-250-210.html';
 
-        return null;
+        return `gpu-product.html?id=${encodeURIComponent(item.id)}`;
     }
 
     function renderCard(item) {
@@ -197,11 +197,11 @@
 
         // Light card to match the page theme.
         return `
-            <article class="bg-white/75 backdrop-blur border border-slate-200/70 rounded-2xl overflow-hidden group hover:border-accent/50 transition-all duration-300 relative flex flex-col h-full shadow-[0_14px_30px_rgba(15,23,42,0.06)] hover:shadow-[0_20px_44px_rgba(15,23,42,0.08)]">
+            <article data-gpu-card-link="${detailsUrl}" tabindex="0" role="link" class="gpu-card-link bg-white/75 backdrop-blur border border-slate-200/70 rounded-2xl overflow-hidden group hover:border-accent/50 transition-all duration-300 relative flex flex-col h-full shadow-[0_14px_30px_rgba(15,23,42,0.06)] hover:shadow-[0_20px_44px_rgba(15,23,42,0.08)] cursor-pointer">
                 <!-- Image Section -->
                 <div class="h-56 relative overflow-hidden bg-slate-100 border-b border-slate-200/70">
                     <img src="${imgSrc}" alt="${fullTitle}" loading="lazy" 
-                        class="w-full h-full object-cover transform group-hover:scale-[1.04] transition-transform duration-500">
+                        class="w-full h-full object-cover">
                     
                     <!-- Floating Badge -->
                     <div class="absolute top-3 left-3 z-20 flex flex-wrap gap-1">
@@ -237,17 +237,10 @@
                                 <div class="text-[9px] text-slate-500 uppercase font-black tracking-widest leading-none mb-1.5">Цена с НДС</div>
                                 <div class="text-xl font-black text-slate-900 tracking-tight leading-none truncate">${price}</div>
                             </div>
-                            ${detailsUrl ? `
-	                                <a class="btn-primary shrink-0 inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl font-black uppercase text-[10px] tracking-widest text-white transition hover:brightness-110" href="${detailsUrl}">
-	                                    <span>Подробнее</span>
-	                                    <i class="fa-solid fa-arrow-right text-white/70"></i>
-	                                </a>
-                            ` : `
-                                <button class="btn-primary shrink-0 inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl font-black uppercase text-[10px] tracking-widest text-white transition hover:brightness-110" data-gpu-open="${item.id}">
-                                    <span>Подробнее</span>
-                                    <i class="fa-solid fa-arrow-right text-white/70"></i>
-                                </button>
-                            `}
+	                        <a class="btn-primary shrink-0 inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl font-black uppercase text-[10px] tracking-widest text-white transition hover:brightness-110" href="${detailsUrl}">
+	                            <span>Подробнее</span>
+	                            <i class="fa-solid fa-arrow-right text-white/70"></i>
+	                        </a>
                         </div>
                     </div>
                 </div>
@@ -370,12 +363,30 @@
     }
 
     function wireCardClicks(container) {
+        if (!container) return;
+
+        const isInteractive = (el) => {
+            if (!el || !el.closest) return false;
+            return Boolean(el.closest('a,button,input,select,textarea,label'));
+        };
+
         container.addEventListener('click', (e) => {
-            const btn = e.target && e.target.closest ? e.target.closest('[data-gpu-open]') : null;
-            if (!btn) return;
-            const id = btn.getAttribute('data-gpu-open');
-            const item = data.find((x) => x.id === id);
-            if (item) openModal(item);
+            const card = e.target && e.target.closest ? e.target.closest('[data-gpu-card-link]') : null;
+            if (!card) return;
+            if (isInteractive(e.target)) return;
+            const url = card.getAttribute('data-gpu-card-link');
+            if (!url) return;
+            window.location.href = url;
+        });
+
+        container.addEventListener('keydown', (e) => {
+            const card = e.target && e.target.closest ? e.target.closest('[data-gpu-card-link]') : null;
+            if (!card) return;
+            if (e.key !== 'Enter' && e.key !== ' ') return;
+            const url = card.getAttribute('data-gpu-card-link');
+            if (!url) return;
+            e.preventDefault();
+            window.location.href = url;
         });
     }
 
