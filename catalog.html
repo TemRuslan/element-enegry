@@ -48,12 +48,12 @@
 
 	            .gpu-catalog-sidebar-panel {
 	                position: sticky;
-	                top: 96px; /* align with fixed header height */
+	                top: 40px; /* tighter: keep it close to the top while header overlays */
 	                width: min(320px, 100%);
 	                margin-left: auto; /* stick to the product grid edge */
 	                padding-right: 12px; /* tiny breathing room from cards */
 	                pointer-events: auto;
-	                max-height: calc(100vh - 120px);
+	                max-height: calc(100vh - 56px);
 	                overflow: auto;
 	            }
 
@@ -196,12 +196,28 @@
 	        /* Make filters/sort a bit more compact. */
 	        .gpu-catalog-sidebar-panel #gpu-controls legend {
 	            font-size: 11px !important;
+	            margin-bottom: 6px !important;
 	        }
 
 	        .gpu-catalog-sidebar-panel #gpu-controls .gpu-chip > span,
 	        .gpu-catalog-sidebar-panel #gpu-controls .gpu-option > span {
 	            font-size: 10px !important;
 	            padding: 7px 10px !important;
+	        }
+
+	        /* Reduce vertical rhythm: Tailwind space-y-5 -> tighten. */
+	        .gpu-catalog-sidebar-panel #gpu-controls > * + * {
+	            margin-top: 14px !important;
+	        }
+
+	        /* Tighten chip rows a bit. */
+	        .gpu-catalog-sidebar-panel #gpu-controls fieldset .flex.flex-wrap {
+	            gap: 6px !important;
+	        }
+
+	        /* Tighten sort radio list. */
+	        .gpu-catalog-sidebar-panel #gpu-controls fieldset .grid.grid-cols-1 {
+	            gap: 8px !important;
 	        }
 
 	        /* Selected state for radios without relying on Tailwind peer-checked variants (CDN can miss them). */

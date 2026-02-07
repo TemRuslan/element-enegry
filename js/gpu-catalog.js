@@ -436,6 +436,49 @@
             return Math.min(hi, Math.max(lo, x));
         }
 
+        function getItemPriceRub(x) {
+            if (!x) return null;
+            const a = Number(x.price_rrc_rub);
+            if (Number.isFinite(a) && a > 0) return a;
+            const b = Number(x.price_min_rub);
+            if (Number.isFinite(b) && b > 0) return b;
+            return null;
+        }
+
+        function initPriceRangeBounds() {
+            if (!priceMinRangeEl || !priceMaxRangeEl) return;
+
+            const prices = data.map(getItemPriceRub).filter((n) => Number.isFinite(n) && n > 0);
+            const dataMax = prices.length ? Math.max(...prices) : 0;
+
+            // User preference: keep the price filter practical by default.
+            const HARD_MIN = 1_000_000;
+            const HARD_MAX = 22_000_000;
+
+            const step = Number(priceMinRangeEl.step || 100000) || 100000;
+            const ceilToStep = (n) => Math.ceil(n / step) * step;
+
+            const minBound = HARD_MIN;
+            const maxBound = Math.max(minBound, Math.min(HARD_MAX, ceilToStep(dataMax || HARD_MAX)));
+
+            priceMinRangeEl.min = String(minBound);
+            priceMinRangeEl.max = String(maxBound);
+            priceMaxRangeEl.min = String(minBound);
+            priceMaxRangeEl.max = String(maxBound);
+
+            priceMinRangeEl.value = String(minBound);
+            priceMaxRangeEl.value = String(maxBound);
+
+            if (priceMinEl) {
+                priceMinEl.value = '';
+                priceMinEl.placeholder = formatIntSpaced(minBound);
+            }
+            if (priceMaxEl) {
+                priceMaxEl.value = '';
+                priceMaxEl.placeholder = formatIntSpaced(maxBound);
+            }
+        }
+
         function setRangeFill(minV, maxV) {
             if (!priceFillEl || !priceMinRangeEl || !priceMaxRangeEl) return;
             const lo = Number(priceMinRangeEl.min || 0);
@@ -833,6 +876,7 @@
             }
         });
 
+        initPriceRangeBounds();
         syncRangesFromPriceInputs();
         if (!isMobileLayout()) closeMobileFilters();
         apply();
