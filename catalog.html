@@ -27,47 +27,46 @@
     <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon/favicon-16.png">
     <link rel="apple-touch-icon" sizes="180x180" href="assets/favicon/apple-touch-icon.png">
     <link rel="stylesheet" href="css/styles.css">
-    <style>
-        /* Sidebar in the left "gutter" (between viewport edge and the centered 1280px container).
-           Requirements:
-           - stays on the side (not above) on desktop
-           - does NOT move cards (out of flow)
-           - does NOT follow scroll (not fixed/sticky; it scrolls naturally with the page)
-        */
-	        @media (min-width: 1280px) {
+	    <style>
+	        /* Desktop: fixed-width sidebar that scrolls with the page (like market listings). */
+	        .gpu-catalog-layout {
+	            display: block;
+	        }
+
+	        @media (min-width: 1024px) {
+	            .gpu-catalog-layout {
+	                display: flex;
+	                align-items: flex-start;
+	                gap: 32px;
+	            }
+
 	            .gpu-catalog-sidebar {
-	                /* Fixed panel on desktop: stable position (no jumping) and never affects card layout. */
-	                position: fixed;
-	                inset: 0;
-	                z-index: 1200;
-	                pointer-events: none;
-	                --gpu-gutter: max(0px, calc((100vw - 1280px) / 2));
+	                display: block;
+	                flex: 0 0 320px;
+	                width: 320px;
+	                padding-bottom: 0;
 	            }
 
 	            .gpu-catalog-sidebar-panel {
-	                position: fixed;
-	                top: 60px;
-	                /* Align the panel's right edge to the container content edge (mx-auto + px-6). */
-	                left: max(12px, calc(var(--gpu-gutter) + 24px - 320px));
-	                width: 320px;
-	                padding-right: 12px; /* tiny breathing room from cards */
-	                pointer-events: auto;
-	                max-height: calc(100vh - 80px);
-	                overflow-y: auto;
-	                scrollbar-gutter: stable;
+	                position: static;
+	                width: 100%;
+	                max-height: none;
+	                overflow: visible;
+	                padding-right: 0;
+	                margin-left: 0;
 	            }
 
-	            .gpu-catalog-sidebar .glass-card {
-	                border-top-left-radius: 0;
-	                border-bottom-left-radius: 0;
-            }
-        }
+	            .gpu-catalog-content {
+	                flex: 1 1 auto;
+	                min-width: 0;
+	            }
+	        }
 
-        /* Mobile: filters/sort live in a modal, opened by header buttons. */
-        @media (max-width: 1279px) {
-            .gpu-catalog-sidebar {
-                display: none;
-            }
+	        /* Mobile: filters/sort live in a modal, opened by header buttons. */
+	        @media (max-width: 1023px) {
+	            .gpu-catalog-sidebar {
+	                display: none;
+	            }
 
             body.gpu-mobile-filters-open .gpu-catalog-sidebar {
                 display: block;
@@ -131,7 +130,7 @@
                 transform: scale(0.98);
             }
 
-            .gpu-mobile-icon-badge {
+	            .gpu-mobile-icon-badge {
                 position: absolute;
                 top: 6px;
                 right: 6px;
@@ -146,25 +145,25 @@
                 line-height: 18px;
                 text-align: center;
                 display: none;
-            }
-        }
+	            }
+	        }
 
         /* Never show the modal header inside the desktop sidebar. */
         .gpu-mobile-sheet-header {
             display: none;
         }
 
-        @media (min-width: 1280px) {
-            .gpu-mobile-sheet-header {
-                display: none !important;
-            }
-        }
+	        @media (min-width: 1024px) {
+	            .gpu-mobile-sheet-header {
+	                display: none !important;
+	            }
+	        }
 
-        @media (max-width: 1279px) {
-            body.gpu-mobile-filters-open .gpu-mobile-sheet-header {
-                display: flex;
-            }
-        }
+	        @media (max-width: 1023px) {
+	            body.gpu-mobile-filters-open .gpu-mobile-sheet-header {
+	                display: flex;
+	            }
+	        }
 
         /* Make the sidebar panel feel closer to the page background (less "cardy"). */
         .gpu-catalog-sidebar-panel .glass-card {
@@ -345,24 +344,25 @@
     </section>
 
     <!-- MAIN GRID -->
-    <main class="max-w-7xl mx-auto px-6 pb-24 relative">
-        <!-- SIDEBAR FILTERS: above grid on small screens; in left gutter (absolute) on wide screens -->
-        <aside class="gpu-catalog-sidebar pb-10">
-            <div class="gpu-catalog-sidebar-panel">
-                <div class="gpu-mobile-sheet">
-                    <div class="gpu-mobile-sheet-header px-4 py-3 flex items-center justify-between gap-3">
-                        <div class="text-xs font-black uppercase tracking-[0.22em] text-slate-900">
-                            Фильтр и сортировка
-                        </div>
-                        <button type="button" id="gpu-mobile-close"
-                            class="w-10 h-10 rounded-xl border border-slate-200 bg-white/70 hover:bg-white text-slate-900 transition inline-flex items-center justify-center"
-                            aria-label="Закрыть">
-                            <i class="fa-solid fa-xmark"></i>
-                        </button>
-                    </div>
-
-                    <div class="p-5">
-                        <form id="gpu-controls" class="space-y-5">
+	    <main class="max-w-7xl mx-auto px-6 pb-24">
+	        <div class="gpu-catalog-layout">
+	            <!-- SIDEBAR FILTERS (desktop left column; mobile opens in modal) -->
+	            <aside class="gpu-catalog-sidebar pb-10">
+	                <div class="gpu-catalog-sidebar-panel">
+	                    <div class="gpu-mobile-sheet">
+	                        <div class="gpu-mobile-sheet-header px-4 py-3 flex items-center justify-between gap-3">
+	                            <div class="text-xs font-black uppercase tracking-[0.22em] text-slate-900">
+	                                Фильтр и сортировка
+	                            </div>
+	                            <button type="button" id="gpu-mobile-close"
+	                                class="w-10 h-10 rounded-xl border border-slate-200 bg-white/70 hover:bg-white text-slate-900 transition inline-flex items-center justify-center"
+	                                aria-label="Закрыть">
+	                                <i class="fa-solid fa-xmark"></i>
+	                            </button>
+	                        </div>
+	
+	                        <div class="p-5">
+	                            <form id="gpu-controls" class="space-y-5">
 	                        <div id="gpu-sort-section" class="text-xs font-black uppercase tracking-[0.22em] text-slate-900 pl-2">
 	                            Сортировка
 	                        </div>
@@ -670,41 +670,47 @@
 	                            <legend class="text-[12px] font-black text-slate-900 tracking-[0.18em] mb-2">
 	                                Цена, ₽
 	                            </legend>
-	                        <div class="gpu-range">
-	                            <div class="gpu-range-track"></div>
-	                            <div id="gpu-price-fill" class="gpu-range-fill" style="left: 0%; right: 0%;"></div>
-	                            <input id="gpu-price-min-range" type="range" min="0" max="42000000" step="100000" value="0"
-	                                aria-label="Цена от (ползунок)">
-	                            <input id="gpu-price-max-range" type="range" min="0" max="42000000" step="100000" value="42000000"
-	                                aria-label="Цена до (ползунок)">
-	                        </div>
+		                        <div class="gpu-range">
+		                            <div class="gpu-range-track"></div>
+		                            <div id="gpu-price-fill" class="gpu-range-fill" style="left: 0%; right: 0%;"></div>
+		                            <input id="gpu-price-min-range" type="range" min="1000000" max="22000000" step="100000" value="1000000"
+		                                aria-label="Цена от (ползунок)">
+		                            <input id="gpu-price-max-range" type="range" min="1000000" max="22000000" step="100000" value="22000000"
+		                                aria-label="Цена до (ползунок)">
+		                        </div>
 
-	                        <div class="mt-2 flex items-center gap-2">
-	                            <input id="gpu-price-min" inputmode="numeric" type="text" autocomplete="off"
-	                                placeholder="3 000 000"
-	                                class="w-1/2 bg-white/60 border border-slate-200 rounded-xl px-4 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-accent transition">
-	                            <span class="text-slate-500 font-black text-sm select-none">–</span>
-	                            <input id="gpu-price-max" inputmode="numeric" type="text" autocomplete="off"
-	                                placeholder="10 000 000"
-	                                class="w-1/2 bg-white/60 border border-slate-200 rounded-xl px-4 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-accent transition">
-	                        </div>
-	                    </fieldset>
+		                        <div class="mt-2 flex items-center gap-2">
+		                            <input id="gpu-price-min" inputmode="numeric" type="text" autocomplete="off"
+		                                placeholder="1 000 000"
+		                                class="w-1/2 bg-white/60 border border-slate-200 rounded-xl px-4 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-accent transition">
+		                            <span class="text-slate-500 font-black text-sm select-none">–</span>
+		                            <input id="gpu-price-max" inputmode="numeric" type="text" autocomplete="off"
+		                                placeholder="22 000 000"
+		                                class="w-1/2 bg-white/60 border border-slate-200 rounded-xl px-4 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-accent transition">
+		                        </div>
+		                    </fieldset>
 
-	                    <div class="gpu-sidebar-footer pt-4 border-t border-slate-200/70 flex items-center justify-between gap-3">
-	                        <div id="gpu-count" class="text-xs font-black uppercase tracking-[0.2em] text-accent whitespace-nowrap">
-	                            Загрузка...
+		                        <div
+		                            class="gpu-sidebar-footer pt-4 border-t border-slate-200/70 flex items-center justify-between gap-3">
+		                            <div id="gpu-count"
+		                                class="text-xs font-black uppercase tracking-[0.2em] text-accent whitespace-nowrap">
+		                                Загрузка...
+		                            </div>
+		                            <button id="gpu-reset" type="button"
+		                                class="text-[11px] font-black uppercase tracking-widest px-4 py-2.5 rounded-xl border border-slate-200 bg-white/60 hover:bg-white text-slate-900 transition whitespace-nowrap">
+		                                Очистить
+		                            </button>
+		                        </div>
+	                            </form>
 	                        </div>
-	                        <button id="gpu-reset" type="button"
-	                            class="text-[11px] font-black uppercase tracking-widest px-4 py-2.5 rounded-xl border border-slate-200 bg-white/60 hover:bg-white text-slate-900 transition whitespace-nowrap">
-	                            Очистить
-	                        </button>
 	                    </div>
-	                        </form>
-                    </div>
+	                </div>
+	            </aside>
+	
+	            <div class="gpu-catalog-content">
+	                <div id="gpu-grid" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8"></div>
 	            </div>
-	        </aside>
-
-	        <div id="gpu-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"></div>
+	        </div>
 	    </main>
 
     <!-- FOOTER PLACEHOLDER -->
