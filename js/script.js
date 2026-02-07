@@ -58,11 +58,12 @@ const headerHTML = `
 							                        <a href="datacenters.html#reserve-2mw" class="dropdown-item dropdown-subitem"><i class="fas fa-plug-circle-bolt"></i> Резерв 2 МВт</a>
 							                        <a href="datacenters.html#main-1mw" class="dropdown-item dropdown-subitem"><i class="fas fa-bolt"></i> Основной 1 МВт</a>
 							                        <a href="datacenters.html#main-5mw" class="dropdown-item dropdown-subitem"><i class="fas fa-bolt"></i> Основной 5 МВт</a>
-						                    </div>
-						                </div>
-						                <a href="projects.html">Проекты</a>
-						                <a href="leasing.html">Лизинг</a>
-						                <a href="contacts.html">Контакты</a>
+							                    </div>
+							                </div>
+							                <a href="projects.html">Проекты</a>
+							                <a href="blog.html">Блог</a>
+							                <a href="leasing.html">Лизинг</a>
+							                <a href="contacts.html">Контакты</a>
 
 	                <div class="dropdown-wrapper contact-wrapper">
 	                    <div class="dropdown-trigger contact-link">
@@ -183,11 +184,12 @@ const headerHTML = `
 												                        <a href="datacenters.html#main-1mw" class="mobile-menu-link mobile-subitem">Основной 1 МВт</a>
 												                        <a href="datacenters.html#main-5mw" class="mobile-menu-link mobile-subitem">Основной 5 МВт</a>
 												                    </div>
-												                </div>
+													                </div>
 
-											                <a href="projects.html" class="mobile-menu-link">Проекты</a>
-											                <a href="leasing.html" class="mobile-menu-link">Лизинг</a>
-											                <a href="contacts.html" class="mobile-menu-link">Контакты</a>
+												                <a href="projects.html" class="mobile-menu-link">Проекты</a>
+												                <a href="blog.html" class="mobile-menu-link">Блог</a>
+												                <a href="leasing.html" class="mobile-menu-link">Лизинг</a>
+												                <a href="contacts.html" class="mobile-menu-link">Контакты</a>
 
 											                <div class="h-[1px] bg-slate-900/10 w-full my-2"></div>
 											                <a href="tel:+78000000000" class="text-accent font-bold mobile-menu-link">+7 (800) 000-00-00</a>
@@ -220,13 +222,72 @@ const footerHTML = `
 		                </div>
 		            </div>
 		        </div>
-		    </footer>
-`;
+			    </footer>
+	`;
+
+function patchRelativeLinksForBlogSubdir() {
+    const p = String(location.pathname || '');
+    const inBlog = p.includes('/blog/');
+    if (!inBlog) return;
+
+    const prefix = '../';
+
+    const isExternal = (href) => {
+        if (!href) return true;
+        return (
+            href.startsWith('#') ||
+            href.startsWith('http://') ||
+            href.startsWith('https://') ||
+            href.startsWith('mailto:') ||
+            href.startsWith('tel:') ||
+            href.startsWith('/')
+        );
+    };
+
+    const patchEl = (root) => {
+        if (!root) return;
+
+        root.querySelectorAll('a[href]').forEach((a) => {
+            const href = a.getAttribute('href');
+            if (!href || isExternal(href)) return;
+            if (href.startsWith(prefix)) return;
+            a.setAttribute('href', prefix + href);
+        });
+
+        root.querySelectorAll('img[src]').forEach((img) => {
+            const src = img.getAttribute('src');
+            if (!src) return;
+            if (
+                src.startsWith('data:') ||
+                src.startsWith('http://') ||
+                src.startsWith('https://') ||
+                src.startsWith('/') ||
+                src.startsWith(prefix)
+            ) {
+                return;
+            }
+            img.setAttribute('src', prefix + src);
+        });
+
+        // Only patch the CTA that navigates to the contacts section on the main page.
+        const cta = root.querySelector("button[onclick*=\"index.html#contacts\"]");
+        if (cta) {
+            cta.removeAttribute('onclick');
+            cta.addEventListener('click', () => {
+                window.location.href = `${prefix}index.html#contacts`;
+            });
+        }
+    };
+
+    patchEl(document.getElementById('header-placeholder'));
+    patchEl(document.getElementById('footer-placeholder'));
+}
 
 // Загрузка header и footer при загрузке страницы
 document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('header-placeholder').innerHTML = headerHTML;
     document.getElementById('footer-placeholder').innerHTML = footerHTML;
+    patchRelativeLinksForBlogSubdir();
 
     // Header behavior:
     // - Header is always overlay (position: fixed) to avoid layout shift on scroll.

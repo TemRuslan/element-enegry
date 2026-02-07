@@ -1,0 +1,53 @@
+{
+  "version": 1,
+  "items": [
+    {
+      "slug": "st1-russian-origin",
+      "page": "blog/st1-russian-origin.html"
+    },
+    {
+      "slug": "power-selection-modularity",
+      "page": "blog/power-selection-modularity.html"
+    },
+    {
+      "slug": "lcoe-gas-engine-kwh",
+      "page": "blog/lcoe-gas-engine-kwh.html"
+    },
+    {
+      "slug": "heat-recovery-cogeneration-kod",
+      "page": "blog/heat-recovery-cogeneration-kod.html"
+    },
+    {
+      "slug": "parallel-grid-operation",
+      "page": "blog/parallel-grid-operation.html"
+    },
+    {
+      "slug": "png-associated-gas-prep",
+      "page": "blog/png-associated-gas-prep.html"
+    },
+    {
+      "slug": "container-energy-center",
+      "page": "blog/container-energy-center.html"
+    },
+    {
+      "slug": "maintenance-service-24-7",
+      "page": "blog/maintenance-service-24-7.html"
+    },
+    {
+      "slug": "reliability-russian-climate",
+      "page": "blog/reliability-russian-climate.html"
+    },
+    {
+      "slug": "power-quality-critical-load",
+      "page": "blog/power-quality-critical-load.html"
+    },
+    {
+      "slug": "agro-cogeneration-greenhouses",
+      "page": "blog/agro-cogeneration-greenhouses.html"
+    },
+    {
+      "slug": "pnr-commissioning-checklist",
+      "page": "blog/pnr-commissioning-checklist.html"
+    }
+  ]
+}
