@@ -370,6 +370,7 @@
         const priceMinRangeEl = document.getElementById('gpu-price-min-range');
         const priceMaxRangeEl = document.getElementById('gpu-price-max-range');
         const priceFillEl = document.getElementById('gpu-price-fill');
+        const desktopSidebarPanelEl = document.querySelector('.gpu-catalog-sidebar-panel');
 
         // One delegated handler for all re-renders.
         wireCardClicks(host);
@@ -560,6 +561,29 @@
             return typeof window !== 'undefined'
                 && window.matchMedia
                 && window.matchMedia('(max-width: 1279px)').matches;
+        }
+
+        function isDesktopLayout() {
+            return typeof window !== 'undefined'
+                && window.matchMedia
+                && window.matchMedia('(min-width: 1280px)').matches;
+        }
+
+        // Desktop sidebar is fixed in the left gutter. To make it start exactly where the product grid starts
+        // (not at the very top of the viewport), we set its "top" once based on #gpu-grid position at page top.
+        function alignDesktopSidebarTop() {
+            if (!desktopSidebarPanelEl) return;
+            if (!isDesktopLayout()) return;
+            // Avoid "jumping" while scrolling: only compute when we're at the top.
+            if ((window.scrollY || 0) > 8) return;
+
+            const gridEl = document.getElementById('gpu-grid');
+            if (!gridEl) return;
+
+            const rect = gridEl.getBoundingClientRect();
+            const top = Math.round(Math.max(60, rect.top));
+            desktopSidebarPanelEl.style.top = `${top}px`;
+            desktopSidebarPanelEl.style.maxHeight = `calc(100vh - ${Math.max(80, top + 20)}px)`;
         }
 
         function openMobileFilters(section) {
@@ -873,11 +897,13 @@
         window.addEventListener('resize', () => {
             if (!isMobileLayout()) {
                 closeMobileFilters();
+                alignDesktopSidebarTop();
                 return;
             }
         });
 
         initPriceRangeBounds();
+        alignDesktopSidebarTop();
         syncRangesFromPriceInputs();
         if (!isMobileLayout()) closeMobileFilters();
         apply();
