@@ -1012,17 +1012,24 @@ html {
 
 	    #industries .glass-card,
 	    #products .glass-card {
-	        min-width: 80%;
-	        /* Виден один и кусок второго */
+            /*
+             * Mobile horizontal slider:
+             * Tailwind padding utilities (e.g. p-10) make items overflow if width is
+             * calculated as content-box. Force border-box and pin the flex-basis so
+             * cards don't "drift" wider than the viewport.
+             */
+            box-sizing: border-box;
+            flex: 0 0 80%; /* one full card + a peek of the next */
+            max-width: 80%;
 	        scroll-snap-align: start;
-	        flex-shrink: 0;
 	    }
 
 	    /* GPU cards are rendered via JS and don't use .glass-card */
 	    #products .gpu-card-link {
-	        min-width: 80%;
+            box-sizing: border-box;
+            flex: 0 0 80%;
+            max-width: 80%;
 	        scroll-snap-align: start;
-	        flex-shrink: 0;
 	    }
 	}
 
