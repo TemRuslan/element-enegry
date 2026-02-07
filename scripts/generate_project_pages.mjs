@@ -14,7 +14,7 @@ const htmlEscape = (s) =>
 
 const toArray = (v) => (Array.isArray(v) ? v : v ? [v] : []);
 
-const normalizeItems = (json) => {
+  const normalizeItems = (json) => {
   if (Array.isArray(json)) return json;
   if (json && Array.isArray(json.items)) return json.items;
   throw new Error('projects.json must be an array or { items: [...] }.');
@@ -31,6 +31,7 @@ const render = (item) => {
   const title = item.title || 'Проект';
   const pageTitle = `${title} | Проекты | Элемент Энергия`;
   const metaDescription =
+    item.description ||
     item.result ||
     'Проект: энергоцентр, поставка, ПНР и сервис. Публичная версия без чувствительной информации.';
 
@@ -60,6 +61,7 @@ const render = (item) => {
     item.units ? `<div><span class="text-slate-500">Агрегаты:</span> ${htmlEscape(item.units)}</div>` : '',
     item.region ? `<div><span class="text-slate-500">Регион:</span> ${htmlEscape(item.region)}</div>` : '',
     item.industry ? `<div><span class="text-slate-500">Отрасль:</span> ${htmlEscape(item.industry)}</div>` : '',
+    item.contractSum ? `<div><span class="text-slate-500">Сумма договора:</span> ${htmlEscape(item.contractSum)}</div>` : '',
   ]
     .filter(Boolean)
     .join('');
@@ -70,6 +72,7 @@ const render = (item) => {
     .join('');
 
   const resultText = item.result ? htmlEscape(item.result) : '';
+  const descriptionText = item.description ? htmlEscape(item.description) : '';
   const ndaText = item.ndaLabel ? htmlEscape(item.ndaLabel) : '';
 
   return `<!DOCTYPE html>
@@ -134,6 +137,13 @@ const render = (item) => {
 
           <div class="lg:col-span-5 flex flex-col gap-8">
             <div class="glass-card p-10">
+              <div class="text-[11px] font-black uppercase tracking-[0.22em] text-slate-500">Описание проекта</div>
+              <div class="mt-4 text-sm text-slate-600 leading-relaxed">
+                ${descriptionText || 'Описание проекта ограничено в текущей версии.'}
+              </div>
+            </div>
+
+            <div class="glass-card p-10">
               <div class="text-[11px] font-black uppercase tracking-[0.22em] text-slate-500">Параметры</div>
               <div class="mt-4 space-y-2 text-sm text-slate-600 leading-relaxed">
                 ${params || '<div>Детали проекта в публичной версии ограничены.</div>'}
@@ -191,6 +201,7 @@ const main = async () => {
     if (!item.units) missing.push('units');
     if (!item.mode) missing.push('mode');
     if (!item.scope || !Array.isArray(item.scope) || item.scope.length === 0) missing.push('scope');
+    if (!item.description) missing.push('description');
     if (!item.result) missing.push('result');
     if (!item.ndaLabel) missing.push('ndaLabel');
 
@@ -218,4 +229,3 @@ main().catch((err) => {
   console.error(err);
   process.exitCode = 1;
 });
-

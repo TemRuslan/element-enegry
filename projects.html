@@ -268,6 +268,29 @@
                 region.textContent = safeText(item.region || '');
                 if (region.textContent) card.appendChild(region);
 
+                const description = document.createElement('div');
+                description.className = 'mt-4 text-sm text-slate-600 leading-relaxed break-anywhere';
+                description.textContent = safeText(item.description || '');
+                if (description.textContent) card.appendChild(description);
+
+                const sum = safeText(item.contractSum || '');
+                if (sum) {
+                    const sumRow = document.createElement('div');
+                    sumRow.className = 'mt-6 flex items-baseline justify-between gap-4';
+
+                    const sumLabel = document.createElement('div');
+                    sumLabel.className = 'text-[11px] font-black uppercase tracking-[0.22em] text-slate-500';
+                    sumLabel.textContent = 'Сумма';
+
+                    const sumValue = document.createElement('div');
+                    sumValue.className = 'text-sm font-black text-slate-900';
+                    sumValue.textContent = sum;
+
+                    sumRow.appendChild(sumLabel);
+                    sumRow.appendChild(sumValue);
+                    card.appendChild(sumRow);
+                }
+
                 const details = document.createElement('div');
                 details.className = 'mt-6 pt-6 border-t border-slate-900/10';
 
@@ -319,6 +342,11 @@
                 }
 
                 card.appendChild(details);
+
+                const more = document.createElement('div');
+                more.className = 'mt-8 inline-flex items-center gap-2 text-[11px] font-black uppercase tracking-[0.22em] text-accent';
+                more.innerHTML = `Подробнее <i class="fa-solid fa-arrow-right"></i>`;
+                card.appendChild(more);
                 return card;
             };
 
