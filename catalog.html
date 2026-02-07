@@ -48,12 +48,12 @@
 
 	            .gpu-catalog-sidebar-panel {
 	                position: sticky;
-	                top: 128px; /* below the header area */
+	                top: 96px; /* align with fixed header height */
 	                width: min(320px, 100%);
 	                margin-left: auto; /* stick to the product grid edge */
 	                padding-right: 12px; /* tiny breathing room from cards */
 	                pointer-events: auto;
-	                max-height: calc(100vh - 152px);
+	                max-height: calc(100vh - 120px);
 	                overflow: auto;
 	            }
 
@@ -184,13 +184,24 @@
 	            box-shadow: none;
 	        }
 
-        /* Slight left inset so controls don't hug the panel edge. */
-        .gpu-catalog-sidebar-panel fieldset {
-            padding-left: 10px;
-        }
+	        /* Slight left inset so controls don't hug the panel edge. */
+	        .gpu-catalog-sidebar-panel fieldset {
+	            padding-left: 10px;
+	        }
 
 	        .gpu-catalog-sidebar-panel .gpu-sidebar-footer {
 	            padding-left: 10px;
+	        }
+
+	        /* Make filters/sort a bit more compact. */
+	        .gpu-catalog-sidebar-panel #gpu-controls legend {
+	            font-size: 11px !important;
+	        }
+
+	        .gpu-catalog-sidebar-panel #gpu-controls .gpu-chip > span,
+	        .gpu-catalog-sidebar-panel #gpu-controls .gpu-option > span {
+	            font-size: 10px !important;
+	            padding: 7px 10px !important;
 	        }
 
 	        /* Selected state for radios without relying on Tailwind peer-checked variants (CDN can miss them). */
