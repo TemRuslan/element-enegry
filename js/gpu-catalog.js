@@ -581,32 +581,32 @@
             document.body.style.overflow = '';
         }
 
-        function activeFiltersCount() {
-            let n = 0;
-            const type = readRadio('gpu-type', 'all') || 'all';
-            const gas = readRadio('gpu-gas', 'any') || 'any';
-            const execSel = readMulti('gpu-exec');
-            const industrySel = readMulti('gpu-industry');
-            const nominalSel = readMulti('gpu-power-nom');
-            const continuousSel = readMulti('gpu-power-cont');
+	        function activeFiltersCount() {
+	            let n = 0;
+	            const typeSel = readMulti('gpu-type');
+	            const gasSel = readMulti('gpu-gas');
+	            const execSel = readMulti('gpu-exec');
+	            const industrySel = readMulti('gpu-industry');
+	            const nominalSel = readMulti('gpu-power-nom');
+	            const continuousSel = readMulti('gpu-power-cont');
 
-            if (type !== 'all') n++;
-            if (gas !== 'any') n++;
-            if (execSel.length && !(execSel.length === 1 && execSel[0] === 'any')) n++;
-            if (industrySel.length && !(industrySel.length === 1 && industrySel[0] === 'any')) n++;
-            if (nominalSel.length && !(nominalSel.length === 1 && nominalSel[0] === 'any')) n++;
-            if (continuousSel.length && !(continuousSel.length === 1 && continuousSel[0] === 'any')) n++;
-            if (readNum(priceMinEl) !== null || readNum(priceMaxEl) !== null) n++;
-            return n;
-        }
+	            if (typeSel.length) n++;
+	            if (gasSel.length) n++;
+	            if (execSel.length) n++;
+	            if (industrySel.length) n++;
+	            if (nominalSel.length) n++;
+	            if (continuousSel.length) n++;
+	            if (readNum(priceMinEl) !== null || readNum(priceMaxEl) !== null) n++;
+	            return n;
+	        }
 
-        function apply() {
-            const type = readRadio('gpu-type', 'all') || 'all';
-            const gas = readRadio('gpu-gas', 'any') || 'any';
-            const execSelRaw = readMulti('gpu-exec');
-            const industrySelRaw = readMulti('gpu-industry');
-            const sort = readRadio('gpu-sort', 'popular') || 'popular';
-            const nominalSelRaw = readMulti('gpu-power-nom');
+	        function apply() {
+	            const typeSel = readMulti('gpu-type');
+	            const gasSel = readMulti('gpu-gas');
+	            const execSelRaw = readMulti('gpu-exec');
+	            const industrySelRaw = readMulti('gpu-industry');
+	            const sort = readRadio('gpu-sort', 'popular') || 'popular';
+	            const nominalSelRaw = readMulti('gpu-power-nom');
             const continuousSelRaw = readMulti('gpu-power-cont');
             const priceMin = readNum(priceMinEl);
             const priceMax = readNum(priceMaxEl);
@@ -628,32 +628,34 @@
             const nominalSel = normalizeSel(nominalSelRaw);
             const continuousSel = normalizeSel(continuousSelRaw);
 
-            if (type !== 'all') {
-                list = list.filter((x) => {
-                    const tags = Array.isArray(x.tags) ? x.tags : [];
-                    if (type === 'base') return !tags.includes('модифицированная');
-                    if (type === 'mod') return tags.includes('модифицированная');
-                    return true;
-                });
-            }
+	            if (typeSel.length && !(typeSel.includes('base') && typeSel.includes('mod'))) {
+	                list = list.filter((x) => {
+	                    const tags = Array.isArray(x.tags) ? x.tags : [];
+	                    if (typeSel.includes('base')) return !tags.includes('модифицированная');
+	                    if (typeSel.includes('mod')) return tags.includes('модифицированная');
+	                    return true;
+	                });
+	            }
 
-            if (gas !== 'any') {
-                list = list.filter((x) => {
-                    const tags = Array.isArray(x.tags) ? x.tags : [];
-                    const specs = x && x.specs ? x.specs : {};
-                    const hay = `${x.matrix_name || ''} ${x.display_name || ''} ${Object.values(specs).join(' ')}`.toLowerCase();
-                    if (gas === 'apg') return tags.includes('пнг');
-                    if (gas === 'pipe_ng') return !tags.includes('пнг');
-                    if (gas === 'var') return tags.includes('пнг') || tags.includes('модифицированная') || /перемен/i.test(hay);
-                    return true;
-                });
-            }
+	            if (gasSel.length && !(gasSel.includes('apg') && gasSel.includes('pipe_ng') && gasSel.includes('var'))) {
+	                list = list.filter((x) => {
+	                    const tags = Array.isArray(x.tags) ? x.tags : [];
+	                    const specs = x && x.specs ? x.specs : {};
+	                    const hay = `${x.matrix_name || ''} ${x.display_name || ''} ${Object.values(specs).join(' ')}`.toLowerCase();
+	                    return gasSel.some((gas) => {
+	                        if (gas === 'apg') return tags.includes('пнг');
+	                        if (gas === 'pipe_ng') return !tags.includes('пнг');
+	                        if (gas === 'var') return tags.includes('пнг') || tags.includes('модифицированная') || /перемен/i.test(hay);
+	                        return true;
+	                    });
+	                });
+	            }
 
-            if (execSel.length && !execSel.includes('any')) {
-                const casingRe = /кожух|капот|шумозащит|шумозащ/i;
-                list = list.filter((x) => {
-                    const tags = Array.isArray(x.tags) ? x.tags : [];
-                    const specs = x && x.specs ? x.specs : {};
+	            if (execSel.length) {
+	                const casingRe = /кожух|капот|шумозащит|шумозащ/i;
+	                list = list.filter((x) => {
+	                    const tags = Array.isArray(x.tags) ? x.tags : [];
+	                    const specs = x && x.specs ? x.specs : {};
                     const hay = `${x.matrix_name || ''} ${x.display_name || ''} ${Object.values(specs).join(' ')}`.toLowerCase();
 
                     const open = !tags.includes('контейнер');
@@ -666,14 +668,14 @@
                         if (k === 'casing') return casing;
                         return true;
                     });
-                });
-            }
+	                });
+	            }
 
-            if (industrySel.length && !industrySel.includes('any')) {
-                list = list.filter((x) => {
-                    const tags = Array.isArray(x.tags) ? x.tags : [];
-                    const mining = isMining(tags);
-                    const oilgas = tags.includes('пнг');
+	            if (industrySel.length) {
+	                list = list.filter((x) => {
+	                    const tags = Array.isArray(x.tags) ? x.tags : [];
+	                    const mining = isMining(tags);
+	                    const oilgas = tags.includes('пнг');
                     const container = tags.includes('контейнер');
 
                     return industrySel.some((industry) => {
@@ -689,18 +691,18 @@
                         }
                         return true;
                     });
-                });
-            }
+	                });
+	            }
 
-            if (nominalSel.length && !nominalSel.includes('any')) {
-                const set = new Set(nominalSel.map((x) => Number(x)).filter((x) => Number.isFinite(x)));
-                if (set.size) list = list.filter((x) => set.has(Number(x.nominal_kw)));
-            }
+	            if (nominalSel.length) {
+	                const set = new Set(nominalSel.map((x) => Number(x)).filter((x) => Number.isFinite(x)));
+	                if (set.size) list = list.filter((x) => set.has(Number(x.nominal_kw)));
+	            }
 
-            if (continuousSel.length && !continuousSel.includes('any')) {
-                const set = new Set(continuousSel.map((x) => Number(x)).filter((x) => Number.isFinite(x)));
-                if (set.size) list = list.filter((x) => set.has(Number(x.continuous_kw)));
-            }
+	            if (continuousSel.length) {
+	                const set = new Set(continuousSel.map((x) => Number(x)).filter((x) => Number.isFinite(x)));
+	                if (set.size) list = list.filter((x) => set.has(Number(x.continuous_kw)));
+	            }
 
             if (priceMin !== null || priceMax !== null) {
                 list = list.filter((x) => {
@@ -759,16 +761,11 @@
             }
         }
 
-        if (controlsEl) {
-            controlsEl.addEventListener('change', (e) => {
-                const t = e && e.target ? e.target : null;
-                const name = t && t.name ? String(t.name) : '';
-                if (name === 'gpu-exec' || name === 'gpu-industry' || name === 'gpu-power-nom' || name === 'gpu-power-cont') {
-                    normalizeAnyGroup(name, t);
-                }
-                apply();
-            });
-        }
+	        if (controlsEl) {
+	            controlsEl.addEventListener('change', (e) => {
+	                apply();
+	            });
+	        }
         if (priceMinEl) priceMinEl.addEventListener('input', () => {
             formatPriceInputKeepCaret(priceMinEl);
             syncRangesFromPriceInputs();
@@ -787,34 +784,38 @@
             syncPriceInputsFromRanges();
             apply();
         });
-        if (resetEl) {
-            resetEl.addEventListener('click', () => {
-                const setChecked = (name, value) => {
-                    const el = document.querySelector(`input[name="${name}"][value="${value}"]`);
-                    if (el) el.checked = true;
-                };
+	        if (resetEl) {
+	            resetEl.addEventListener('click', () => {
+	                const setChecked = (name, value) => {
+	                    const el = document.querySelector(`input[name="${name}"][value="${value}"]`);
+	                    if (el) el.checked = true;
+	                };
 
-                setChecked('gpu-type', 'all');
-                setChecked('gpu-gas', 'any');
-                setChecked('gpu-sort', 'popular');
+	                setChecked('gpu-sort', 'popular');
 
-                const resetAnyGroup = (name) => {
-                    const all = Array.from(document.querySelectorAll(`input[name="${name}"]`));
-                    all.forEach((x) => { x.checked = String(x.value) === 'any'; });
-                };
+	                const uncheckAll = (name) => {
+	                    Array.from(document.querySelectorAll(`input[name="${name}"]`))
+	                        .forEach((x) => { x.checked = false; });
+	                };
 
-                resetAnyGroup('gpu-exec');
-                resetAnyGroup('gpu-industry');
-                resetAnyGroup('gpu-power-nom');
-                resetAnyGroup('gpu-power-cont');
-                if (priceMinEl) priceMinEl.value = '';
-                if (priceMaxEl) priceMaxEl.value = '';
-                if (priceMinRangeEl) priceMinRangeEl.value = String(priceMinRangeEl.min || 0);
-                if (priceMaxRangeEl) priceMaxRangeEl.value = String(priceMaxRangeEl.max || 0);
-                syncRangesFromPriceInputs();
-                apply();
-            });
-        }
+	                // Type / Gas: empty means "all / any" implicitly.
+	                uncheckAll('gpu-type');
+	                uncheckAll('gpu-gas');
+
+	                // Multi groups: empty means "any" implicitly.
+	                uncheckAll('gpu-exec');
+	                uncheckAll('gpu-industry');
+	                uncheckAll('gpu-power-nom');
+	                uncheckAll('gpu-power-cont');
+
+	                if (priceMinEl) priceMinEl.value = '';
+	                if (priceMaxEl) priceMaxEl.value = '';
+	                if (priceMinRangeEl) priceMinRangeEl.value = String(priceMinRangeEl.min || 0);
+	                if (priceMaxRangeEl) priceMaxRangeEl.value = String(priceMaxRangeEl.max || 0);
+	                syncRangesFromPriceInputs();
+	                apply();
+	            });
+	        }
 
         // Mobile: top toolbar that appears on scroll up and hides on scroll down.
         if (mobileFilterOpenEl) {
