@@ -42,18 +42,18 @@
         <div class="bg-blob blob-2"></div>
 
         <!-- HERO (light, full-screen) -->
-        <section class="pt-24 lg:pt-20 pb-8 min-h-[calc(100vh-88px)] flex items-center">
+        <section class="pt-24 lg:pt-20 pb-40">
             <div class="max-w-7xl mx-auto px-6 w-full">
                 <div class="max-w-4xl">
-                        <ol class="flex flex-wrap items-center gap-2 text-[11px] font-black uppercase tracking-[0.22em] text-slate-500 mb-6"
+                        <ol class="flex flex-wrap items-center gap-2 text-[14px] font-medium tracking-[0.06em] text-slate-500 mb-6 lg:mb-[50px] lg:mt-2"
                             aria-label="breadcrumbs">
                             <li><a href="index.html" class="hover:text-accent transition">Главная</a></li>
                             <li aria-hidden="true" class="text-slate-400">/</li>
-                            <li>Проекты</li>
+                            <li>Работаем по всей России</li>
                         </ol>
 
-                        <h1 class="text-5xl md:text-7xl font-black mb-6 leading-[1.02] uppercase tracking-tighter">
-                            Проекты
+                        <h1 class="projects-title text-3xl md:text-5xl mb-6 leading-[1.02]">
+                            Работаем по всей России
                         </h1>
 
                         <div
@@ -90,78 +90,17 @@
                             </div>
                         </div>
 
-                        <div class="mt-10">
-                            <div class="text-[11px] font-black uppercase tracking-[0.22em] text-slate-500">
-                                Преимущества
-                            </div>
-                            <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                <div class="flex items-start gap-3">
-                                    <div
-	                                        class="projects-adv-icon shrink-0 w-10 h-10 rounded-lg bg-accent/10 border border-accent/20 flex items-center justify-center text-accent">
-                                        <i class="fa-solid fa-helmet-safety"></i>
-                                    </div>
-                                    <div>
-                                        <div class="font-black uppercase tracking-tight text-slate-900">
-                                            Под ключ
-                                        </div>
-                                        <div class="text-sm text-slate-600 leading-relaxed">
-                                            Комплексно: поставка, ПНР и сопровождение проекта.
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="flex items-start gap-3">
-                                    <div
-	                                        class="projects-adv-icon shrink-0 w-10 h-10 rounded-lg bg-accent/10 border border-accent/20 flex items-center justify-center text-accent">
-                                        <i class="fa-solid fa-gauge-high"></i>
-                                    </div>
-                                    <div>
-                                        <div class="font-black uppercase tracking-tight text-slate-900">
-                                            Нагрузки 24/7
-                                        </div>
-                                        <div class="text-sm text-slate-600 leading-relaxed">
-                                            Решения под непрерывный режим и требования к надежности.
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="flex items-start gap-3">
-                                    <div
-	                                        class="projects-adv-icon shrink-0 w-10 h-10 rounded-lg bg-accent/10 border border-accent/20 flex items-center justify-center text-accent">
-                                        <i class="fa-solid fa-diagram-project"></i>
-                                    </div>
-                                    <div>
-                                        <div class="font-black uppercase tracking-tight text-slate-900">
-                                            Масштабирование
-                                        </div>
-                                        <div class="text-sm text-slate-600 leading-relaxed">
-                                            Проекты от компактных до крупных объектов по мощности.
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="flex items-start gap-3">
-                                    <div
-	                                        class="projects-adv-icon shrink-0 w-10 h-10 rounded-lg bg-accent/10 border border-accent/20 flex items-center justify-center text-accent">
-                                        <i class="fa-solid fa-screwdriver-wrench"></i>
-                                    </div>
-                                    <div>
-                                        <div class="font-black uppercase tracking-tight text-slate-900">
-                                            Сервис
-                                        </div>
-                                        <div class="text-sm text-slate-600 leading-relaxed">
-                                            Регламенты, обслуживание и поддержка эксплуатации.
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <!-- "Преимущества" removed per request -->
                 </div>
             </div>
         </section>
 
-        <main class="max-w-7xl mx-auto px-6 pb-24">
+        <main class="max-w-7xl mx-auto px-6 pt-0 pb-24">
+            <div class="space-y-40">
             <!-- STATUS / SERVICE -->
-            <section id="status" class="pt-10 pb-10">
+            <section id="status">
                 <div class="max-w-4xl mb-10">
-                    <h2 class="text-3xl md:text-5xl font-black uppercase tracking-tight mb-3 whitespace-nowrap">
+                    <h2 class="projects-title text-3xl md:text-5xl mb-3 whitespace-nowrap">
                         Проекты в реализации
                     </h2>
                 </div>
@@ -198,9 +137,9 @@
             </section>
 
             <!-- PROJECTS (custom + PDF list) -->
-            <section id="projects" class="pb-10">
+            <section id="projects">
                 <div class="max-w-4xl mb-10">
-                    <h2 class="text-3xl md:text-5xl font-black uppercase tracking-tight mb-3">
+                    <h2 class="projects-title text-3xl md:text-5xl mb-3">
                         Реализованные проекты
                     </h2>
                 </div>
@@ -208,6 +147,7 @@
                 <div id="projects-grid" class="grid grid-cols-1 md:grid-cols-3 gap-8"></div>
 
             </section>
+            </div>
         </main>
 
         <!-- FOOTER PLACEHOLDER -->

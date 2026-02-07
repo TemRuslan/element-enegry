@@ -357,6 +357,13 @@ section {
     border-radius: 10px;
 }
 
+/* Projects page: consistent heading style across sections. */
+.projects-page .projects-title {
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
+}
+
 /* Projects page: full-bleed project card images (top corners rounded only). */
 .projects-page .projects-card-media {
     /* p-10 = 2.5rem = 40px: cancel card padding so the image spans the full width */
