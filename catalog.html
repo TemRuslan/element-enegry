@@ -36,22 +36,20 @@
         */
 	        @media (min-width: 1280px) {
 	            .gpu-catalog-sidebar {
-	                /* Fixed left gutter column so filtering doesn't affect its layout (no jumping). */
+	                /* Fixed panel on desktop: stable position (no jumping) and never affects card layout. */
 	                position: fixed;
-	                top: 0;
-	                bottom: 0;
-	                left: 0;
-	                width: calc(max(0px, calc((100vw - 1280px) / 2)) + 24px);
+	                inset: 0;
 	                z-index: 1200;
-	                pointer-events: none; /* let only the panel itself capture input */
+	                pointer-events: none;
+	                --gpu-gutter: max(0px, calc((100vw - 1280px) / 2));
 	            }
 
 	            .gpu-catalog-sidebar-panel {
-	                position: absolute;
+	                position: fixed;
 	                top: 60px;
-	                right: 0;
-	                width: min(320px, 100%);
-	                margin-left: auto; /* stick to the product grid edge */
+	                /* Align the panel's right edge to the container content edge (mx-auto + px-6). */
+	                left: max(12px, calc(var(--gpu-gutter) + 24px - 320px));
+	                width: 320px;
 	                padding-right: 12px; /* tiny breathing room from cards */
 	                pointer-events: auto;
 	                max-height: calc(100vh - 80px);
