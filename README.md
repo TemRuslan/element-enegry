@@ -18,6 +18,10 @@ gkee.ru/
 └── README.md           # Этот файл
 ```
 
+## Дизайн-унификации
+
+Список унификаций дизайна и правила применения: [docs/design-unifications.md](docs/design-unifications.md).
+
 ## Файлы
 
 ### index.html

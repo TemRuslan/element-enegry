@@ -12,6 +12,9 @@
     --glass-border: rgba(15, 23, 42, 0.08);
     --glass-shadow: 0 18px 40px rgba(15, 23, 42, 0.10);
 
+    /* Unified card radius. Source of truth: Projects page cards (/projects.html). */
+    --radius-card: 15px;
+
     /* Header background alpha (scroll-driven by js/script.js). */
     --nav-bg-alpha: 1;
 }
@@ -232,8 +235,13 @@ section {
     transform: translateY(10px);
 }
 
-.contact-wrapper:hover .dropdown-content {
+	.contact-wrapper:hover .dropdown-content {
     transform: translateY(0);
+}
+
+/* UI utility: use tokens so designs can be unified site-wide from one place. */
+.ui-card {
+    border-radius: var(--radius-card);
 }
 
 .dropdown-item {
@@ -312,7 +320,7 @@ section {
     backdrop-filter: blur(8px) saturate(160%);
     -webkit-backdrop-filter: blur(8px) saturate(160%);
     border: 1px solid var(--glass-border);
-    border-radius: 24px;
+    border-radius: var(--radius-card);
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     box-shadow: var(--glass-shadow);
 }
@@ -336,8 +344,6 @@ section {
 /* Projects page: make all cards hover like the metric cards in the hero. */
 .projects-page .glass-card {
     box-shadow: 0 10px 24px rgba(15, 23, 42, 0.06);
-    /* +25% vs the halved radius (12px -> 15px) for Projects page. */
-    border-radius: 15px;
 }
 
 .projects-page .glass-card:hover {
@@ -350,7 +356,7 @@ section {
 
 /* Projects page: make the hero media match the card radius; icons stay a bit sharper. */
 .projects-page .projects-media {
-    border-radius: 15px;
+    border-radius: var(--radius-card);
 }
 
 .projects-page .projects-adv-icon {
@@ -368,8 +374,8 @@ section {
 .projects-page .projects-card-media {
     /* p-10 = 2.5rem = 40px: cancel card padding so the image spans the full width */
     margin: -40px -40px 24px -40px;
-    border-top-left-radius: 15px;  /* match projects-page card radius */
-    border-top-right-radius: 15px;
+    border-top-left-radius: var(--radius-card);  /* match global card radius */
+    border-top-right-radius: var(--radius-card);
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
 }
@@ -404,7 +410,7 @@ section {
     backdrop-filter: blur(10px) saturate(160%);
     -webkit-backdrop-filter: blur(10px) saturate(160%);
     border: 1px solid var(--glass-border);
-    border-radius: 24px;
+    border-radius: var(--radius-card);
     padding: 34px;
     box-shadow: var(--glass-shadow);
     transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
@@ -466,7 +472,7 @@ section {
 .contacts-page .map-section {
     position: relative;
     overflow: hidden;
-    border-radius: 30px;
+    border-radius: var(--radius-card);
     border: 1px solid var(--glass-border);
     background: var(--bg-soft);
     height: 520px;
@@ -488,7 +494,7 @@ section {
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     border: 1px solid rgba(15, 23, 42, 0.10);
-    border-radius: 20px;
+    border-radius: var(--radius-card);
     padding: 18px;
     box-shadow: 0 20px 50px rgba(15, 23, 42, 0.18);
 }
@@ -512,7 +518,7 @@ section {
     z-index: 3;
     background: rgba(255, 255, 255, 0.92);
     border: 1px solid rgba(15, 23, 42, 0.10);
-    border-radius: 18px;
+    border-radius: var(--radius-card);
     padding: 18px;
     box-shadow: 0 20px 50px rgba(15, 23, 42, 0.18);
 }
@@ -539,7 +545,7 @@ section {
 .contacts-page .support-strip {
     background: #0f172a;
     color: white;
-    border-radius: 24px;
+    border-radius: var(--radius-card);
     padding: 34px;
     display: flex;
     align-items: center;

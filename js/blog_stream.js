@@ -128,7 +128,7 @@
         const text = esc(block.text || '');
         if (!text) continue;
         out.push(`
-          <div class="mt-8 rounded-2xl bg-slate-900 text-slate-100 p-6 overflow-x-auto">
+          <div class="mt-8 ui-card bg-slate-900 text-slate-100 p-6 overflow-x-auto">
             <div class="text-[10px] font-black uppercase tracking-[0.22em] text-slate-300">Формула / расчет</div>
             <pre class="mt-3 whitespace-pre-wrap text-sm leading-relaxed"><code>${text}</code></pre>
           </div>

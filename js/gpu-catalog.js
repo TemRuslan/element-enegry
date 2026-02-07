@@ -197,7 +197,7 @@
 
         // Light card to match the page theme.
         return `
-            <article data-gpu-card-link="${detailsUrl}" tabindex="0" role="link" class="gpu-card-link bg-white/75 backdrop-blur border border-slate-200/70 rounded-2xl overflow-hidden group hover:border-accent/50 transition-all duration-300 relative flex flex-col h-full shadow-[0_14px_30px_rgba(15,23,42,0.06)] hover:shadow-[0_20px_44px_rgba(15,23,42,0.08)] cursor-pointer">
+	            <article data-gpu-card-link="${detailsUrl}" tabindex="0" role="link" class="gpu-card-link bg-white/75 backdrop-blur border border-slate-200/70 ui-card overflow-hidden group hover:border-accent/50 transition-all duration-300 relative flex flex-col h-full shadow-[0_14px_30px_rgba(15,23,42,0.06)] hover:shadow-[0_20px_44px_rgba(15,23,42,0.08)] cursor-pointer">
                 <!-- Image Section -->
                 <div class="h-56 relative overflow-hidden bg-slate-100 border-b border-slate-200/70">
                     <img src="${imgSrc}" alt="${fullTitle}" loading="lazy" 
@@ -259,7 +259,7 @@
             <div class="absolute inset-0 bg-slate-950/90 backdrop-blur-xl" data-gpu-close></div>
             <div class="absolute inset-0 overflow-y-auto">
                 <div class="min-h-full flex items-end md:items-center justify-center p-4">
-                    <div class="w-full max-w-5xl bg-slate-900 border border-white/10 rounded-3xl overflow-hidden relative shadow-2xl animate-fade-in-up">
+	                    <div class="w-full max-w-5xl bg-slate-900 border border-white/10 ui-card overflow-hidden relative shadow-2xl animate-fade-in-up">
                         <button class="absolute top-6 right-6 w-10 h-10 rounded-full bg-slate-800/50 hover:bg-white/10 flex items-center justify-center transition z-50 border border-white/10" data-gpu-close>
                             <i class="fa-solid fa-xmark text-white"></i>
                         </button>
@@ -332,7 +332,7 @@
                     ${description ? `
                         <div class="mb-10">
                             <h4 class="text-xs font-black uppercase tracking-[0.2em] text-accent mb-4">Описание</h4>
-                            <p class="text-slate-300 leading-relaxed text-sm bg-slate-950/50 p-6 rounded-2xl border border-white/5">${description}</p>
+	                            <p class="text-slate-300 leading-relaxed text-sm bg-slate-950/50 p-6 ui-card border border-white/5">${description}</p>
                         </div>
                     ` : ''}
 
