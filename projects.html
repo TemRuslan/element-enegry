@@ -42,7 +42,7 @@
         <div class="bg-blob blob-2"></div>
 
         <!-- HERO (light, full-screen) -->
-        <section class="pt-14 pb-8 min-h-[calc(100vh-88px)] flex items-center">
+        <section class="pt-20 pb-8 min-h-[calc(100vh-88px)] flex items-center">
             <div class="max-w-7xl mx-auto px-6 w-full">
                 <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
                     <div class="lg:col-span-6">
@@ -227,6 +227,8 @@
                 card.className = 'glass-card p-10 flex flex-col no-underline';
                 card.setAttribute('aria-label', safeText(item.title || 'Проект'));
 
+                // Keep the same layout baseline across cards:
+                // if no image is available, reserve the same space as the media block.
                 if (item.image) {
                     const media = document.createElement('div');
                     media.className = 'projects-card-media relative overflow-hidden bg-white/40';
@@ -239,6 +241,16 @@
 
                     media.appendChild(img);
                     card.appendChild(media);
+                } else {
+                    const media = document.createElement('div');
+                    media.className = 'projects-card-media relative overflow-hidden bg-white/40';
+
+                    const placeholder = document.createElement('div');
+                    placeholder.className = 'w-full aspect-[16/10] bg-slate-900/5';
+                    placeholder.setAttribute('aria-hidden', 'true');
+                    media.appendChild(placeholder);
+
+                    card.appendChild(media);
                 }
 
                 if (item.year) {
@@ -248,8 +260,19 @@
                     card.appendChild(year);
                 }
 
+                const customerText = safeText(item.customer || '');
+                if (customerText) {
+                    const customer = document.createElement('div');
+                    customer.className = (item.year ? 'mt-3 ' : '') + 'text-lg font-black uppercase tracking-tight text-slate-900 break-anywhere';
+                    customer.textContent = customerText;
+                    card.appendChild(customer);
+                }
+
                 const title = document.createElement('div');
-                title.className = (item.year ? 'mt-3 ' : '') + 'text-lg font-black uppercase tracking-tight text-slate-900 break-anywhere';
+                title.className =
+                    ((item.year || customerText) ? 'mt-2 ' : '') +
+                    (customerText ? 'text-sm font-black uppercase tracking-tight text-slate-700 ' : 'text-lg font-black uppercase tracking-tight text-slate-900 ') +
+                    'break-anywhere';
                 title.textContent = safeText(item.title || 'Проект');
                 card.appendChild(title);
 
@@ -298,12 +321,12 @@
 
                 const realized = items.filter((i) => (i && (i.status || 'realized') === 'realized'));
                 realized.sort((a, b) => {
-                    const ap = Number(a.priority || 0);
-                    const bp = Number(b.priority || 0);
-                    if (bp !== ap) return bp - ap;
                     const ai = !!a.image;
                     const bi = !!b.image;
                     if (ai !== bi) return ai ? -1 : 1;
+                    const ap = Number(a.priority || 0);
+                    const bp = Number(b.priority || 0);
+                    if (bp !== ap) return bp - ap;
                     const ay = Number(a.year || 0);
                     const by = Number(b.year || 0);
                     return by - ay;

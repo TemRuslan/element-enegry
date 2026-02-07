@@ -3,6 +3,7 @@ import path from 'node:path';
 
 const ROOT = process.cwd();
 const DATA_PATH = path.join(ROOT, 'data', 'projects.json');
+const PROJECTS_DATA_JS_PATH = path.join(ROOT, 'js', 'projects_data.js');
 
 const htmlEscape = (s) =>
   String(s)
@@ -27,8 +28,25 @@ const chip = (text) => {
   )}</span>`;
 };
 
+const sortForStream = (items) => {
+  const copy = [...items];
+  copy.sort((a, b) => {
+    const ai = !!a.image;
+    const bi = !!b.image;
+    if (ai !== bi) return ai ? -1 : 1;
+    const ap = Number(a.priority || 0);
+    const bp = Number(b.priority || 0);
+    if (bp !== ap) return bp - ap;
+    const ay = Number(a.year || 0);
+    const by = Number(b.year || 0);
+    return by - ay;
+  });
+  return copy;
+};
+
 const render = (item) => {
   const title = item.title || 'Проект';
+  const customer = item.customer || '';
   const pageTitle = `${title} | Проекты | Элемент Энергия`;
   const metaDescription =
     item.description ||
@@ -45,7 +63,8 @@ const render = (item) => {
     .map(chip)
     .join('');
 
-  const imageBlock = item.image
+  const hasImage = !!item.image;
+  const imageBlock = hasImage
     ? `
         <div class="projects-media relative overflow-hidden border border-slate-900/10 bg-white/40 backdrop-blur-md shadow-[0_28px_80px_rgba(15,23,42,0.10)]">
           <div class="aspect-[16/10] w-full relative">
@@ -103,71 +122,37 @@ const render = (item) => {
     <link rel="stylesheet" href="css/styles.css" />
   </head>
 
-  <body class="projects-page">
+  <body class="projects-page" data-project="${htmlEscape(item.slug)}">
     <div id="header-placeholder"></div>
 
     <div class="page-light">
       <div class="bg-blob blob-1"></div>
       <div class="bg-blob blob-2"></div>
 
-      <section class="pt-14 pb-8">
+      <nav class="pt-20 pb-8">
         <div class="max-w-7xl mx-auto px-6">
           <a href="projects.html" class="inline-flex items-center gap-2 text-[11px] font-black uppercase tracking-[0.22em] text-slate-500 hover:text-accent transition">
             <i class="fa-solid fa-arrow-left"></i>
             Все проекты
           </a>
 
-          <h1 class="mt-6 text-4xl md:text-6xl font-black uppercase tracking-tighter leading-[1.05]">
-            ${htmlEscape(title)}
-          </h1>
-
-          <div class="mt-6 flex flex-wrap gap-2">
-            ${chips}
-          </div>
+          <ol class="mt-6 flex flex-wrap items-center gap-2 text-[11px] font-black uppercase tracking-[0.22em] text-slate-500" aria-label="breadcrumbs">
+            <li><a href="projects.html" class="hover:text-accent transition">Проекты</a></li>
+            <li aria-hidden="true" class="text-slate-400">/</li>
+            <li id="projectBreadcrumbTitle">${htmlEscape(title)}</li>
+          </ol>
         </div>
-      </section>
+      </nav>
 
-      <main class="max-w-7xl mx-auto px-6 pb-24">
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-          <div class="lg:col-span-7">
-            ${imageBlock}
-          </div>
-
-          <div class="lg:col-span-5 flex flex-col gap-8">
-            <div class="lg:pl-2">
-              <div class="text-[11px] font-black uppercase tracking-[0.22em] text-slate-500">Описание проекта</div>
-              <div class="mt-4 text-sm text-slate-600 leading-relaxed">
-                ${descriptionText || 'Описание проекта.'}
-              </div>
-
-              <div class="mt-8 pt-8 border-t border-slate-900/10">
-                <div class="text-[11px] font-black uppercase tracking-[0.22em] text-slate-500">Параметры</div>
-                <div class="mt-4 space-y-2 text-sm text-slate-600 leading-relaxed">
-                  ${params || '<div>Параметры проекта.</div>'}
-                </div>
-              </div>
-
-              <div class="mt-8 pt-8 border-t border-slate-900/10">
-                <div class="text-[11px] font-black uppercase tracking-[0.22em] text-slate-500">Состав работ</div>
-                <ul class="mt-4 space-y-2">
-                  ${scopeItems || '<li class="text-sm text-slate-600 leading-relaxed">Поставка / ПНР / сервис (по проекту).</li>'}
-                </ul>
-              </div>
-
-              <div class="mt-8 pt-8 border-t border-slate-900/10">
-                <div class="text-[11px] font-black uppercase tracking-[0.22em] text-slate-500">Результат</div>
-                <div class="mt-4 text-sm text-slate-600 leading-relaxed">
-                  ${resultText || 'Результат проекта.'}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+      <main class="pb-24">
+        <div id="projectStream"></div>
       </main>
 
       <div id="footer-placeholder"></div>
     </div>
 
+    <script src="js/projects_data.js"></script>
+    <script src="js/projects_stream.js"></script>
     <script src="js/script.js"></script>
   </body>
 </html>
@@ -199,6 +184,15 @@ const main = async () => {
     if (seen.has(item.slug)) throw new Error(`Duplicate slug: ${item.slug}`);
     seen.add(item.slug);
   }
+
+  // Ensure the stream has a single, predictable ordering (photos first, then priority/year).
+  const streamItems = sortForStream(items);
+  const js = `// Auto-generated from data/projects.json by scripts/generate_project_pages.mjs\n// Used by js/projects_stream.js to render an infinite project stream (blog-like behavior).\nwindow.projects = ${JSON.stringify(
+    streamItems,
+    null,
+    2
+  )};\n`;
+  await fs.writeFile(PROJECTS_DATA_JS_PATH, js, 'utf8');
 
   // Write output pages to repo root as <slug>.html to avoid breaking existing relative nav links.
   await Promise.all(

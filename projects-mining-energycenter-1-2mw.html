@@ -28,77 +28,37 @@
     <link rel="stylesheet" href="css/styles.css" />
   </head>
 
-  <body class="projects-page">
+  <body class="projects-page" data-project="projects-mining-energycenter-1-2mw">
     <div id="header-placeholder"></div>
 
     <div class="page-light">
       <div class="bg-blob blob-1"></div>
       <div class="bg-blob blob-2"></div>
 
-      <section class="pt-14 pb-8">
+      <nav class="pt-20 pb-8">
         <div class="max-w-7xl mx-auto px-6">
           <a href="projects.html" class="inline-flex items-center gap-2 text-[11px] font-black uppercase tracking-[0.22em] text-slate-500 hover:text-accent transition">
             <i class="fa-solid fa-arrow-left"></i>
             Все проекты
           </a>
 
-          <h1 class="mt-6 text-4xl md:text-6xl font-black uppercase tracking-tighter leading-[1.05]">
-            Энергоцентр для майнинга 1,2 МВт
-          </h1>
-
-          <div class="mt-6 flex flex-wrap gap-2">
-            <span class="px-3 py-1 rounded-full text-[11px] font-black uppercase tracking-[0.18em] bg-white/60 border border-slate-900/10 text-slate-600">2014</span><span class="px-3 py-1 rounded-full text-[11px] font-black uppercase tracking-[0.18em] bg-white/60 border border-slate-900/10 text-slate-600">Майнинг</span><span class="px-3 py-1 rounded-full text-[11px] font-black uppercase tracking-[0.18em] bg-white/60 border border-slate-900/10 text-slate-600">Республика Марий Эл</span><span class="px-3 py-1 rounded-full text-[11px] font-black uppercase tracking-[0.18em] bg-white/60 border border-slate-900/10 text-slate-600">Режим: Основной</span>
-          </div>
+          <ol class="mt-6 flex flex-wrap items-center gap-2 text-[11px] font-black uppercase tracking-[0.22em] text-slate-500" aria-label="breadcrumbs">
+            <li><a href="projects.html" class="hover:text-accent transition">Проекты</a></li>
+            <li aria-hidden="true" class="text-slate-400">/</li>
+            <li id="projectBreadcrumbTitle">Энергоцентр для майнинга 1,2 МВт</li>
+          </ol>
         </div>
-      </section>
+      </nav>
 
-      <main class="max-w-7xl mx-auto px-6 pb-24">
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-          <div class="lg:col-span-7">
-            
-        <div class="projects-media relative overflow-hidden border border-slate-900/10 bg-white/40 backdrop-blur-md shadow-[0_28px_80px_rgba(15,23,42,0.10)]">
-          <div class="aspect-[16/10] w-full relative">
-            <img src="assets/site-photos/projects/cases/mining-1-2mw.jpg" alt="Энергоцентр для майнинга 1,2 МВт" class="absolute inset-0 w-full h-full object-cover" loading="lazy">
-          </div>
-        </div>
-      
-          </div>
-
-          <div class="lg:col-span-5 flex flex-col gap-8">
-            <div class="lg:pl-2">
-              <div class="text-[11px] font-black uppercase tracking-[0.22em] text-slate-500">Описание проекта</div>
-              <div class="mt-4 text-sm text-slate-600 leading-relaxed">
-                Интеграция ГПУ в майнинг-инфраструктуру с настройкой параллельной работы, защит и автоматики. Выполнены пусконаладочные работы и ввод в эксплуатацию.
-              </div>
-
-              <div class="mt-8 pt-8 border-t border-slate-900/10">
-                <div class="text-[11px] font-black uppercase tracking-[0.22em] text-slate-500">Параметры</div>
-                <div class="mt-4 space-y-2 text-sm text-slate-600 leading-relaxed">
-                  <div><span class="text-slate-500">Мощность:</span> 1,2 МВт</div><div><span class="text-slate-500">Агрегаты:</span> ГПУ 400 кВт × 3</div><div><span class="text-slate-500">Регион:</span> Республика Марий Эл</div><div><span class="text-slate-500">Отрасль:</span> Майнинг</div>
-                </div>
-              </div>
-
-              <div class="mt-8 pt-8 border-t border-slate-900/10">
-                <div class="text-[11px] font-black uppercase tracking-[0.22em] text-slate-500">Состав работ</div>
-                <ul class="mt-4 space-y-2">
-                  <li class="text-sm text-slate-600 leading-relaxed">Интеграция</li><li class="text-sm text-slate-600 leading-relaxed">ПНР</li><li class="text-sm text-slate-600 leading-relaxed">Автоматика</li><li class="text-sm text-slate-600 leading-relaxed">Параллельная работа</li>
-                </ul>
-              </div>
-
-              <div class="mt-8 pt-8 border-t border-slate-900/10">
-                <div class="text-[11px] font-black uppercase tracking-[0.22em] text-slate-500">Результат</div>
-                <div class="mt-4 text-sm text-slate-600 leading-relaxed">
-                  Параллельная работа ГПУ и подключение к майнинг-инфраструктуре.
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+      <main class="pb-24">
+        <div id="projectStream"></div>
       </main>
 
       <div id="footer-placeholder"></div>
     </div>
 
+    <script src="js/projects_data.js"></script>
+    <script src="js/projects_stream.js"></script>
     <script src="js/script.js"></script>
   </body>
 </html>
