@@ -34,23 +34,28 @@
            - does NOT move cards (out of flow)
            - does NOT follow scroll (not fixed/sticky; it scrolls naturally with the page)
         */
-        @media (min-width: 1280px) {
-            .gpu-catalog-sidebar {
-                position: absolute;
-                top: 0;
-                /* Build a whole gutter column from the viewport edge up to the product grid. */
-                left: calc(-1 * (max(0px, calc((100vw - 1280px) / 2)) + 24px));
-                width: calc(max(0px, calc((100vw - 1280px) / 2)) + 24px);
-                z-index: 40;
-                pointer-events: none; /* let only the panel itself capture input */
-            }
+	        @media (min-width: 1280px) {
+	            .gpu-catalog-sidebar {
+	                position: absolute;
+	                top: 0;
+	                bottom: 0;
+	                /* Build a whole gutter column from the viewport edge up to the product grid. */
+	                left: calc(-1 * (max(0px, calc((100vw - 1280px) / 2)) + 24px));
+	                width: calc(max(0px, calc((100vw - 1280px) / 2)) + 24px);
+	                z-index: 40;
+	                pointer-events: none; /* let only the panel itself capture input */
+	            }
 
-            .gpu-catalog-sidebar-panel {
-                width: min(320px, 100%);
-                margin-left: auto; /* stick to the product grid edge */
-                padding-right: 12px; /* tiny breathing room from cards */
-                pointer-events: auto;
-            }
+	            .gpu-catalog-sidebar-panel {
+	                position: sticky;
+	                top: 128px; /* below the header area */
+	                width: min(320px, 100%);
+	                margin-left: auto; /* stick to the product grid edge */
+	                padding-right: 12px; /* tiny breathing room from cards */
+	                pointer-events: auto;
+	                max-height: calc(100vh - 152px);
+	                overflow: auto;
+	            }
 
 	            .gpu-catalog-sidebar .glass-card {
 	                border-top-left-radius: 0;
