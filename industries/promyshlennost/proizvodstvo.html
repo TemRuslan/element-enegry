@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Электроэнергия для производства на 20–25% дешевле сетей без капитальных затрат: мы устанавливаем газопоршневую электростанцию за свой счет и поставляем электричество по фиксированному тарифу.">
+    <title>Электроэнергия для производства | Элемент Энергия</title>
+
+    <script>
+        (function () {
+            var p = String(location.pathname || '');
+            if (location.protocol === 'file:') {
+                var marker = '/gkee.ru/';
+                var idx = p.lastIndexOf(marker);
+                if (idx >= 0) p = p.slice(idx + marker.length);
+            }
+            p = p.replace(/^\/+/, '');
+            if (!p.endsWith('/')) p = p.replace(/[^/]*$/, '');
+            var depth = p.split('/').filter(Boolean).length;
+            var prefix = depth ? Array(depth + 1).join('../') : './';
+            document.write('<base href="' + prefix + '">');
+        })();
+    </script>
+
+    <script>
+        // Tailwind CDN config: adds custom "accent" utilities used across the site (bg-accent/..., text-accent, etc.)
+        window.tailwind = window.tailwind || {};
+        window.tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        accent: '#0ea5e9',
+                        'accent-dark': '#0284c7',
+                    }
+                }
+            }
+        };
+    </script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@700&display=swap"
+        rel="stylesheet">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon/favicon-16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/favicon/apple-touch-icon.png">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+    <!-- HEADER PLACEHOLDER -->
+    <div id="header-placeholder"></div>
+
+    <!-- HERO -->
+    <section class="hero-bg pt-28 pb-20">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="mb-8 inline-flex items-center gap-3 bg-white/5 border border-white/10 px-4 py-2 rounded-full">
+                <span class="flex h-2 w-2 relative">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-2 w-2 bg-accent"></span>
+                </span>
+                <span class="text-xs font-bold uppercase tracking-[0.2em] text-slate-300">Промышленность / Энергосервис</span>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+                <div>
+                    <h1 class="text-4xl md:text-6xl font-black mb-6 leading-[1.05] uppercase tracking-tighter">
+                        Электроэнергия для
+                        <span class="text-accent">производства</span><br>
+                        <span class="text-slate-200">на 20–25% дешевле сетей</span>
+                    </h1>
+
+                    <p class="text-lg md:text-xl text-slate-300 leading-relaxed max-w-2xl">
+                        Мы устанавливаем газопоршневую электростанцию на вашем объекте <span class="font-black text-white">за свой счет</span>.
+                        Вы просто покупаете электроэнергию по фиксированному тарифу со скидкой к сетевому.
+                    </p>
+
+                    <div class="flex flex-col sm:flex-row gap-4 mt-10">
+                        <a href="#request"
+                            class="btn-primary px-10 py-5 rounded-2xl text-sm md:text-base font-black uppercase tracking-widest text-white transition-all hover:scale-105 text-center">
+                            Получить расчет экономии
+                        </a>
+                        <a href="#how"
+                            class="px-10 py-5 rounded-2xl text-sm md:text-base font-black uppercase tracking-widest text-white/90 border border-white/15 bg-white/5 hover:bg-white/10 transition text-center">
+                            Как это работает
+                        </a>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-10">
+                        <div class="ui-card bg-white/5 border border-white/10 p-5">
+                            <div class="text-[10px] uppercase font-black tracking-[0.22em] text-slate-300">Вложения</div>
+                            <div class="mt-2 text-3xl font-black text-white tracking-tight">0 ₽</div>
+                            <div class="text-xs text-slate-300 font-bold uppercase tracking-widest mt-2">CAPEX</div>
+                        </div>
+                        <div class="ui-card bg-white/5 border border-white/10 p-5">
+                            <div class="text-[10px] uppercase font-black tracking-[0.22em] text-slate-300">Скидка</div>
+                            <div class="mt-2 text-3xl font-black text-white tracking-tight">−20–25%</div>
+                            <div class="text-xs text-slate-300 font-bold uppercase tracking-widest mt-2">к сети</div>
+                        </div>
+                        <div class="ui-card bg-white/5 border border-white/10 p-5">
+                            <div class="text-[10px] uppercase font-black tracking-[0.22em] text-slate-300">Сервис</div>
+                            <div class="mt-2 text-3xl font-black text-white tracking-tight">24/7</div>
+                            <div class="text-xs text-slate-300 font-bold uppercase tracking-widest mt-2">мониторинг</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="relative">
+                    <div class="absolute -top-16 -right-16 w-80 h-80 bg-accent/15 rounded-full blur-[90px]"></div>
+                    <div class="absolute -bottom-16 -left-16 w-80 h-80 bg-sky-500/10 rounded-full blur-[90px]"></div>
+
+                    <div class="relative ui-card bg-white/5 border border-white/10 p-6">
+                        <img src="https://images.unsplash.com/photo-1584270354949-c26b0d6c2c73?q=80&w=1800&auto=format&fit=crop"
+                            alt="Собственная генерация на площадке" class="w-full h-auto rounded-2xl object-cover">
+                        <div class="mt-4 text-xs uppercase tracking-[0.18em] text-slate-300 font-bold">
+                            Электричество как сервис: оборудование, монтаж и эксплуатация на нас
+                        </div>
+                    </div>
+
+                    <div class="mt-6 ui-card bg-white/5 border border-white/10 p-6">
+                        <div class="text-[10px] uppercase font-black tracking-[0.22em] text-slate-300">Подходит, если</div>
+                        <div class="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm text-slate-200">
+                            <div class="flex gap-2"><i class="fa-solid fa-circle-check text-accent mt-1"></i><span>Платите высокий тариф</span></div>
+                            <div class="flex gap-2"><i class="fa-solid fa-circle-check text-accent mt-1"></i><span>Нужна мощность 24/7</span></div>
+                            <div class="flex gap-2"><i class="fa-solid fa-circle-check text-accent mt-1"></i><span>Не хотите CAPEX</span></div>
+                            <div class="flex gap-2"><i class="fa-solid fa-circle-check text-accent mt-1"></i><span>Важна надежность</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- LIGHT PAGE -->
+    <div class="page-light">
+        <div class="bg-blob blob-1"></div>
+        <div class="bg-blob blob-2"></div>
+
+        <main class="max-w-7xl mx-auto px-6 pt-20 pb-24">
+            <!-- BENEFITS -->
+            <section id="how" class="mb-16">
+                <div class="max-w-4xl mb-10">
+                    <h2 class="text-3xl md:text-5xl font-black uppercase tracking-tight mb-3">Что вы получаете</h2>
+                    <p class="text-slate-500 leading-relaxed">
+                        Вы не покупаете оборудование. Вы покупаете киловатты по фиксированному сниженному тарифу.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <article class="glass-card p-10">
+                        <div class="icon-box"><i class="fa-solid fa-piggy-bank"></i></div>
+                        <h3 class="text-xl font-black uppercase tracking-tight mb-3">0 ₽ вложений</h3>
+                        <p class="text-slate-500 leading-relaxed">Никаких капитальных затрат, кредитов или лизинга. Оборудование и монтаж за наш счет.</p>
+                    </article>
+
+                    <article class="glass-card p-10">
+                        <div class="icon-box"><i class="fa-solid fa-hand-holding-dollar"></i></div>
+                        <h3 class="text-xl font-black uppercase tracking-tight mb-3">Экономия сразу</h3>
+                        <p class="text-slate-500 leading-relaxed">Платите только за потребленные кВт·ч. Цена на 20–25% ниже сетевой и фиксируется в договоре.</p>
+                    </article>
+
+                    <article class="glass-card p-10">
+                        <div class="icon-box"><i class="fa-solid fa-screwdriver-wrench"></i></div>
+                        <h3 class="text-xl font-black uppercase tracking-tight mb-3">Сервис под ключ</h3>
+                        <p class="text-slate-500 leading-relaxed">Техническое обслуживание, ремонт, снабжение и мониторинг станции полностью на нас.</p>
+                    </article>
+                </div>
+            </section>
+
+            <!-- ECONOMY -->
+            <section id="economy" class="mb-16">
+                <div class="max-w-4xl mb-10">
+                    <h2 class="text-3xl md:text-5xl font-black uppercase tracking-tight mb-3">Экономика в цифрах</h2>
+                    <p class="text-slate-500 leading-relaxed">Сравнение сетевого тарифа и тарифа «Элемент Энергия».</p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+                    <article class="glass-card p-10" id="economy-meters">
+                        <div class="space-y-8">
+                            <div>
+                                <div class="flex items-end justify-between gap-6 mb-2">
+                                    <div class="text-sm font-black uppercase tracking-widest text-slate-700">Сетевой тариф</div>
+                                    <div class="text-sm font-black text-slate-500">100%</div>
+                                </div>
+                                <div class="meter-track">
+                                    <div class="meter-fill" data-meter="100" style="background: #94a3b8;"></div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <div class="flex items-end justify-between gap-6 mb-2">
+                                    <div class="text-sm font-black uppercase tracking-widest text-slate-700">«Элемент Энергия»</div>
+                                    <div class="text-sm font-black text-accent">75%</div>
+                                </div>
+                                <div class="meter-track">
+                                    <div class="meter-fill" data-meter="75"></div>
+                                </div>
+                            </div>
+
+                            <p class="text-sm text-slate-500 leading-relaxed">
+                                Дисконт фиксируем к ценам гарантирующего поставщика на весь срок договора.
+                            </p>
+                        </div>
+                    </article>
+
+                    <article class="glass-card p-10">
+                        <h3 class="text-2xl font-black uppercase tracking-tight mb-6">Почему это выгодно</h3>
+                        <ul class="space-y-4 text-slate-600">
+                            <li class="flex gap-3"><i class="fa-solid fa-circle-check text-accent mt-1"></i><span><span class="font-bold text-slate-900">Высвобождение капитала</span>: не вкладываетесь в станцию.</span></li>
+                            <li class="flex gap-3"><i class="fa-solid fa-circle-check text-accent mt-1"></i><span><span class="font-bold text-slate-900">Защита от роста цен</span>: фиксируем дисконт и правила расчета.</span></li>
+                            <li class="flex gap-3"><i class="fa-solid fa-circle-check text-accent mt-1"></i><span><span class="font-bold text-slate-900">Гарантированная мощность</span>: снимаем риски ограничений и дефицита.</span></li>
+                        </ul>
+
+                        <div class="mt-10 ui-card bg-accent/5 border border-accent/20 p-6">
+                            <div class="text-xs font-black uppercase tracking-[0.18em] text-accent mb-2">Важно</div>
+                            <div class="text-sm text-slate-600 leading-relaxed">
+                                При остановке станции по нашей вине вы переключаетесь на сеть, а мы компенсируем разницу.
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </section>
+
+            <!-- SERVICE -->
+            <section id="service" class="mb-16">
+                <div class="max-w-4xl mb-10">
+                    <h2 class="text-3xl md:text-5xl font-black uppercase tracking-tight mb-3">Ваш энергоцех на аутсорсе</h2>
+                    <p class="text-slate-500 leading-relaxed">Для вас электричество становится простым сервисом, как вода из крана. Мы берем все сложности на себя.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <article class="glass-card p-10">
+                        <div class="icon-box"><i class="fa-solid fa-headset"></i></div>
+                        <h3 class="text-xl font-black uppercase tracking-tight mb-3">Мониторинг 24/7</h3>
+                        <p class="text-slate-500 leading-relaxed">Дистанционный контроль в реальном времени. Видим отклонения до того, как они станут проблемой.</p>
+                    </article>
+
+                    <article class="glass-card p-10">
+                        <div class="icon-box"><i class="fa-solid fa-oil-can"></i></div>
+                        <h3 class="text-xl font-black uppercase tracking-tight mb-3">Снабжение</h3>
+                        <p class="text-slate-500 leading-relaxed">Масло, фильтры и комплектующие. Вам не нужно держать склад и заниматься закупками.</p>
+                    </article>
+
+                    <article class="glass-card p-10">
+                        <div class="icon-box"><i class="fa-solid fa-user-shield"></i></div>
+                        <h3 class="text-xl font-black uppercase tracking-tight mb-3">Реакция 2 часа</h3>
+                        <p class="text-slate-500 leading-relaxed">Собственная сервисная служба и регламенты устранения нештатных ситуаций.</p>
+                    </article>
+                </div>
+
+                <div class="mt-10 ui-card bg-slate-900 text-white p-10 md:p-12 shadow-[0_26px_60px_rgba(15,23,42,0.22)]">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-10 items-start">
+                        <div class="md:col-span-2">
+                            <div class="text-xs uppercase font-black tracking-[0.2em] text-slate-300">Гарантия надежности</div>
+                            <h3 class="mt-3 text-2xl md:text-3xl font-black uppercase tracking-tight">Бесперебойность 99,9%</h3>
+                            <p class="mt-4 text-slate-300 leading-relaxed">
+                                Если станция остановится по нашей вине, вы автоматически переходите на сеть, а мы компенсируем разницу в стоимости электроэнергии.
+                            </p>
+                        </div>
+                        <div class="ui-card bg-white/5 border border-white/10 p-6">
+                            <div class="text-[10px] uppercase font-black tracking-[0.22em] text-slate-300">SLA</div>
+                            <div class="mt-2 text-4xl font-black text-accent tracking-tight">99,9%</div>
+                            <div class="text-sm text-slate-300 font-bold uppercase tracking-widest">готовность</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- REQUEST -->
+            <section id="request" class="relative overflow-hidden">
+                <div class="absolute inset-0 bg-accent/5 -z-10"></div>
+                <div class="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-accent/30 to-transparent"></div>
+
+                <div class="glass-card p-10 md:p-16 relative overflow-hidden">
+                    <div class="absolute -top-24 -right-24 w-96 h-96 bg-accent/10 rounded-full blur-[100px]"></div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start relative z-10">
+                        <div>
+                            <h2 class="text-3xl md:text-5xl font-black uppercase mb-6 leading-tight">Бесплатный
+                                <span class="text-accent">энергоаудит</span></h2>
+                            <p class="text-slate-500 mb-10 max-w-xl leading-relaxed">
+                                Подготовим расчет экономии и предварительную схему подключения. Обычно отвечаем в течение 24 часов.
+                            </p>
+
+                            <div class="flex flex-wrap gap-6">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-12 h-12 rounded-full bg-accent/20 flex items-center justify-center text-accent">
+                                        <i class="fas fa-calculator"></i>
+                                    </div>
+                                    <span class="text-sm font-black uppercase tracking-wider">Расчет экономии</span>
+                                </div>
+                                <div class="flex items-center gap-3">
+                                    <div class="w-12 h-12 rounded-full bg-accent/20 flex items-center justify-center text-accent">
+                                        <i class="fas fa-clock"></i>
+                                    </div>
+                                    <span class="text-sm font-black uppercase tracking-wider">Ответ за 24ч</span>
+                                </div>
+                                <div class="flex items-center gap-3">
+                                    <div class="w-12 h-12 rounded-full bg-accent/20 flex items-center justify-center text-accent">
+                                        <i class="fas fa-screwdriver-wrench"></i>
+                                    </div>
+                                    <span class="text-sm font-black uppercase tracking-wider">Проект и монтаж</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <form class="space-y-4 ui-card bg-white/70 backdrop-blur-md p-8 border border-slate-900/10 shadow-sm">
+                                <div>
+                                    <label class="text-[10px] uppercase font-black text-slate-500 tracking-[0.2em] mb-2 block">Ваше имя</label>
+                                    <input type="text" placeholder="Иван Иванов"
+                                        class="w-full bg-white border border-slate-900/10 rounded-xl px-5 py-4 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-accent transition">
+                                </div>
+                                <div>
+                                    <label class="text-[10px] uppercase font-black text-slate-500 tracking-[0.2em] mb-2 block">Телефон / Telegram</label>
+                                    <input type="text" placeholder="+7 (900) 000-00-00"
+                                        class="w-full bg-white border border-slate-900/10 rounded-xl px-5 py-4 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-accent transition">
+                                </div>
+                                <div>
+                                    <label class="text-[10px] uppercase font-black text-slate-500 tracking-[0.2em] mb-2 block">Объект</label>
+                                    <input type="text" placeholder="Завод, цех, производственная площадка"
+                                        class="w-full bg-white border border-slate-900/10 rounded-xl px-5 py-4 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-accent transition">
+                                </div>
+                                <div>
+                                    <label class="text-[10px] uppercase font-black text-slate-500 tracking-[0.2em] mb-2 block">Потребление</label>
+                                    <input type="text" placeholder="Месячное потребление, кВт·ч"
+                                        class="w-full bg-white border border-slate-900/10 rounded-xl px-5 py-4 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-accent transition">
+                                </div>
+                                <div>
+                                    <label class="text-[10px] uppercase font-black text-slate-500 tracking-[0.2em] mb-2 block">Комментарий</label>
+                                    <textarea rows="3" placeholder="Город, доступность газа, желаемый срок запуска"
+                                        class="w-full bg-white border border-slate-900/10 rounded-xl px-5 py-4 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-accent transition"></textarea>
+                                </div>
+                                <button type="button"
+                                    class="btn-primary w-full py-5 rounded-xl text-white font-black uppercase tracking-widest mt-2">Рассчитать экономию</button>
+                                <p class="text-[9px] text-center text-slate-600 mt-4 uppercase">Нажимая кнопку, вы
+                                    соглашаетесь с политикой конфиденциальности</p>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- FOOTER PLACEHOLDER -->
+        <div id="footer-placeholder"></div>
+    </div>
+
+    <script>
+        // Animate economy meters when visible.
+        (function () {
+            const root = document.getElementById('economy-meters');
+            if (!root) return;
+
+            const fills = Array.from(root.querySelectorAll('.meter-fill'));
+            fills.forEach((el) => (el.style.width = '0%'));
+
+            const io = new IntersectionObserver(
+                (entries) => {
+                    for (const entry of entries) {
+                        if (!entry.isIntersecting) continue;
+                        fills.forEach((el, idx) => {
+                            const v = Math.max(0, Math.min(100, Number(el.dataset.meter || '0')));
+                            setTimeout(() => {
+                                el.style.width = v + '%';
+                            }, 80 + idx * 120);
+                        });
+                        io.disconnect();
+                    }
+                },
+                { threshold: 0.45 }
+            );
+
+            io.observe(root);
+        })();
+    </script>
+
+    <script src="js/script.js"></script>
+</body>
+
+</html>

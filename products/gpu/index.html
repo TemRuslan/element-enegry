@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ГПУ | Элемент Энергия</title>
+
+    <script>
+        (function () {
+            var p = String(location.pathname || '');
+            if (location.protocol === 'file:') {
+                var marker = '/gkee.ru/';
+                var idx = p.lastIndexOf(marker);
+                if (idx >= 0) p = p.slice(idx + marker.length);
+            }
+            p = p.replace(/^\/+/, '');
+            if (!p.endsWith('/')) p = p.replace(/[^/]*$/, '');
+            var depth = p.split('/').filter(Boolean).length;
+            var prefix = depth ? Array(depth + 1).join('../') : './';
+            document.write('<base href="' + prefix + '">');
+        })();
+    </script>
+    <script>
+        window.tailwind = window.tailwind || {};
+        window.tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        accent: '#0ea5e9',
+                        'accent-dark': '#0284c7',
+                    }
+                }
+            }
+        };
+    </script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@700&display=swap"
+        rel="stylesheet">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon/favicon-16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/favicon/apple-touch-icon.png">
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        .spec-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .spec-key {
+            color: rgba(148, 163, 184, 0.95);
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            line-height: 1.2;
+        }
+
+        .spec-val {
+            color: #ffffff;
+            font-size: 12px;
+            font-weight: 700;
+            text-align: right;
+            line-height: 1.2;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="header-placeholder"></div>
+
+    <section class="pt-24 md:pt-32 pb-12 md:pb-16 relative overflow-hidden">
+        <div class="absolute inset-0 bg-accent/5 -z-10"></div>
+        <div class="max-w-7xl mx-auto px-6 relative z-10">
+            <a href="products/index.html"
+                class="inline-flex items-center gap-2 text-slate-600 hover:text-slate-900 font-bold text-sm transition">
+                <i class="fa-solid fa-arrow-left"></i>
+                <span>Назад в каталог</span>
+            </a>
+        </div>
+    </section>
+
+    <main class="pb-24">
+        <div class="max-w-7xl mx-auto px-6">
+            <div id="gpu-product-root"></div>
+        </div>
+    </main>
+
+    <div id="footer-placeholder"></div>
+
+    <script src="js/gpu-catalog-data.js"></script>
+    <script>
+        (function () {
+            const data = Array.isArray(window.GPU_CATALOG) ? window.GPU_CATALOG : [];
+
+            function formatRub(value) {
+                if (value === null || value === undefined) return 'Цена по запросу';
+                const n = Number(value);
+                if (!Number.isFinite(n) || n <= 0) return 'Цена по запросу';
+                return `${Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')} ₽`;
+            }
+
+            function formatKW(value) {
+                if (value === null || value === undefined) return null;
+                const n = Number(value);
+                if (!Number.isFinite(n) || n <= 0) return null;
+                return `${Math.round(n)} кВт`;
+            }
+
+            function normalizeName(name) {
+                let s = String(name || '').trim();
+                if (!s) return '';
+                s = s.replace(/^гпу(?=\s|$)/i, 'ГПУ');
+                s = s.replace(/квт/gi, 'кВт');
+                s = s.replace(/\s+/g, ' ');
+                return s;
+            }
+
+            function getParam(name) {
+                try {
+                    const url = new URL(window.location.href);
+                    return url.searchParams.get(name);
+                } catch {
+                    return null;
+                }
+            }
+
+            function pickCardImage(item) {
+                const tags = Array.isArray(item.tags) ? item.tags : [];
+                if (tags.includes('майнинг') || tags.includes('полки')) return 'assets/site-photos/applications/mining-racks.jpg';
+                if (tags.includes('контейнер')) return 'assets/site-photos/gpu/gpu-container.jpg';
+                const kw = Number(item.continuous_kw || item.nominal_kw || 0);
+                if (!Number.isFinite(kw) || kw <= 0) return 'assets/site-photos/gpu/gpu-250.jpg';
+                if (kw <= 90) return 'assets/site-photos/gpu/gpu-65.jpg';
+                if (kw <= 160) return 'assets/site-photos/gpu/gpu-145.jpg';
+                if (kw <= 260) return 'assets/site-photos/gpu/gpu-250.jpg';
+                if (kw <= 430) return 'assets/site-photos/gpu/gpu-400.jpg';
+                return 'assets/site-photos/gpu/gpu-530.png';
+            }
+
+            function renderNotFound() {
+                const root = document.getElementById('gpu-product-root');
+                if (!root) return;
+                root.innerHTML = `
+	                    <div class="bg-white/70 border border-slate-200/70 ui-card p-8 shadow-[0_18px_40px_rgba(15,23,42,0.08)]">
+                        <h1 class="text-2xl md:text-3xl font-black uppercase tracking-tight text-slate-900 mb-3">Товар не найден</h1>
+                        <p class="text-slate-600 mb-6">Похоже, ссылка некорректна или позиция удалена.</p>
+                        <a class="btn-primary inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-black uppercase text-[11px] tracking-widest text-white"
+                            href="products/index.html">
+                            <span>Открыть каталог</span>
+                            <i class="fa-solid fa-arrow-right text-white/70"></i>
+                        </a>
+                    </div>
+                `;
+            }
+
+            function renderProduct(item) {
+                const root = document.getElementById('gpu-product-root');
+                if (!root) return;
+
+                const title = normalizeName(item.display_name || item.matrix_name);
+                document.title = `${title} | Элемент Энергия`;
+
+                const imgSrc = pickCardImage(item);
+                const price = formatRub(item.price_rrc_rub);
+                const maxKw = formatKW(item.nominal_kw) || '—';
+                const contKw = formatKW(item.continuous_kw) || '—';
+                const specs = item && item.specs ? item.specs : {};
+
+                root.innerHTML = `
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+	                        <section class="bg-slate-950 ui-card border border-white/10 overflow-hidden shadow-2xl">
+                            <div class="relative">
+                                <div class="absolute inset-0 bg-accent/10"></div>
+                                <img src="${imgSrc}" alt="${title}" class="relative w-full h-72 md:h-96 object-cover">
+                            </div>
+                            <div class="p-7 md:p-9">
+                                <h1 class="text-2xl md:text-4xl font-black uppercase tracking-tight text-white leading-tight">${title}</h1>
+
+                                <div class="grid grid-cols-2 gap-3 mt-6">
+	                                    <div class="bg-white/5 ui-card p-4 border border-white/10">
+                                        <div class="text-[10px] uppercase font-black tracking-[0.18em] text-slate-400 mb-1">Макс. мощность</div>
+                                        <div class="text-xl font-black text-accent">${maxKw}</div>
+                                    </div>
+	                                    <div class="bg-white/5 ui-card p-4 border border-white/10">
+                                        <div class="text-[10px] uppercase font-black tracking-[0.18em] text-slate-400 mb-1">Постоянная мощность</div>
+                                        <div class="text-xl font-black text-white">${contKw}</div>
+                                    </div>
+                                </div>
+
+                                <div class="flex items-end justify-between gap-4 border-t border-white/10 mt-6 pt-6">
+                                    <div class="min-w-0">
+                                        <div class="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-1">Цена с НДС</div>
+                                        <div class="text-3xl font-black text-white tracking-tight truncate">${price}</div>
+                                    </div>
+                                    <a href="index.html#contacts"
+                                        class="btn-primary shrink-0 inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-black uppercase text-[11px] tracking-widest text-white shadow-lg shadow-accent/20">
+                                        <span>Запросить КП</span>
+                                        <i class="fa-solid fa-paper-plane text-white/70"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </section>
+
+	                        <section class="bg-slate-900 ui-card border border-white/10 p-7 md:p-9 shadow-2xl">
+                            <h2 class="text-xs font-black uppercase tracking-[0.2em] text-accent mb-6">Характеристики</h2>
+                            <div>
+                                ${Object.entries(specs).length ? Object.entries(specs).map(([k, v]) => `
+                                    <div class="spec-row">
+                                        <div class="spec-key">${k}</div>
+                                        <div class="spec-val">${v}</div>
+                                    </div>
+                                `).join('') : `
+                                    <div class="text-slate-300 text-sm">Характеристики будут добавлены позже.</div>
+                                `}
+                            </div>
+                        </section>
+                    </div>
+                `;
+            }
+
+            const id = getParam('id');
+            const item = id ? data.find((x) => String(x.id) === String(id)) : null;
+            if (!item) return renderNotFound();
+            renderProduct(item);
+        })();
+    </script>
+    <script src="js/script.js"></script>
+</body>
+
+</html>

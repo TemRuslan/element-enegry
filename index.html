@@ -5,6 +5,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Элемент Энергия | Ресурсные ГПУ 24/7</title>
+
+    <script>
+        (function () {
+            var p = String(location.pathname || '');
+            if (location.protocol === 'file:') {
+                var marker = '/gkee.ru/';
+                var idx = p.lastIndexOf(marker);
+                if (idx >= 0) p = p.slice(idx + marker.length);
+            }
+            p = p.replace(/^\/+/, '');
+            if (!p.endsWith('/')) p = p.replace(/[^/]*$/, '');
+            var depth = p.split('/').filter(Boolean).length;
+            var prefix = depth ? Array(depth + 1).join('../') : './';
+            document.write('<base href="' + prefix + '">');
+        })();
+    </script>
     <script>
         // Tailwind CDN config: adds custom "accent" utilities used across the site (bg-accent/..., text-accent, etc.)
         window.tailwind = window.tailwind || {};
@@ -79,20 +95,21 @@
                     <button onclick="window.location.href='#contacts'"
                         class="btn-primary px-10 py-5 rounded-2xl text-lg font-black uppercase tracking-widest text-white transition-all hover:scale-105">Получить
                         расчет</button>
-                    <div class="flex items-center gap-2 px-6 border-l-2 border-white/10 cursor-pointer"
-                        onmouseover="changeColor(true)" onmouseout="changeColor(false)">
-                        <i id="leasing-icon"
-                            class="fa-solid fa-coins text-2xl text-accent hover:text-white transition-colors"></i>
-	                        <span id="leasing-text"
-	                            class="text-base text-white font-bold leading-snug hover:text-accent transition-colors"
-	                            >Доступен льготный лизинг</span>
-		                        <i id="leasing-arrow"
-		                            class="fa-solid fa-arrow-right text-sm text-white hover:text-accent hover:translate-x-1 transition-all duration-300"
-		                            ></i>
-		                    </div>
-		                </div>
-	        </div>
-		    </section>
+	                    <a href="leasing/index.html"
+	                        class="flex items-center gap-2 px-6 border-l-2 border-white/10 cursor-pointer"
+	                        onmouseover="changeColor(true)" onmouseout="changeColor(false)">
+	                        <i id="leasing-icon"
+	                            class="fa-solid fa-coins text-2xl text-accent hover:text-white transition-colors"></i>
+		                        <span id="leasing-text"
+		                            class="text-base text-white font-bold leading-snug hover:text-accent transition-colors"
+		                            >Доступен льготный лизинг</span>
+			                        <i id="leasing-arrow"
+			                            class="fa-solid fa-arrow-right text-sm text-white hover:text-accent hover:translate-x-1 transition-all duration-300"
+			                            ></i>
+			                    </a>
+			                </div>
+		        </div>
+			    </section>
 
 	    <!-- Светлый фон со 2-й секции -->
 	    <div class="page-light">
@@ -123,7 +140,7 @@
 	                    <p class="text-slate-400 mb-10 flex-grow leading-relaxed text-base">Электроэнергия на 20–25% дешевле
 	                        сетей без капитальных затрат. Устанавливаем станцию за свой счет и поставляем кВт·ч по
 	                        фиксированному тарифу.</p>
-				                    <a href="proizvodstvo.html"
+				                    <a href="industries/promyshlennost/proizvodstvo.html"
 				                        class="details-link font-bold uppercase text-sm tracking-widest flex items-center gap-2 hover:gap-4 transition-all">Подробнее
 				                        <i class="fa-solid fa-arrow-right"></i></a>
 				                </div>
@@ -137,7 +154,7 @@
                     <p class="text-slate-400 mb-10 flex-grow leading-relaxed text-base">Энергоснабжение месторождений в
                         любом климате. Модифицированные ГПУ превратят штрафы за сжигание ПНГ в доходную электроэнергию
                         по себестоимости 1,5 рубля за кВт.</p>
-		                    <a href="ngpu.html"
+		                    <a href="industries/neftegaz/ngpu.html"
 		                        class="details-link font-bold uppercase text-sm tracking-widest flex items-center gap-2 hover:gap-4 transition-all">Подробнее
 		                        <i class="fa-solid fa-arrow-right"></i></a>
 		                </div>
@@ -229,10 +246,13 @@
                         </p>
                     </div>
 
-		            <div id="catalog-preview-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"></div>
+		            <div
+		                id="catalog-preview-grid"
+		                data-gpu-cards="гпу-65-базовый-без-доп-опций,гпу-145-мод-для-производственников-сут-100,гпу-210-остров-майнинг-или-производство,гпу-230-мод-модифицированная,гпу-400-320-интеркулер-для-размещения-в-контейнере,гпу-530-465"
+		                class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"></div>
 
                     <div class="mt-12 text-center">
-                        <a href="catalog.html"
+                        <a href="products/index.html"
                             class="btn-primary inline-flex items-center justify-center px-10 py-5 rounded-2xl text-sm md:text-base font-black uppercase tracking-widest text-white transition-all hover:scale-105">
                             Открыть каталог
                             <i class="fa-solid fa-arrow-right ml-3"></i>
@@ -339,7 +359,7 @@
 	    </div>
 
 	    <script src="js/gpu-catalog-data.js"></script>
-	    <script src="js/gpu-catalog.js"></script>
+	    <script src="js/gpu-ui.js"></script>
 	    <script src="js/script.js"></script>
 
 </body>

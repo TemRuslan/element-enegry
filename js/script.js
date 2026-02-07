@@ -10,60 +10,66 @@ const headerHTML = `
 		            </a>
 
 				            <div class="hidden lg:flex nav-links">
-				                <a href="production.html">О нас</a>
+				                <a href="about/index.html">О нас</a>
 				                <div class="dropdown-wrapper">
 			                    <div class="dropdown-trigger">Продукция <i class="fas fa-chevron-down text-[9px]"></i></div>
 					                    <div class="dropdown-content">
-					                        <a href="catalog.html" class="dropdown-item"><i class="fas fa-list"></i> Каталог ГПУ</a>
-					                        <a href="gpu-250-210.html" class="dropdown-item"><i class="fas fa-bolt"></i> ГПУ 250 кВт (210 пост.)</a>
-					                        <a href="ngpu.html" class="dropdown-item"><i class="fas fa-oil-well"></i> ГПУ 250 кВт для ПНГ</a>
+					                        <a href="products/overview.html" class="dropdown-item"><i class="fas fa-layer-group"></i> Вся продукция</a>
+					                        <a href="products/index.html" class="dropdown-item"><i class="fas fa-list"></i> Каталог ГПУ</a>
+					                        <a href="products/gpu-250-210/index.html" class="dropdown-item"><i class="fas fa-bolt"></i> ГПУ 250 кВт (210 пост.)</a>
+					                        <a href="industries/neftegaz/ngpu.html" class="dropdown-item"><i class="fas fa-oil-well"></i> ГПУ 250 кВт для ПНГ</a>
+					                        <a href="products/mining-container/index.html" class="dropdown-item"><i class="fas fa-box"></i> Контейнер для майнинга (ГПУ + полки ASIC)</a>
+					                        <a href="products/spare-parts/index.html" class="dropdown-item"><i class="fas fa-gears"></i> Запчасти</a>
+					                        <a href="products/radiators-drycoolers/index.html" class="dropdown-item"><i class="fas fa-fan"></i> Радиаторы и драй-куллеры</a>
+					                        <a href="products/gpu-containers/index.html" class="dropdown-item"><i class="fas fa-boxes-stacked"></i> Контейнеры для ГПУ</a>
 				                    </div>
 				                </div>
 
 			                <div class="dropdown-wrapper">
 			                    <div class="dropdown-trigger">Услуги <i class="fas fa-chevron-down text-[9px]"></i></div>
 				                    <div class="dropdown-content">
-					                        <a href="proizvodstvo.html" class="dropdown-item"><i class="fas fa-bolt"></i> Энергосервис</a>
-					                        <a href="promyshlennost.html#energycenter" class="dropdown-item"><i class="fas fa-industry"></i> Энергоцентры под ключ</a>
-					                        <a href="promyshlennost.html#operation" class="dropdown-item"><i class="fas fa-screwdriver-wrench"></i> Эксплуатация и сервис 24/7</a>
-					                        <a href="services.html#site" class="dropdown-item"><i class="fas fa-location-dot"></i> Поиск участка</a>
-					                        <a href="services.html#gas" class="dropdown-item"><i class="fas fa-gas-pump"></i> Подведение газа</a>
-					                        <a href="services.html#tu" class="dropdown-item"><i class="fas fa-file-signature"></i> ТУ на газ</a>
-					                        <a href="services.html#predesign" class="dropdown-item"><i class="fas fa-compass-drafting"></i> Предпроектные работы</a>
-					                        <a href="services.html#design" class="dropdown-item"><i class="fas fa-drafting-compass"></i> Проектирование энергоцентра</a>
-					                        <a href="services.html#kod" class="dropdown-item"><i class="fas fa-temperature-half"></i> КОД (СУТ)</a>
-					                        <a href="services.html" class="dropdown-item"><i class="fas fa-arrow-right"></i> Все услуги</a>
+					                        <a href="industries/promyshlennost/proizvodstvo.html" class="dropdown-item"><i class="fas fa-bolt"></i> Энергосервис</a>
+					                        <a href="industries/promyshlennost/index.html#energycenter" class="dropdown-item"><i class="fas fa-industry"></i> Энергоцентры под ключ</a>
+					                        <a href="industries/promyshlennost/index.html#operation" class="dropdown-item"><i class="fas fa-screwdriver-wrench"></i> Эксплуатация и сервис 24/7</a>
+					                        <a href="services/index.html#site" class="dropdown-item"><i class="fas fa-location-dot"></i> Поиск участка</a>
+					                        <a href="services/index.html#gas" class="dropdown-item"><i class="fas fa-gas-pump"></i> Подведение газа</a>
+					                        <a href="services/index.html#tu" class="dropdown-item"><i class="fas fa-file-signature"></i> ТУ на газ</a>
+					                        <a href="services/index.html#predesign" class="dropdown-item"><i class="fas fa-compass-drafting"></i> Предпроектные работы</a>
+					                        <a href="services/index.html#design" class="dropdown-item"><i class="fas fa-drafting-compass"></i> Проектирование энергоцентра</a>
+					                        <a href="services/index.html#kod" class="dropdown-item"><i class="fas fa-temperature-half"></i> КОД (СУТ)</a>
+					                        <a href="services/overview.html" class="dropdown-item"><i class="fas fa-arrow-right"></i> Все услуги</a>
 					                    </div>
 					                </div>
 
 				                <div class="dropdown-wrapper">
 					                    <div class="dropdown-trigger">Отрасли <i class="fas fa-chevron-down text-[9px]"></i></div>
 						                    <div class="dropdown-content">
-						                        <a href="promyshlennost.html" class="dropdown-item"><i class="fas fa-industry"></i> Промышленность</a>
-						                        <a href="proizvodstvo.html" class="dropdown-item dropdown-subitem"><i class="fas fa-bolt"></i> Энергия для производства</a>
-						                        <a href="index.html#industries" class="dropdown-item"><i class="fas fa-oil-well"></i> Нефтегаз</a>
-						                        <a href="ngpu.html" class="dropdown-item dropdown-subitem"><i class="fas fa-fire-flame-simple"></i> ГПУ 250 кВт (ПНГ)</a>
-						                        <a href="neftegaz.html" class="dropdown-item dropdown-subitem"><i class="fas fa-tower-observation"></i> Энергоснабжение месторождений</a>
-							                        <a href="mining.html" class="dropdown-item"><i class="fas fa-microchip"></i> Майнинг</a>
-							                        <a href="mining.html#gpu" class="dropdown-item dropdown-subitem"><i class="fas fa-microchip"></i> ГПУ для майнинга</a>
-							                        <a href="mining.html#container" class="dropdown-item dropdown-subitem"><i class="fas fa-box"></i> Контейнер + полки ASIC</a>
-							                        <a href="mining.html#home" class="dropdown-item dropdown-subitem"><i class="fas fa-house"></i> Домашний майнинг</a>
-							                        <a href="agroprom.html" class="dropdown-item"><i class="fas fa-seedling"></i> Агропром</a>
-							                        <a href="agroprom.html#poultry" class="dropdown-item dropdown-subitem"><i class="fas fa-drumstick-bite"></i> Птицефабрики</a>
-							                        <a href="agroprom.html#greenhouse" class="dropdown-item dropdown-subitem"><i class="fas fa-leaf"></i> Теплицы</a>
-							                        <a href="zhkh.html" class="dropdown-item"><i class="fas fa-city"></i> ЖКХ</a>
-							                        <a href="datacenters.html" class="dropdown-item"><i class="fas fa-server"></i> Дата-центры</a>
-							                        <a href="datacenters.html#reserve-500" class="dropdown-item dropdown-subitem"><i class="fas fa-plug-circle-bolt"></i> Резерв 500 кВт</a>
-							                        <a href="datacenters.html#reserve-1mw" class="dropdown-item dropdown-subitem"><i class="fas fa-plug-circle-bolt"></i> Резерв 1 МВт</a>
-							                        <a href="datacenters.html#reserve-2mw" class="dropdown-item dropdown-subitem"><i class="fas fa-plug-circle-bolt"></i> Резерв 2 МВт</a>
-							                        <a href="datacenters.html#main-1mw" class="dropdown-item dropdown-subitem"><i class="fas fa-bolt"></i> Основной 1 МВт</a>
-							                        <a href="datacenters.html#main-5mw" class="dropdown-item dropdown-subitem"><i class="fas fa-bolt"></i> Основной 5 МВт</a>
+						                        <a href="industries/index.html" class="dropdown-item"><i class="fas fa-layer-group"></i> Все отрасли</a>
+						                        <a href="industries/promyshlennost/index.html" class="dropdown-item"><i class="fas fa-industry"></i> Промышленность</a>
+						                        <a href="industries/promyshlennost/proizvodstvo.html" class="dropdown-item dropdown-subitem"><i class="fas fa-bolt"></i> Энергия для производства</a>
+		                        <a href="industries/neftegaz/index.html" class="dropdown-item"><i class="fas fa-oil-well"></i> Нефтегаз</a>
+						                        <a href="industries/neftegaz/ngpu.html" class="dropdown-item dropdown-subitem"><i class="fas fa-fire-flame-simple"></i> ГПУ 250 кВт (ПНГ)</a>
+						                        <a href="industries/neftegaz/index.html" class="dropdown-item dropdown-subitem"><i class="fas fa-tower-observation"></i> Энергоснабжение месторождений</a>
+							                        <a href="industries/mining/index.html" class="dropdown-item"><i class="fas fa-microchip"></i> Майнинг</a>
+							                        <a href="industries/mining/index.html#gpu" class="dropdown-item dropdown-subitem"><i class="fas fa-microchip"></i> ГПУ для майнинга</a>
+							                        <a href="industries/mining/index.html#container" class="dropdown-item dropdown-subitem"><i class="fas fa-box"></i> Контейнер + полки ASIC</a>
+							                        <a href="industries/mining/index.html#home" class="dropdown-item dropdown-subitem"><i class="fas fa-house"></i> Домашний майнинг</a>
+							                        <a href="industries/agroprom/index.html" class="dropdown-item"><i class="fas fa-seedling"></i> Агропром</a>
+							                        <a href="industries/agroprom/index.html#poultry" class="dropdown-item dropdown-subitem"><i class="fas fa-drumstick-bite"></i> Птицефабрики</a>
+							                        <a href="industries/agroprom/index.html#greenhouse" class="dropdown-item dropdown-subitem"><i class="fas fa-leaf"></i> Теплицы</a>
+							                        <a href="industries/zhkh/index.html" class="dropdown-item"><i class="fas fa-city"></i> ЖКХ</a>
+							                        <a href="industries/datacenters/index.html" class="dropdown-item"><i class="fas fa-server"></i> Дата-центры</a>
+							                        <a href="industries/datacenters/index.html#reserve-500" class="dropdown-item dropdown-subitem"><i class="fas fa-plug-circle-bolt"></i> Резерв 500 кВт</a>
+							                        <a href="industries/datacenters/index.html#reserve-1mw" class="dropdown-item dropdown-subitem"><i class="fas fa-plug-circle-bolt"></i> Резерв 1 МВт</a>
+							                        <a href="industries/datacenters/index.html#reserve-2mw" class="dropdown-item dropdown-subitem"><i class="fas fa-plug-circle-bolt"></i> Резерв 2 МВт</a>
+							                        <a href="industries/datacenters/index.html#main-1mw" class="dropdown-item dropdown-subitem"><i class="fas fa-bolt"></i> Основной 1 МВт</a>
+							                        <a href="industries/datacenters/index.html#main-5mw" class="dropdown-item dropdown-subitem"><i class="fas fa-bolt"></i> Основной 5 МВт</a>
 							                    </div>
 							                </div>
-							                <a href="projects.html">Проекты</a>
-							                <a href="blog.html">Блог</a>
-							                <a href="leasing.html">Лизинг</a>
-							                <a href="contacts.html">Контакты</a>
+							                <a href="projects/index.html">Проекты</a>
+							                <a href="blog/index.html">Блог</a>
+							                <a href="leasing/index.html">Лизинг</a>
+							                <a href="contacts/index.html">Контакты</a>
 
 	                <div class="dropdown-wrapper contact-wrapper">
 	                    <div class="dropdown-trigger contact-link">
@@ -91,16 +97,21 @@ const headerHTML = `
 		            </div>
 		
 											            <div id="mobile-menu" class="mobile-menu">
-											                <a href="production.html" class="mobile-menu-link">О нас</a>
+											                <a href="about/index.html" class="mobile-menu-link">О нас</a>
 
 											                <button class="mobile-acc-toggle" type="button" aria-expanded="false" aria-controls="mobile-products" data-mobile-acc="mobile-products">
 											                    <span>Продукция</span>
 											                    <i class="fas fa-chevron-down text-[10px]"></i>
 											                </button>
 											                <div id="mobile-products" class="mobile-acc-panel" hidden>
-											                    <a href="catalog.html" class="mobile-menu-link">Каталог ГПУ</a>
-											                    <a href="gpu-250-210.html" class="mobile-menu-link">ГПУ 250 кВт (210 пост.)</a>
-											                    <a href="ngpu.html" class="mobile-menu-link">ГПУ 250 кВт (ПНГ)</a>
+											                    <a href="products/overview.html" class="mobile-menu-link">Вся продукция</a>
+											                    <a href="products/index.html" class="mobile-menu-link">Каталог ГПУ</a>
+											                    <a href="products/gpu-250-210/index.html" class="mobile-menu-link">ГПУ 250 кВт (210 пост.)</a>
+											                    <a href="industries/neftegaz/ngpu.html" class="mobile-menu-link">ГПУ 250 кВт (ПНГ)</a>
+											                    <a href="products/mining-container/index.html" class="mobile-menu-link">Контейнер для майнинга (ГПУ + полки ASIC)</a>
+											                    <a href="products/spare-parts/index.html" class="mobile-menu-link">Запчасти</a>
+											                    <a href="products/radiators-drycoolers/index.html" class="mobile-menu-link">Радиаторы и драй-куллеры</a>
+											                    <a href="products/gpu-containers/index.html" class="mobile-menu-link">Контейнеры для ГПУ</a>
 											                </div>
 
 											                <button class="mobile-acc-toggle" type="button" aria-expanded="false" aria-controls="mobile-services" data-mobile-acc="mobile-services">
@@ -108,16 +119,16 @@ const headerHTML = `
 											                    <i class="fas fa-chevron-down text-[10px]"></i>
 											                </button>
 											                <div id="mobile-services" class="mobile-acc-panel" hidden>
-											                    <a href="proizvodstvo.html" class="mobile-menu-link">Энергосервис</a>
-											                    <a href="promyshlennost.html#energycenter" class="mobile-menu-link">Энергоцентры под ключ</a>
-											                    <a href="promyshlennost.html#operation" class="mobile-menu-link">Эксплуатация 24/7</a>
-											                    <a href="services.html#site" class="mobile-menu-link">Поиск участка</a>
-											                    <a href="services.html#gas" class="mobile-menu-link">Подведение газа</a>
-											                    <a href="services.html#tu" class="mobile-menu-link">ТУ на газ</a>
-											                    <a href="services.html#predesign" class="mobile-menu-link">Предпроектные работы</a>
-											                    <a href="services.html#design" class="mobile-menu-link">Проектирование</a>
-											                    <a href="services.html#kod" class="mobile-menu-link">КОД (СУТ)</a>
-											                    <a href="services.html" class="mobile-menu-link">Все услуги</a>
+											                    <a href="industries/promyshlennost/proizvodstvo.html" class="mobile-menu-link">Энергосервис</a>
+											                    <a href="industries/promyshlennost/index.html#energycenter" class="mobile-menu-link">Энергоцентры под ключ</a>
+											                    <a href="industries/promyshlennost/index.html#operation" class="mobile-menu-link">Эксплуатация 24/7</a>
+											                    <a href="services/index.html#site" class="mobile-menu-link">Поиск участка</a>
+											                    <a href="services/index.html#gas" class="mobile-menu-link">Подведение газа</a>
+											                    <a href="services/index.html#tu" class="mobile-menu-link">ТУ на газ</a>
+											                    <a href="services/index.html#predesign" class="mobile-menu-link">Предпроектные работы</a>
+											                    <a href="services/index.html#design" class="mobile-menu-link">Проектирование</a>
+											                    <a href="services/index.html#kod" class="mobile-menu-link">КОД (СУТ)</a>
+											                    <a href="services/overview.html" class="mobile-menu-link">Все услуги</a>
 											                </div>
 
 											                <button class="mobile-acc-toggle" type="button" aria-expanded="false" aria-controls="mobile-industries" data-mobile-acc="mobile-industries">
@@ -125,71 +136,72 @@ const headerHTML = `
 											                    <i class="fas fa-chevron-down text-[10px]"></i>
 											                </button>
 												                <div id="mobile-industries" class="mobile-acc-panel" hidden>
+												                    <a href="industries/index.html" class="mobile-menu-link">Все отрасли</a>
 												                    <div class="mobile-acc-row">
-												                        <a href="promyshlennost.html" class="mobile-menu-link">Промышленность</a>
+												                        <a href="industries/promyshlennost/index.html" class="mobile-menu-link">Промышленность</a>
 												                        <button class="mobile-acc-subtoggle" type="button" aria-expanded="false" aria-controls="mobile-industry-industrial" data-mobile-acc="mobile-industry-industrial">
 												                            <i class="fas fa-chevron-down text-[10px]"></i>
 												                        </button>
 												                    </div>
 												                    <div id="mobile-industry-industrial" class="mobile-acc-panel mobile-acc-panel--nested" hidden>
-												                        <a href="proizvodstvo.html" class="mobile-menu-link mobile-subitem">Энергия для производства</a>
+												                        <a href="industries/promyshlennost/proizvodstvo.html" class="mobile-menu-link mobile-subitem">Энергия для производства</a>
 												                    </div>
 	
 												                    <div class="mobile-acc-row">
-												                        <a href="neftegaz.html" class="mobile-menu-link">Нефтегаз</a>
+												                        <a href="industries/neftegaz/index.html" class="mobile-menu-link">Нефтегаз</a>
 												                        <button class="mobile-acc-subtoggle" type="button" aria-expanded="false" aria-controls="mobile-industry-oilgas" data-mobile-acc="mobile-industry-oilgas">
 												                            <i class="fas fa-chevron-down text-[10px]"></i>
 												                        </button>
 												                    </div>
 												                    <div id="mobile-industry-oilgas" class="mobile-acc-panel mobile-acc-panel--nested" hidden>
-												                        <a href="ngpu.html" class="mobile-menu-link mobile-subitem">ГПУ 250 кВт (ПНГ)</a>
-												                        <a href="neftegaz.html" class="mobile-menu-link mobile-subitem">Энергоснабжение месторождений</a>
+												                        <a href="industries/neftegaz/ngpu.html" class="mobile-menu-link mobile-subitem">ГПУ 250 кВт (ПНГ)</a>
+												                        <a href="industries/neftegaz/index.html" class="mobile-menu-link mobile-subitem">Энергоснабжение месторождений</a>
 												                    </div>
 	
 												                    <div class="mobile-acc-row">
-												                        <a href="mining.html" class="mobile-menu-link">Майнинг</a>
+												                        <a href="industries/mining/index.html" class="mobile-menu-link">Майнинг</a>
 												                        <button class="mobile-acc-subtoggle" type="button" aria-expanded="false" aria-controls="mobile-industry-mining" data-mobile-acc="mobile-industry-mining">
 												                            <i class="fas fa-chevron-down text-[10px]"></i>
 												                        </button>
 												                    </div>
 												                    <div id="mobile-industry-mining" class="mobile-acc-panel mobile-acc-panel--nested" hidden>
-												                        <a href="mining.html#gpu" class="mobile-menu-link mobile-subitem">ГПУ для майнинга</a>
-												                        <a href="mining.html#container" class="mobile-menu-link mobile-subitem">Контейнер + полки ASIC</a>
-												                        <a href="mining.html#home" class="mobile-menu-link mobile-subitem">Домашний майнинг</a>
+												                        <a href="industries/mining/index.html#gpu" class="mobile-menu-link mobile-subitem">ГПУ для майнинга</a>
+												                        <a href="industries/mining/index.html#container" class="mobile-menu-link mobile-subitem">Контейнер + полки ASIC</a>
+												                        <a href="industries/mining/index.html#home" class="mobile-menu-link mobile-subitem">Домашний майнинг</a>
 												                    </div>
 	
 												                    <div class="mobile-acc-row">
-												                        <a href="agroprom.html" class="mobile-menu-link">Агропром</a>
+												                        <a href="industries/agroprom/index.html" class="mobile-menu-link">Агропром</a>
 												                        <button class="mobile-acc-subtoggle" type="button" aria-expanded="false" aria-controls="mobile-industry-agro" data-mobile-acc="mobile-industry-agro">
 												                            <i class="fas fa-chevron-down text-[10px]"></i>
 												                        </button>
 												                    </div>
 												                    <div id="mobile-industry-agro" class="mobile-acc-panel mobile-acc-panel--nested" hidden>
-												                        <a href="agroprom.html#poultry" class="mobile-menu-link mobile-subitem">Птицефабрики</a>
-												                        <a href="agroprom.html#greenhouse" class="mobile-menu-link mobile-subitem">Теплицы</a>
+												                        <a href="industries/agroprom/index.html#poultry" class="mobile-menu-link mobile-subitem">Птицефабрики</a>
+												                        <a href="industries/agroprom/index.html#greenhouse" class="mobile-menu-link mobile-subitem">Теплицы</a>
 												                    </div>
 	
-												                    <a href="zhkh.html" class="mobile-menu-link">ЖКХ</a>
+												                    <a href="industries/zhkh/index.html" class="mobile-menu-link">ЖКХ</a>
 	
 												                    <div class="mobile-acc-row">
-												                        <a href="datacenters.html" class="mobile-menu-link">Дата-центры</a>
+												                        <a href="industries/datacenters/index.html" class="mobile-menu-link">Дата-центры</a>
 												                        <button class="mobile-acc-subtoggle" type="button" aria-expanded="false" aria-controls="mobile-industry-dc" data-mobile-acc="mobile-industry-dc">
 												                            <i class="fas fa-chevron-down text-[10px]"></i>
 												                        </button>
 												                    </div>
 												                    <div id="mobile-industry-dc" class="mobile-acc-panel mobile-acc-panel--nested" hidden>
-												                        <a href="datacenters.html#reserve-500" class="mobile-menu-link mobile-subitem">Резерв 500 кВт</a>
-												                        <a href="datacenters.html#reserve-1mw" class="mobile-menu-link mobile-subitem">Резерв 1 МВт</a>
-												                        <a href="datacenters.html#reserve-2mw" class="mobile-menu-link mobile-subitem">Резерв 2 МВт</a>
-												                        <a href="datacenters.html#main-1mw" class="mobile-menu-link mobile-subitem">Основной 1 МВт</a>
-												                        <a href="datacenters.html#main-5mw" class="mobile-menu-link mobile-subitem">Основной 5 МВт</a>
+												                        <a href="industries/datacenters/index.html#reserve-500" class="mobile-menu-link mobile-subitem">Резерв 500 кВт</a>
+												                        <a href="industries/datacenters/index.html#reserve-1mw" class="mobile-menu-link mobile-subitem">Резерв 1 МВт</a>
+												                        <a href="industries/datacenters/index.html#reserve-2mw" class="mobile-menu-link mobile-subitem">Резерв 2 МВт</a>
+												                        <a href="industries/datacenters/index.html#main-1mw" class="mobile-menu-link mobile-subitem">Основной 1 МВт</a>
+												                        <a href="industries/datacenters/index.html#main-5mw" class="mobile-menu-link mobile-subitem">Основной 5 МВт</a>
 												                    </div>
 													                </div>
 
-												                <a href="projects.html" class="mobile-menu-link">Проекты</a>
-												                <a href="blog.html" class="mobile-menu-link">Блог</a>
-												                <a href="leasing.html" class="mobile-menu-link">Лизинг</a>
-												                <a href="contacts.html" class="mobile-menu-link">Контакты</a>
+												                <a href="projects/index.html" class="mobile-menu-link">Проекты</a>
+												                <a href="blog/index.html" class="mobile-menu-link">Блог</a>
+												                <a href="leasing/index.html" class="mobile-menu-link">Лизинг</a>
+												                <a href="contacts/index.html" class="mobile-menu-link">Контакты</a>
 
 											                <div class="h-[1px] bg-slate-900/10 w-full my-2"></div>
 											                <a href="tel:+78000000000" class="text-accent font-bold mobile-menu-link">+7 (800) 000-00-00</a>
@@ -200,8 +212,8 @@ const headerHTML = `
 `;
 
 const footerHTML = `
-		    <!-- FOOTER -->
-		    <footer class="py-12 border-t border-slate-900/10 text-center bg-white/50 backdrop-blur-md">
+			    <!-- FOOTER -->
+			    <footer class="py-12 border-t border-slate-900/10 text-center bg-white/50 backdrop-blur-md">
 		        <div class="max-w-7xl mx-auto px-6">
 		            <div class="flex flex-col md:flex-row justify-between items-start gap-8 text-left">
 		                <div>
@@ -222,72 +234,291 @@ const footerHTML = `
 		                </div>
 		            </div>
 		        </div>
-			    </footer>
-	`;
+				    </footer>
+		`;
 
-function patchRelativeLinksForBlogSubdir() {
-    const p = String(location.pathname || '');
-    const inBlog = p.includes('/blog/');
-    if (!inBlog) return;
+	function ensureBreadcrumbs() {
+	    const body = document.body;
+	    if (!body) return;
+	    if (body.dataset && body.dataset.breadcrumbs === 'off') return;
 
-    const prefix = '../';
+	    const getSiteRelPath = () => {
+	        let p = String(location.pathname || '');
+	        if (location.protocol === 'file:') {
+	            const marker = '/gkee.ru/';
+	            const idx = p.lastIndexOf(marker);
+	            if (idx >= 0) p = p.slice(idx + marker.length);
+	        }
+	        p = p.replace(/^\/+/, '');
+	        return p;
+	    };
 
-    const isExternal = (href) => {
-        if (!href) return true;
-        return (
-            href.startsWith('#') ||
-            href.startsWith('http://') ||
-            href.startsWith('https://') ||
-            href.startsWith('mailto:') ||
-            href.startsWith('tel:') ||
-            href.startsWith('/')
-        );
-    };
+	    const relPath = getSiteRelPath();
+	    const isHome = relPath === '' || relPath === 'index.html';
+	    if (isHome) return;
 
-    const patchEl = (root) => {
-        if (!root) return;
+	    const existing = document.querySelector('ol[aria-label="breadcrumbs"]');
 
-        root.querySelectorAll('a[href]').forEach((a) => {
-            const href = a.getAttribute('href');
-            if (!href || isExternal(href)) return;
-            if (href.startsWith(prefix)) return;
-            a.setAttribute('href', prefix + href);
-        });
+	    const normalizeExisting = (ol) => {
+	        if (!ol) return;
 
-        root.querySelectorAll('img[src]').forEach((img) => {
-            const src = img.getAttribute('src');
-            if (!src) return;
-            if (
-                src.startsWith('data:') ||
-                src.startsWith('http://') ||
-                src.startsWith('https://') ||
-                src.startsWith('/') ||
-                src.startsWith(prefix)
-            ) {
-                return;
-            }
-            img.setAttribute('src', prefix + src);
-        });
-
-        // Only patch the CTA that navigates to the contacts section on the main page.
-        const cta = root.querySelector("button[onclick*=\"index.html#contacts\"]");
-        if (cta) {
-            cta.removeAttribute('onclick');
-            cta.addEventListener('click', () => {
-                window.location.href = `${prefix}index.html#contacts`;
-            });
+        let wrapper = ol.closest('nav');
+        if (!wrapper) {
+            wrapper = document.createElement('nav');
+            const parent = ol.parentNode;
+            if (parent) parent.insertBefore(wrapper, ol);
+            wrapper.appendChild(ol);
         }
+
+        wrapper.classList.add('ui-breadcrumbs');
+        // Existing blog/project pages used `pb-8` in the breadcrumbs nav; we unify spacing via CSS.
+        wrapper.classList.remove('pb-8');
+        ol.classList.add('ui-breadcrumbs__list');
+
+        ol.querySelectorAll('a[href]').forEach((a) => a.classList.add('ui-breadcrumbs__link'));
+        ol.querySelectorAll('li').forEach((li) => {
+            const isSep =
+                li.getAttribute('aria-hidden') === 'true' ||
+                String(li.textContent || '').trim() === '/';
+            if (isSep) li.classList.add('ui-breadcrumbs__sep');
+        });
     };
 
-    patchEl(document.getElementById('header-placeholder'));
-    patchEl(document.getElementById('footer-placeholder'));
+	    if (existing) {
+	        normalizeExisting(existing);
+	        return;
+	    }
+
+	    const parsePathInfo = (p) => {
+	        const s = String(p || '');
+	        if (!s) return { dirParts: [], file: '', isIndex: true };
+
+	        if (s.endsWith('/')) {
+	            const dirParts = s.split('/').filter(Boolean);
+	            return { dirParts, file: '', isIndex: true };
+	        }
+
+	        const parts = s.split('/').filter(Boolean);
+	        if (parts.length === 0) return { dirParts: [], file: '', isIndex: true };
+	        const last = parts[parts.length - 1];
+	        if (last === 'index.html') {
+	            return { dirParts: parts.slice(0, -1), file: last, isIndex: true };
+	        }
+	        return { dirParts: parts.slice(0, -1), file: last, isIndex: false };
+	    };
+
+	    const getTitleFromDocumentTitle = () => {
+	        const t = String(document.title || '').trim();
+	        if (!t) return '';
+	        const beforePipe = t.split('|')[0];
+	        return String(beforePipe || '').trim();
+    };
+
+    const getTitleFromH1 = () => {
+        const h1 = document.querySelector('h1');
+        const t = h1 ? String(h1.textContent || '').trim() : '';
+        return t;
+    };
+
+	    const currentLabel =
+	        getTitleFromDocumentTitle() ||
+	        getTitleFromH1() ||
+	        'Страница';
+
+	    const { dirParts, file, isIndex } = parsePathInfo(relPath);
+	    const section = String(dirParts[0] || '');
+
+	    const industryLabels = {
+	        promyshlennost: 'Промышленность',
+	        neftegaz: 'Нефтегаз',
+	        mining: 'Майнинг',
+	        agroprom: 'Агропром',
+	        zhkh: 'ЖКХ',
+	        datacenters: 'Дата-центры',
+	    };
+
+	    const isBlogArticle = Boolean(body.getAttribute('data-article')) || (section === 'blog' && !isIndex);
+	    const isProjectCase = Boolean(body.getAttribute('data-project')) || (section === 'projects' && !isIndex);
+
+	    const crumbs = [];
+	    crumbs.push({ text: 'Главная', href: 'index.html' });
+
+	    if (section === 'industries') {
+	        const category = { text: 'Отрасль', href: 'industries/index.html' };
+	        const industryKey = String(dirParts[1] || '');
+	        const industryLabel = industryLabels[industryKey] || (industryKey ? currentLabel : '');
+
+	        if (!industryKey) {
+	            // /industries/index.html
+	            crumbs.push({ text: 'Отрасль' });
+	        } else if (isIndex && dirParts.length === 2) {
+	            // /industries/<industry>/index.html
+	            crumbs.push(category);
+	            crumbs.push({ text: industryLabel || currentLabel });
+	        } else {
+	            // /industries/<industry>/<page>.html
+	            crumbs.push(category);
+	            crumbs.push({
+	                text: industryLabel || industryKey,
+	                href: `industries/${industryKey}/index.html`,
+	            });
+	            crumbs.push({ text: currentLabel });
+	        }
+	    } else if (section === 'blog') {
+	        if (isBlogArticle) {
+	            crumbs.push({ text: 'Блог', href: 'blog/index.html' });
+	            crumbs.push({ text: currentLabel, id: 'articleBreadcrumbTitle' });
+	        } else {
+	            crumbs.push({ text: 'Блог' });
+	        }
+	    } else if (section === 'projects') {
+	        if (isProjectCase) {
+	            crumbs.push({ text: 'Проекты', href: 'projects/index.html' });
+	            crumbs.push({ text: currentLabel, id: 'projectBreadcrumbTitle' });
+	        } else {
+	            crumbs.push({ text: 'Проекты' });
+	        }
+	    } else if (section === 'services') {
+	        if (isIndex && dirParts.length === 1) {
+	            crumbs.push({ text: 'Услуги' });
+	        } else {
+	            crumbs.push({ text: 'Услуги', href: 'services/index.html' });
+	            crumbs.push({ text: currentLabel });
+	        }
+	    } else if (section === 'about') {
+	        if (isIndex && dirParts.length === 1) {
+	            crumbs.push({ text: 'О нас' });
+	        } else {
+	            crumbs.push({ text: 'О нас', href: 'about/index.html' });
+	            crumbs.push({ text: currentLabel });
+	        }
+	    } else if (section === 'products') {
+	        const category = { text: 'Продукция', href: 'products/index.html' };
+	        const productKey = String(dirParts[1] || '');
+
+	        if (!productKey) {
+	            crumbs.push({ text: 'Продукция' });
+	        } else if (isIndex && dirParts.length === 2) {
+	            crumbs.push(category);
+	            crumbs.push({ text: currentLabel });
+	        } else {
+	            crumbs.push(category);
+	            crumbs.push({ text: productKey, href: `products/${productKey}/index.html` });
+	            crumbs.push({ text: currentLabel });
+	        }
+	    } else if (section === 'contacts') {
+	        if (isIndex && dirParts.length === 1) {
+	            crumbs.push({ text: 'Контакты' });
+	        } else {
+	            crumbs.push({ text: 'Контакты', href: 'contacts/index.html' });
+	            crumbs.push({ text: currentLabel });
+	        }
+	    } else if (section === 'leasing') {
+	        if (isIndex && dirParts.length === 1) {
+	            crumbs.push({ text: 'Лизинг' });
+	        } else {
+	            crumbs.push({ text: 'Лизинг', href: 'leasing/index.html' });
+	            crumbs.push({ text: currentLabel });
+	        }
+	    } else {
+	        if (isBlogArticle) {
+	            crumbs.push({ text: 'Блог', href: 'blog/index.html' });
+	            crumbs.push({ text: currentLabel, id: 'articleBreadcrumbTitle' });
+	        } else if (isProjectCase) {
+	            crumbs.push({ text: 'Проекты', href: 'projects/index.html' });
+	            crumbs.push({ text: currentLabel, id: 'projectBreadcrumbTitle' });
+	        } else {
+	            crumbs.push({ text: currentLabel });
+	        }
+	    }
+
+    const buildNav = ({ withContainer, topPadding }) => {
+        const nav = document.createElement('nav');
+        nav.classList.add('ui-breadcrumbs');
+        if (topPadding) {
+            nav.classList.add('pt-24', 'lg:pt-20');
+        }
+
+        const ol = document.createElement('ol');
+        ol.setAttribute('aria-label', 'breadcrumbs');
+        ol.classList.add('ui-breadcrumbs__list');
+
+        crumbs.forEach((c, idx) => {
+            if (idx > 0) {
+                const sep = document.createElement('li');
+                sep.setAttribute('aria-hidden', 'true');
+                sep.classList.add('ui-breadcrumbs__sep');
+                sep.textContent = '/';
+                ol.appendChild(sep);
+            }
+
+            const li = document.createElement('li');
+            if (c.id) li.id = c.id;
+
+            if (c.href) {
+                const a = document.createElement('a');
+                a.href = c.href;
+                a.classList.add('ui-breadcrumbs__link');
+                a.textContent = c.text;
+                li.appendChild(a);
+            } else {
+                li.textContent = c.text;
+            }
+
+            ol.appendChild(li);
+        });
+
+        if (withContainer) {
+            const container = document.createElement('div');
+            container.className = 'max-w-7xl mx-auto px-6';
+            container.appendChild(ol);
+            nav.appendChild(container);
+        } else {
+            nav.appendChild(ol);
+        }
+
+        return nav;
+    };
+
+    const h1 = document.querySelector('h1');
+    if (h1 && h1.parentNode) {
+        const nav = buildNav({ withContainer: false, topPadding: false });
+        h1.parentNode.insertBefore(nav, h1);
+        return;
+    }
+
+    const pageLight = document.querySelector('.page-light');
+    if (pageLight) {
+        const main = pageLight.querySelector('main');
+        const nav = buildNav({ withContainer: true, topPadding: true });
+        if (main && main.parentNode === pageLight) {
+            pageLight.insertBefore(nav, main);
+        } else {
+            const lastBlob =
+                pageLight.querySelector('.bg-blob.blob-2') ||
+                pageLight.querySelector('.bg-blob');
+            if (lastBlob && lastBlob.parentNode === pageLight) {
+                pageLight.insertBefore(nav, lastBlob.nextSibling);
+            } else {
+                pageLight.insertBefore(nav, pageLight.firstChild);
+            }
+        }
+        return;
+    }
+
+    const headerPlaceholder = document.getElementById('header-placeholder');
+    if (headerPlaceholder && headerPlaceholder.parentNode) {
+        const nav = buildNav({ withContainer: true, topPadding: true });
+        headerPlaceholder.parentNode.insertBefore(nav, headerPlaceholder.nextSibling);
+        return;
+    }
 }
 
-// Загрузка header и footer при загрузке страницы
-document.addEventListener('DOMContentLoaded', function () {
-    document.getElementById('header-placeholder').innerHTML = headerHTML;
-    document.getElementById('footer-placeholder').innerHTML = footerHTML;
-    patchRelativeLinksForBlogSubdir();
+	// Загрузка header и footer при загрузке страницы
+	document.addEventListener('DOMContentLoaded', function () {
+	    document.getElementById('header-placeholder').innerHTML = headerHTML;
+	    document.getElementById('footer-placeholder').innerHTML = footerHTML;
+	    ensureBreadcrumbs();
 
     // Header behavior:
     // - Header is always overlay (position: fixed) to avoid layout shift on scroll.

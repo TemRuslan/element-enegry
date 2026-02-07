@@ -6,21 +6,64 @@
 
 ```
 gkee.ru/
-├── index.html          # Основной HTML файл
-├── components/         # Компоненты сайта
-│   ├── header.html     # Навигационное меню
-│   └── footer.html     # Нижняя часть сайта
+├── index.html              # Главная
+├── about/
+│   └── index.html          # О нас
+├── products/
+│   ├── index.html          # Каталог ГПУ
+│   ├── gpu/
+│   │   └── index.html      # Универсальная карточка товара (по query param)
+│   └── gpu-250-210/
+│       └── index.html      # Выделенная карточка товара (250/210)
+├── industries/
+│   ├── index.html          # Все отрасли (лендинг-обзор)
+│   ├── promyshlennost/
+│   │   ├── index.html      # Промышленность
+│   │   └── proizvodstvo.html # Электроэнергия для производства
+│   ├── neftegaz/
+│   │   ├── index.html      # Нефтегаз
+│   │   └── ngpu.html       # ГПУ на ПНГ 250 кВт
+│   ├── mining/
+│   │   └── index.html      # Майнинг
+│   ├── agroprom/
+│   │   └── index.html      # Агропром
+│   ├── zhkh/
+│   │   └── index.html      # ЖКХ
+│   └── datacenters/
+│       └── index.html      # Дата-центры
+├── services/
+│   ├── index.html          # Услуги
+│   └── overview.html       # Услуги (обзор)
+├── projects/
+│   ├── index.html          # Проекты (список)
+│   └── *.html              # Проектные кейсы (генерируются)
+├── blog/
+│   ├── index.html          # Блог (список)
+│   └── *.html              # Статьи (генерируются)
+├── components/             # HTML-шаблоны (для справки)
+│   ├── header.html
+│   └── footer.html
 ├── css/
-│   └── styles.css      # Все стили сайта
+│   └── styles.css          # Общие стили
 ├── js/
-│   └── script.js       # JavaScript функционал
-├── assets/             # Папка для изображений и других ресурсов
-└── README.md           # Этот файл
+│   ├── script.js           # Общий JS (header/footer, breadcrumbs и т.д.)
+│   └── ...                 # Остальные скрипты
+├── assets/                 # Изображения и ресурсы
+└── README.md               # Этот файл
 ```
 
 ## Дизайн-унификации
 
 Список унификаций дизайна и правила применения: [docs/design-unifications.md](docs/design-unifications.md).
+
+## Важно: ссылки и `<base>`
+
+Страницы лежат в подпапках, но при этом их можно открывать как через локальный сервер, так и напрямую с диска.
+Для этого на каждой странице в `<head>` вставляется небольшой скрипт, который рассчитывает путь до корня сайта и
+добавляет `<base href="...">`.
+
+Практическое правило: внутренние ссылки в разметке пишем как пути от корня репозитория (например, `projects/index.html`,
+`industries/promyshlennost/index.html`), чтобы они корректно работали с любого уровня вложенности.
 
 ## Файлы
 

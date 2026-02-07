@@ -16,14 +16,15 @@
       s.startsWith('/') ||
       s.startsWith('../')
     ) {
-      return s;
+      // When opening pages from disk (file://), "../" can escape the site folder.
+      // Normalize to a site-root relative path.
+      return s.replace(/^(\.\.\/)+/, '');
     }
-    const inBlog = String(location.pathname || '').includes('/blog/');
-    return inBlog ? `../${s}` : s;
+    return s;
   };
 
   const renderCard = (item) => {
-    const href = safeText(item.slug) ? `blog/${safeText(item.slug)}.html` : 'blog.html';
+    const href = safeText(item.slug) ? `blog/${safeText(item.slug)}.html` : 'blog/index.html';
 
     const card = document.createElement('a');
     card.href = href;

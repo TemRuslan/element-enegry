@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Продукция Элемент Энергия: газопоршневые установки, контейнеры для майнинга, запчасти, радиаторы и драй-куллеры, контейнеры для ГПУ.">
+    <title>Продукция | Элемент Энергия</title>
+
+    <script>
+        (function () {
+            var p = String(location.pathname || '');
+            if (location.protocol === 'file:') {
+                var marker = '/gkee.ru/';
+                var idx = p.lastIndexOf(marker);
+                if (idx >= 0) p = p.slice(idx + marker.length);
+            }
+            p = p.replace(/^\/+/, '');
+            if (!p.endsWith('/')) p = p.replace(/[^/]*$/, '');
+            var depth = p.split('/').filter(Boolean).length;
+            var prefix = depth ? Array(depth + 1).join('../') : './';
+            document.write('<base href="' + prefix + '">');
+        })();
+    </script>
+
+    <script>
+        // Tailwind CDN config: adds custom "accent" utilities used across the site (bg-accent/..., text-accent, etc.)
+        window.tailwind = window.tailwind || {};
+        window.tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        accent: '#0ea5e9',
+                        'accent-dark': '#0284c7',
+                    }
+                }
+            }
+        };
+    </script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@700&display=swap"
+        rel="stylesheet">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon/favicon-16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/favicon/apple-touch-icon.png">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body class="projects-page">
+    <!-- HEADER PLACEHOLDER -->
+    <div id="header-placeholder"></div>
+
+    <!-- LIGHT PAGE -->
+    <div class="page-light">
+        <div class="bg-blob blob-1"></div>
+        <div class="bg-blob blob-2"></div>
+
+        <section class="pt-24 lg:pt-20 pb-16">
+            <div class="max-w-7xl mx-auto px-6 w-full">
+                <div class="max-w-4xl">
+                    <ol class="flex flex-wrap items-center gap-2 text-[14px] font-medium tracking-[0.06em] text-slate-500 mb-6 lg:mb-[50px] lg:mt-2"
+                        aria-label="breadcrumbs">
+                        <li><a href="index.html" class="hover:text-accent transition">Главная</a></li>
+                        <li aria-hidden="true" class="text-slate-400">/</li>
+                        <li>Продукция</li>
+                    </ol>
+
+                    <h1 class="projects-title text-3xl md:text-5xl mb-6 leading-[1.02]">
+                        Продукция
+                    </h1>
+
+                    <p class="text-lg md:text-xl text-slate-600 leading-relaxed max-w-2xl">
+                        Выберите категорию и перейдите к описанию, комплектации и условиям поставки.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <main class="max-w-7xl mx-auto px-6 pt-0 pb-24">
+            <section id="products">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <article class="glass-card p-10 flex flex-col">
+                        <div class="projects-card-media relative overflow-hidden bg-white/40">
+                            <img src="assets/site-photos/products/gpu.jpg" alt="Газопоршневые установки" loading="lazy"
+                                class="w-full h-auto aspect-[4/3] object-cover">
+                        </div>
+                        <h3 class="mt-3 text-lg font-black uppercase tracking-tight text-slate-900">
+                            Газопоршневые установки (ГПУ)
+                        </h3>
+                        <p class="mt-4 text-sm text-slate-600 leading-relaxed flex-grow">
+                            Каталог моделей, мощность, комплектация и варианты исполнения: рама, контейнер, опции.
+                        </p>
+                        <a href="products/index.html"
+                            class="mt-8 btn-primary inline-flex items-center justify-center gap-2 px-8 py-4 rounded-2xl text-[11px] font-black uppercase tracking-[0.22em] text-white transition-all hover:scale-[1.02]">
+                            Открыть каталог <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                    </article>
+
+                    <article class="glass-card p-10 flex flex-col">
+                        <div class="projects-card-media relative overflow-hidden bg-white/40">
+                            <img src="assets/site-photos/products/mining-container.jpg"
+                                alt="Контейнер для майнинга: ГПУ + полки ASIC" loading="lazy"
+                                class="w-full h-auto aspect-[4/3] object-cover">
+                        </div>
+                        <h3 class="mt-3 text-lg font-black uppercase tracking-tight text-slate-900">
+                            Контейнер для майнинга: ГПУ + полки ASIC
+                        </h3>
+                        <p class="mt-4 text-sm text-slate-600 leading-relaxed flex-grow">
+                            Контейнерные решения для майнинга: компоновка, вентиляция, электрика, безопасность и
+                            масштабирование.
+                        </p>
+                        <a href="products/mining-container/index.html"
+                            class="mt-8 btn-primary inline-flex items-center justify-center gap-2 px-8 py-4 rounded-2xl text-[11px] font-black uppercase tracking-[0.22em] text-white transition-all hover:scale-[1.02]">
+                            Подробнее <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                    </article>
+
+                    <article class="glass-card p-10 flex flex-col">
+                        <div class="projects-card-media relative overflow-hidden bg-white/40">
+                            <img src="assets/site-photos/products/spare-parts.jpg" alt="Запчасти" loading="lazy"
+                                class="w-full h-auto aspect-[4/3] object-cover">
+                        </div>
+                        <h3 class="mt-3 text-lg font-black uppercase tracking-tight text-slate-900">
+                            Запчасти
+                        </h3>
+                        <p class="mt-4 text-sm text-slate-600 leading-relaxed flex-grow">
+                            Подбор и поставка запчастей для ГПУ: регламентные позиции, комплектующие и расходники.
+                        </p>
+                        <a href="products/spare-parts/index.html"
+                            class="mt-8 btn-primary inline-flex items-center justify-center gap-2 px-8 py-4 rounded-2xl text-[11px] font-black uppercase tracking-[0.22em] text-white transition-all hover:scale-[1.02]">
+                            Подробнее <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                    </article>
+
+                    <article class="glass-card p-10 flex flex-col">
+                        <div class="projects-card-media relative overflow-hidden bg-white/40">
+                            <img src="assets/site-photos/products/cooling.jpg" alt="Радиаторы и драй-куллеры"
+                                loading="lazy" class="w-full h-auto aspect-[4/3] object-cover">
+                        </div>
+                        <h3 class="mt-3 text-lg font-black uppercase tracking-tight text-slate-900">
+                            Радиаторы и драй-куллеры
+                        </h3>
+                        <p class="mt-4 text-sm text-slate-600 leading-relaxed flex-grow">
+                            Охлаждение для оборудования: подбор по тепловой нагрузке, режимам и климату площадки.
+                        </p>
+                        <a href="products/radiators-drycoolers/index.html"
+                            class="mt-8 btn-primary inline-flex items-center justify-center gap-2 px-8 py-4 rounded-2xl text-[11px] font-black uppercase tracking-[0.22em] text-white transition-all hover:scale-[1.02]">
+                            Подробнее <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                    </article>
+
+                    <article class="glass-card p-10 flex flex-col">
+                        <div class="projects-card-media relative overflow-hidden bg-white/40">
+                            <img src="assets/site-photos/products/gpu-containers.jpg" alt="Контейнеры для ГПУ"
+                                loading="lazy" class="w-full h-auto aspect-[4/3] object-cover">
+                        </div>
+                        <h3 class="mt-3 text-lg font-black uppercase tracking-tight text-slate-900">
+                            Контейнеры для ГПУ
+                        </h3>
+                        <p class="mt-4 text-sm text-slate-600 leading-relaxed flex-grow">
+                            Контейнерные исполнения для ГПУ: шумозащита, вентиляция, безопасность и быстрое размещение
+                            на площадке.
+                        </p>
+                        <a href="products/gpu-containers/index.html"
+                            class="mt-8 btn-primary inline-flex items-center justify-center gap-2 px-8 py-4 rounded-2xl text-[11px] font-black uppercase tracking-[0.22em] text-white transition-all hover:scale-[1.02]">
+                            Подробнее <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                    </article>
+                </div>
+            </section>
+        </main>
+
+        <!-- FOOTER PLACEHOLDER -->
+        <div id="footer-placeholder"></div>
+    </div>
+
+    <script src="js/script.js"></script>
+</body>
+
+</html>
+

@@ -12,11 +12,30 @@
     --glass-border: rgba(15, 23, 42, 0.08);
     --glass-shadow: 0 18px 40px rgba(15, 23, 42, 0.10);
 
-    /* Unified card radius. Source of truth: Projects page cards (/projects.html). */
+    /* Unified card radius. Source of truth: Projects page cards (/projects/index.html). */
     --radius-card: 15px;
+
+    /* Unified card hover motion. Source of truth: Projects page cards (/projects/index.html). */
+    --motion-card-hover-duration: 0.4s;
+    --motion-card-hover-ease: cubic-bezier(0.4, 0, 0.2, 1);
+    --card-hover-translate-y: -2.5px;
+    --card-hover-border-color: rgba(14, 165, 233, 0.18);
+    --card-hover-shadow: 0 16px 34px rgba(14, 165, 233, 0.075);
+    --glass-card-hover-bg: rgba(255, 255, 255, 0.82);
 
     /* Header background alpha (scroll-driven by js/script.js). */
     --nav-bg-alpha: 1;
+
+    /* Breadcrumbs (unified, like /projects/index.html). */
+    --breadcrumbs-font-size: 14px;
+    --breadcrumbs-font-weight: 500;
+    --breadcrumbs-letter-spacing: 0.06em;
+    --breadcrumbs-color: #64748b; /* slate-500 */
+    --breadcrumbs-sep-color: #94a3b8; /* slate-400 */
+    --breadcrumbs-gap: 8px;
+    --breadcrumbs-mb: 24px;
+    --breadcrumbs-mb-lg: 50px;
+    --breadcrumbs-mt-lg: 8px;
 }
 
 body {
@@ -32,6 +51,55 @@ body {
 .break-anywhere {
     overflow-wrap: anywhere;
     word-break: break-word;
+}
+
+/* Breadcrumbs */
+.ui-breadcrumbs {
+    margin: 0 0 var(--breadcrumbs-mb) 0;
+}
+
+@media (min-width: 1024px) {
+    .ui-breadcrumbs {
+        margin-bottom: var(--breadcrumbs-mb-lg);
+        margin-top: var(--breadcrumbs-mt-lg);
+    }
+}
+
+.ui-breadcrumbs__list {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--breadcrumbs-gap);
+    list-style: none;
+    padding: 0;
+    margin: 0; /* override existing Tailwind mb/mt utilities */
+    font-size: var(--breadcrumbs-font-size);
+    font-weight: var(--breadcrumbs-font-weight);
+    letter-spacing: var(--breadcrumbs-letter-spacing);
+    color: var(--breadcrumbs-color);
+}
+
+.ui-breadcrumbs__sep {
+    color: var(--breadcrumbs-sep-color);
+}
+
+.ui-breadcrumbs__link {
+    color: inherit;
+    text-decoration: none;
+    transition: color 150ms ease;
+}
+
+.ui-breadcrumbs__link:hover {
+    color: var(--accent);
+}
+
+/* Dark hero readability (same typography, higher contrast). */
+.hero-bg .ui-breadcrumbs__list {
+    color: rgba(226, 232, 240, 0.85);
+}
+
+.hero-bg .ui-breadcrumbs__sep {
+    color: rgba(148, 163, 184, 0.8);
 }
 
 /* Utility classes used across pages (Tailwind CDN doesn't know our custom tokens) */
@@ -60,6 +128,7 @@ body {
 }
 
 .page-light>section,
+.page-light>nav,
 .page-light>main,
 .page-light>#footer-placeholder {
     position: relative;
@@ -239,9 +308,25 @@ section {
     transform: translateY(0);
 }
 
-/* UI utility: use tokens so designs can be unified site-wide from one place. */
+/* UI utilities: keep unified tokens (radius + hover motion) in one place. */
+.ui-card,
+.ui-hover {
+    transition:
+        transform var(--motion-card-hover-duration) var(--motion-card-hover-ease),
+        box-shadow var(--motion-card-hover-duration) var(--motion-card-hover-ease),
+        border-color var(--motion-card-hover-duration) var(--motion-card-hover-ease);
+    will-change: transform;
+}
+
 .ui-card {
     border-radius: var(--radius-card);
+}
+
+.ui-card:hover,
+.ui-hover:hover {
+    transform: translateY(var(--card-hover-translate-y));
+    border-color: var(--card-hover-border-color);
+    box-shadow: var(--card-hover-shadow);
 }
 
 .dropdown-item {
@@ -316,20 +401,28 @@ section {
 }
 
 .glass-card {
-    background: var(--glass);
+    --card-bg: var(--glass);
+    --card-bg-hover: var(--glass-card-hover-bg);
+
     backdrop-filter: blur(8px) saturate(160%);
     -webkit-backdrop-filter: blur(8px) saturate(160%);
     border: 1px solid var(--glass-border);
     border-radius: var(--radius-card);
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transition:
+        transform var(--motion-card-hover-duration) var(--motion-card-hover-ease),
+        box-shadow var(--motion-card-hover-duration) var(--motion-card-hover-ease),
+        border-color var(--motion-card-hover-duration) var(--motion-card-hover-ease),
+        background var(--motion-card-hover-duration) var(--motion-card-hover-ease);
     box-shadow: var(--glass-shadow);
+    background: var(--card-bg);
+    will-change: transform;
 }
 
 .glass-card:hover {
-    border-color: rgba(14, 165, 233, 0.28);
-    transform: translateY(-4px);
-    background: var(--glass-strong);
-    box-shadow: 0 28px 60px rgba(14, 165, 233, 0.10);
+    border-color: var(--card-hover-border-color);
+    transform: translateY(var(--card-hover-translate-y));
+    background: var(--card-bg-hover);
+    box-shadow: var(--card-hover-shadow);
 }
 
 /* Lighter shadow for small metric cards (e.g. in Projects hero). */
@@ -338,20 +431,12 @@ section {
 }
 
 .glass-card.metric-card:hover {
-    box-shadow: 0 16px 36px rgba(14, 165, 233, 0.08);
+    box-shadow: var(--card-hover-shadow);
 }
 
 /* Projects page: make all cards hover like the metric cards in the hero. */
 .projects-page .glass-card {
     box-shadow: 0 10px 24px rgba(15, 23, 42, 0.06);
-}
-
-.projects-page .glass-card:hover {
-    /* Half-strength hover for Projects page: smaller lift + softer color shift. */
-    transform: translateY(-2.5px);
-    border-color: rgba(14, 165, 233, 0.18);
-    background: rgba(255, 255, 255, 0.82);
-    box-shadow: 0 16px 34px rgba(14, 165, 233, 0.075);
 }
 
 /* Projects page: make the hero media match the card radius; icons stay a bit sharper. */
@@ -404,22 +489,31 @@ section {
 }
 
 .contacts-page .contact-card {
+    --card-bg: var(--glass);
+    --card-bg-hover: var(--glass-card-hover-bg);
+
     position: relative;
     overflow: hidden;
-    background: var(--glass);
     backdrop-filter: blur(10px) saturate(160%);
     -webkit-backdrop-filter: blur(10px) saturate(160%);
     border: 1px solid var(--glass-border);
     border-radius: var(--radius-card);
     padding: 34px;
     box-shadow: var(--glass-shadow);
-    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    transition:
+        transform var(--motion-card-hover-duration) var(--motion-card-hover-ease),
+        box-shadow var(--motion-card-hover-duration) var(--motion-card-hover-ease),
+        border-color var(--motion-card-hover-duration) var(--motion-card-hover-ease),
+        background var(--motion-card-hover-duration) var(--motion-card-hover-ease);
+    background: var(--card-bg);
+    will-change: transform;
 }
 
 .contacts-page .contact-card:hover {
-    transform: translateY(-4px);
-    border-color: rgba(14, 165, 233, 0.28);
-    background: var(--glass-strong);
+    transform: translateY(var(--card-hover-translate-y));
+    border-color: var(--card-hover-border-color);
+    background: var(--card-bg-hover);
+    box-shadow: var(--card-hover-shadow);
 }
 
 .contacts-page .contact-card::before {
@@ -619,15 +713,12 @@ section {
 
 /* Отрасли: акцентная карточка "Ваш проект" (как в презентации) */
 .project-card {
-    background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+    /* Override glass-card background via tokens so hover stays consistent. */
+    --card-bg: linear-gradient(135deg, var(--accent), var(--accent-dark));
+    --card-bg-hover: linear-gradient(135deg, var(--accent), var(--accent-dark));
+
     border-color: rgba(14, 165, 233, 0.45);
     color: #ffffff;
-}
-
-.project-card:hover {
-    background: linear-gradient(135deg, var(--accent-dark), var(--accent));
-    border-color: rgba(14, 165, 233, 0.6);
-    box-shadow: 0 25px 50px -12px rgba(14, 165, 233, 0.35);
 }
 
 .project-card h4 {
@@ -919,14 +1010,21 @@ html {
         display: none;
     }
 
-    #industries .glass-card,
-    #products .glass-card {
-        min-width: 80%;
-        /* Виден один и кусок второго */
-        scroll-snap-align: start;
-        flex-shrink: 0;
-    }
-}
+	    #industries .glass-card,
+	    #products .glass-card {
+	        min-width: 80%;
+	        /* Виден один и кусок второго */
+	        scroll-snap-align: start;
+	        flex-shrink: 0;
+	    }
+
+	    /* GPU cards are rendered via JS and don't use .glass-card */
+	    #products .gpu-card-link {
+	        min-width: 80%;
+	        scroll-snap-align: start;
+	        flex-shrink: 0;
+	    }
+	}
 
 /* 3: Услуги ГК - мобильная версия (1 блок и часть второго) */
 @media (max-width: 640px) {
@@ -1034,7 +1132,6 @@ html {
 .glass-card:hover .icon-box {
     background: var(--accent);
     color: white;
-    transform: scale(1.1) rotate(-5deg);
 }
 
 .partner-section {

@@ -2,7 +2,37 @@
   const stream = document.getElementById('articleStream');
   if (!stream) return;
 
-  const breadcrumbTitle = document.getElementById('articleBreadcrumbTitle');
+  let pendingBreadcrumbText = null;
+  let breadcrumbObserver = null;
+
+  const setBreadcrumbText = (text) => {
+    const el = document.getElementById('articleBreadcrumbTitle');
+    if (el) {
+      el.textContent = text;
+      pendingBreadcrumbText = null;
+      if (breadcrumbObserver) {
+        breadcrumbObserver.disconnect();
+        breadcrumbObserver = null;
+      }
+      return;
+    }
+
+    pendingBreadcrumbText = text;
+    if (breadcrumbObserver) return;
+
+    breadcrumbObserver = new MutationObserver(() => {
+      const next = document.getElementById('articleBreadcrumbTitle');
+      if (!next || pendingBreadcrumbText == null) return;
+      next.textContent = pendingBreadcrumbText;
+      pendingBreadcrumbText = null;
+      if (breadcrumbObserver) {
+        breadcrumbObserver.disconnect();
+        breadcrumbObserver = null;
+      }
+    });
+    breadcrumbObserver.observe(document.body, { childList: true, subtree: true });
+  };
+
   const articles = Array.isArray(window.blogArticles) ? window.blogArticles : [];
   if (articles.length === 0) return;
 
@@ -21,8 +51,6 @@
       .replaceAll('"', '&quot;')
       .replaceAll("'", '&#39;');
 
-  // blog_data.js stores asset paths relative to the site root (e.g. "assets/...").
-  // Blog articles live in /blog/, so we need to prefix relative assets with "../".
   const resolveAsset = (src) => {
     const s = String(src == null ? '' : src).trim();
     if (!s) return '';
@@ -36,16 +64,16 @@
       s.startsWith('/') ||
       s.startsWith('../')
     ) {
-      return s;
+      // When opening pages from disk (file://), "../" can escape the site folder.
+      // Normalize to a site-root relative path.
+      return s.replace(/^(\.\.\/)+/, '');
     }
 
-    const inBlog = String(location.pathname || '').includes('/blog/');
-    return inBlog ? `../${s}` : s;
+    return s;
   };
 
   const updateBreadcrumb = (article) => {
-    if (!breadcrumbTitle) return;
-    breadcrumbTitle.textContent = article.title || 'Статья';
+    setBreadcrumbText(article.title || 'Статья');
   };
 
   const updateUrl = (article) => {
@@ -208,7 +236,7 @@
             <div class="mt-3 text-sm md:text-base text-slate-600 leading-relaxed">
               Подготовим техническое решение (мощность, состав работ, интеграция, параллельная работа, утилизация тепла) и ориентировочную экономику.
             </div>
-            <a href="../index.html#contacts" class="btn-primary mt-6 inline-flex items-center gap-3 px-6 py-4 rounded-xl text-white font-black uppercase tracking-widest text-[11px]">
+	            <a href="index.html#contacts" class="btn-primary mt-6 inline-flex items-center gap-3 px-6 py-4 rounded-xl text-white font-black uppercase tracking-widest text-[11px]">
               Получить расчет <i class="fa-solid fa-arrow-right"></i>
             </a>
           </div>

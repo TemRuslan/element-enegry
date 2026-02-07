@@ -2,7 +2,37 @@
   const stream = document.getElementById('projectStream');
   if (!stream) return;
 
-  const breadcrumbTitle = document.getElementById('projectBreadcrumbTitle');
+  let pendingBreadcrumbText = null;
+  let breadcrumbObserver = null;
+
+  const setBreadcrumbText = (text) => {
+    const el = document.getElementById('projectBreadcrumbTitle');
+    if (el) {
+      el.textContent = text;
+      pendingBreadcrumbText = null;
+      if (breadcrumbObserver) {
+        breadcrumbObserver.disconnect();
+        breadcrumbObserver = null;
+      }
+      return;
+    }
+
+    pendingBreadcrumbText = text;
+    if (breadcrumbObserver) return;
+
+    breadcrumbObserver = new MutationObserver(() => {
+      const next = document.getElementById('projectBreadcrumbTitle');
+      if (!next || pendingBreadcrumbText == null) return;
+      next.textContent = pendingBreadcrumbText;
+      pendingBreadcrumbText = null;
+      if (breadcrumbObserver) {
+        breadcrumbObserver.disconnect();
+        breadcrumbObserver = null;
+      }
+    });
+    breadcrumbObserver.observe(document.body, { childList: true, subtree: true });
+  };
+
   const projects = Array.isArray(window.projects) ? window.projects : [];
   if (projects.length === 0) return;
 
@@ -21,8 +51,7 @@
       .replaceAll("'", '&#39;');
 
   const updateBreadcrumb = (project) => {
-    if (!breadcrumbTitle) return;
-    breadcrumbTitle.textContent = project.title || 'Проект';
+    setBreadcrumbText(project.title || 'Проект');
   };
 
   const updateUrl = (project) => {

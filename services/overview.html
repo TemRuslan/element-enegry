@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Услуги Элемент Энергия: энергосервис, энергоцентры под ключ, проектирование, строительство, ПНР, сервис 24/7, гарантия и доставка.">
+    <title>Услуги | Элемент Энергия</title>
+
+    <script>
+        (function () {
+            var p = String(location.pathname || '');
+            if (location.protocol === 'file:') {
+                var marker = '/gkee.ru/';
+                var idx = p.lastIndexOf(marker);
+                if (idx >= 0) p = p.slice(idx + marker.length);
+            }
+            p = p.replace(/^\/+/, '');
+            if (!p.endsWith('/')) p = p.replace(/[^/]*$/, '');
+            var depth = p.split('/').filter(Boolean).length;
+            var prefix = depth ? Array(depth + 1).join('../') : './';
+            document.write('<base href="' + prefix + '">');
+        })();
+    </script>
+
+    <script>
+        // Tailwind CDN config: adds custom "accent" utilities used across the site (bg-accent/..., text-accent, etc.)
+        window.tailwind = window.tailwind || {};
+        window.tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        accent: '#0ea5e9',
+                        'accent-dark': '#0284c7',
+                    }
+                }
+            }
+        };
+    </script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@700&display=swap"
+        rel="stylesheet">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon/favicon-16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/favicon/apple-touch-icon.png">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body class="projects-page">
+    <!-- HEADER PLACEHOLDER -->
+    <div id="header-placeholder"></div>
+
+    <!-- LIGHT PAGE -->
+    <div class="page-light">
+        <div class="bg-blob blob-1"></div>
+        <div class="bg-blob blob-2"></div>
+
+        <section class="pt-24 lg:pt-20 pb-16">
+            <div class="max-w-7xl mx-auto px-6 w-full">
+                <div class="max-w-4xl">
+                    <ol class="flex flex-wrap items-center gap-2 text-[14px] font-medium tracking-[0.06em] text-slate-500 mb-6 lg:mb-[50px] lg:mt-2"
+                        aria-label="breadcrumbs">
+                        <li><a href="index.html" class="hover:text-accent transition">Главная</a></li>
+                        <li aria-hidden="true" class="text-slate-400">/</li>
+                        <li>Услуги</li>
+                    </ol>
+
+                    <h1 class="projects-title text-3xl md:text-5xl mb-6 leading-[1.02]">
+                        Услуги
+                    </h1>
+
+                    <p class="text-lg md:text-xl text-slate-600 leading-relaxed max-w-2xl">
+                        Выберите услугу и перейдите к описанию: формат работы, этапы и условия.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <main class="max-w-7xl mx-auto px-6 pt-0 pb-24">
+            <section id="services">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <article class="glass-card p-10 flex flex-col">
+                        <div class="projects-card-media relative overflow-hidden bg-white/40">
+                            <img src="assets/site-photos/services/electricity.jpg" alt="Поставка электроэнергии"
+                                loading="lazy" class="w-full h-auto aspect-[4/3] object-cover">
+                        </div>
+                        <h3 class="mt-3 text-lg font-black uppercase tracking-tight text-slate-900">
+                            Поставка электроэнергии
+                        </h3>
+                        <p class="mt-4 text-sm text-slate-600 leading-relaxed flex-grow">
+                            Энергосервис: устанавливаем ГПУ на площадке за свой счет и поставляем кВт·ч по фиксируемой
+                            экономике.
+                        </p>
+                        <a href="industries/promyshlennost/proizvodstvo.html"
+                            class="mt-8 btn-primary inline-flex items-center justify-center gap-2 px-8 py-4 rounded-2xl text-[11px] font-black uppercase tracking-[0.22em] text-white transition-all hover:scale-[1.02]">
+                            Подробнее <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                    </article>
+
+                    <article class="glass-card p-10 flex flex-col">
+                        <div class="projects-card-media relative overflow-hidden bg-white/40">
+                            <img src="assets/site-photos/services/turnkey.jpg" alt="Энергоцентр под ключ" loading="lazy"
+                                class="w-full h-auto aspect-[4/3] object-cover">
+                        </div>
+                        <h3 class="mt-3 text-lg font-black uppercase tracking-tight text-slate-900">
+                            Энергоцентр под ключ
+                        </h3>
+                        <p class="mt-4 text-sm text-slate-600 leading-relaxed flex-grow">
+                            Проектирование и строительство: компоновка, защита, автоматика и интеграция в
+                            инфраструктуру объекта.
+                        </p>
+                        <a href="industries/promyshlennost/index.html#energycenter"
+                            class="mt-8 btn-primary inline-flex items-center justify-center gap-2 px-8 py-4 rounded-2xl text-[11px] font-black uppercase tracking-[0.22em] text-white transition-all hover:scale-[1.02]">
+                            Подробнее <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                    </article>
+
+                    <article class="glass-card p-10 flex flex-col">
+                        <div class="projects-card-media relative overflow-hidden bg-white/40">
+                            <img src="assets/site-photos/services/operation.jpg" alt="Эксплуатация 24/7" loading="lazy"
+                                class="w-full h-auto aspect-[4/3] object-cover">
+                        </div>
+                        <h3 class="mt-3 text-lg font-black uppercase tracking-tight text-slate-900">
+                            Эксплуатация и сервис 24/7
+                        </h3>
+                        <p class="mt-4 text-sm text-slate-600 leading-relaxed flex-grow">
+                            Сервисные контракты, мониторинг и регламенты. Берем на себя устранение нештатных ситуаций.
+                        </p>
+                        <a href="industries/promyshlennost/index.html#operation"
+                            class="mt-8 btn-primary inline-flex items-center justify-center gap-2 px-8 py-4 rounded-2xl text-[11px] font-black uppercase tracking-[0.22em] text-white transition-all hover:scale-[1.02]">
+                            Подробнее <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                    </article>
+
+                    <article class="glass-card p-10 flex flex-col">
+                        <div class="projects-card-media relative overflow-hidden bg-white/40">
+                            <img src="assets/site-photos/services/site.jpg" alt="Поиск участка" loading="lazy"
+                                class="w-full h-auto aspect-[4/3] object-cover">
+                        </div>
+                        <h3 class="mt-3 text-lg font-black uppercase tracking-tight text-slate-900">
+                            Поиск участка
+                        </h3>
+                        <p class="mt-4 text-sm text-slate-600 leading-relaxed flex-grow">
+                            Подбор площадки под строительство: логистика, ограничения, инженерка и режимы эксплуатации.
+                        </p>
+                        <a href="services/index.html#site"
+                            class="mt-8 btn-primary inline-flex items-center justify-center gap-2 px-8 py-4 rounded-2xl text-[11px] font-black uppercase tracking-[0.22em] text-white transition-all hover:scale-[1.02]">
+                            Подробнее <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                    </article>
+
+                    <article class="glass-card p-10 flex flex-col">
+                        <div class="projects-card-media relative overflow-hidden bg-white/40">
+                            <img src="assets/site-photos/services/gas.jpg" alt="Подведение газа" loading="lazy"
+                                class="w-full h-auto aspect-[4/3] object-cover">
+                        </div>
+                        <h3 class="mt-3 text-lg font-black uppercase tracking-tight text-slate-900">
+                            Подведение газа
+                        </h3>
+                        <p class="mt-4 text-sm text-slate-600 leading-relaxed flex-grow">
+                            Организация подключения к газу: трассы, узлы учета, согласования и подготовка к пуску.
+                        </p>
+                        <a href="services/index.html#gas"
+                            class="mt-8 btn-primary inline-flex items-center justify-center gap-2 px-8 py-4 rounded-2xl text-[11px] font-black uppercase tracking-[0.22em] text-white transition-all hover:scale-[1.02]">
+                            Подробнее <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                    </article>
+
+                    <article class="glass-card p-10 flex flex-col">
+                        <div class="projects-card-media relative overflow-hidden bg-white/40">
+                            <img src="assets/site-photos/services/tu.jpg" alt="ТУ на газ" loading="lazy"
+                                class="w-full h-auto aspect-[4/3] object-cover">
+                        </div>
+                        <h3 class="mt-3 text-lg font-black uppercase tracking-tight text-slate-900">
+                            ТУ на газ
+                        </h3>
+                        <p class="mt-4 text-sm text-slate-600 leading-relaxed flex-grow">
+                            Получение технических условий и сопровождение процесса до результата.
+                        </p>
+                        <a href="services/index.html#tu"
+                            class="mt-8 btn-primary inline-flex items-center justify-center gap-2 px-8 py-4 rounded-2xl text-[11px] font-black uppercase tracking-[0.22em] text-white transition-all hover:scale-[1.02]">
+                            Подробнее <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                    </article>
+
+                    <article class="glass-card p-10 flex flex-col">
+                        <div class="projects-card-media relative overflow-hidden bg-white/40">
+                            <img src="assets/site-photos/services/predesign.jpg" alt="Предпроектные работы" loading="lazy"
+                                class="w-full h-auto aspect-[4/3] object-cover">
+                        </div>
+                        <h3 class="mt-3 text-lg font-black uppercase tracking-tight text-slate-900">
+                            Предпроектные работы
+                        </h3>
+                        <p class="mt-4 text-sm text-slate-600 leading-relaxed flex-grow">
+                            Обследование, сбор исходных данных, предварительные схемы и технико-экономическая проработка.
+                        </p>
+                        <a href="services/index.html#predesign"
+                            class="mt-8 btn-primary inline-flex items-center justify-center gap-2 px-8 py-4 rounded-2xl text-[11px] font-black uppercase tracking-[0.22em] text-white transition-all hover:scale-[1.02]">
+                            Подробнее <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                    </article>
+
+                    <article class="glass-card p-10 flex flex-col">
+                        <div class="projects-card-media relative overflow-hidden bg-white/40">
+                            <img src="assets/site-photos/services/design.jpg" alt="Проектирование энергоцентра" loading="lazy"
+                                class="w-full h-auto aspect-[4/3] object-cover">
+                        </div>
+                        <h3 class="mt-3 text-lg font-black uppercase tracking-tight text-slate-900">
+                            Проектирование энергоцентра
+                        </h3>
+                        <p class="mt-4 text-sm text-slate-600 leading-relaxed flex-grow">
+                            Проектная документация: компоновка, электротехника, автоматика и интеграция.
+                        </p>
+                        <a href="services/index.html#projecting"
+                            class="mt-8 btn-primary inline-flex items-center justify-center gap-2 px-8 py-4 rounded-2xl text-[11px] font-black uppercase tracking-[0.22em] text-white transition-all hover:scale-[1.02]">
+                            Подробнее <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                    </article>
+
+                    <article class="glass-card p-10 flex flex-col">
+                        <div class="projects-card-media relative overflow-hidden bg-white/40">
+                            <img src="assets/site-photos/services/kod.jpg" alt="КОД (СУТ)" loading="lazy"
+                                class="w-full h-auto aspect-[4/3] object-cover">
+                        </div>
+                        <h3 class="mt-3 text-lg font-black uppercase tracking-tight text-slate-900">
+                            КОД (СУТ)
+                        </h3>
+                        <p class="mt-4 text-sm text-slate-600 leading-relaxed flex-grow">
+                            Система утилизации тепла: проектирование и интеграция в потребители тепла на объекте.
+                        </p>
+                        <a href="services/index.html#kod"
+                            class="mt-8 btn-primary inline-flex items-center justify-center gap-2 px-8 py-4 rounded-2xl text-[11px] font-black uppercase tracking-[0.22em] text-white transition-all hover:scale-[1.02]">
+                            Подробнее <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                    </article>
+
+                    <article class="glass-card p-10 flex flex-col">
+                        <div class="projects-card-media relative overflow-hidden bg-white/40">
+                            <img src="assets/site-photos/services/manufacturing.jpg" alt="Производство" loading="lazy"
+                                class="w-full h-auto aspect-[4/3] object-cover">
+                        </div>
+                        <h3 class="mt-3 text-lg font-black uppercase tracking-tight text-slate-900">
+                            Производство
+                        </h3>
+                        <p class="mt-4 text-sm text-slate-600 leading-relaxed flex-grow">
+                            Производственные возможности и сборка оборудования под задачи: сроки, комплектация и
+                            контроль качества.
+                        </p>
+                        <a href="about/index.html"
+                            class="mt-8 btn-primary inline-flex items-center justify-center gap-2 px-8 py-4 rounded-2xl text-[11px] font-black uppercase tracking-[0.22em] text-white transition-all hover:scale-[1.02]">
+                            Подробнее <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                    </article>
+
+                    <article class="glass-card p-10 flex flex-col">
+                        <div class="projects-card-media relative overflow-hidden bg-white/40">
+                            <img src="assets/site-photos/services/commissioning.jpg" alt="Пусконаладочные работы" loading="lazy"
+                                class="w-full h-auto aspect-[4/3] object-cover">
+                        </div>
+                        <h3 class="mt-3 text-lg font-black uppercase tracking-tight text-slate-900">
+                            Пусконаладочные работы
+                        </h3>
+                        <p class="mt-4 text-sm text-slate-600 leading-relaxed flex-grow">
+                            Настройка систем управления, проверка режимов, ввод в эксплуатацию и передача в работу.
+                        </p>
+                        <a href="services/index.html#commissioning"
+                            class="mt-8 btn-primary inline-flex items-center justify-center gap-2 px-8 py-4 rounded-2xl text-[11px] font-black uppercase tracking-[0.22em] text-white transition-all hover:scale-[1.02]">
+                            Подробнее <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                    </article>
+
+                    <article class="glass-card p-10 flex flex-col">
+                        <div class="projects-card-media relative overflow-hidden bg-white/40">
+                            <img src="assets/site-photos/services/construction.jpg" alt="Строительство" loading="lazy"
+                                class="w-full h-auto aspect-[4/3] object-cover">
+                        </div>
+                        <h3 class="mt-3 text-lg font-black uppercase tracking-tight text-slate-900">
+                            Строительство
+                        </h3>
+                        <p class="mt-4 text-sm text-slate-600 leading-relaxed flex-grow">
+                            Строительно-монтажные работы энергоцентра, подготовка инфраструктуры, монтаж и сдача.
+                        </p>
+                        <a href="services/index.html#construction"
+                            class="mt-8 btn-primary inline-flex items-center justify-center gap-2 px-8 py-4 rounded-2xl text-[11px] font-black uppercase tracking-[0.22em] text-white transition-all hover:scale-[1.02]">
+                            Подробнее <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                    </article>
+
+                    <article class="glass-card p-10 flex flex-col">
+                        <div class="projects-card-media relative overflow-hidden bg-white/40">
+                            <img src="assets/site-photos/services/warranty.jpg" alt="Гарантия" loading="lazy"
+                                class="w-full h-auto aspect-[4/3] object-cover">
+                        </div>
+                        <h3 class="mt-3 text-lg font-black uppercase tracking-tight text-slate-900">
+                            Гарантия
+                        </h3>
+                        <p class="mt-4 text-sm text-slate-600 leading-relaxed flex-grow">
+                            Гарантийные обязательства и регламент обслуживания. Условия зависят от комплектации и режима.
+                        </p>
+                        <a href="services/index.html#warranty"
+                            class="mt-8 btn-primary inline-flex items-center justify-center gap-2 px-8 py-4 rounded-2xl text-[11px] font-black uppercase tracking-[0.22em] text-white transition-all hover:scale-[1.02]">
+                            Подробнее <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                    </article>
+
+                    <article class="glass-card p-10 flex flex-col">
+                        <div class="projects-card-media relative overflow-hidden bg-white/40">
+                            <img src="assets/site-photos/services/delivery.jpg" alt="Доставка оборудования" loading="lazy"
+                                class="w-full h-auto aspect-[4/3] object-cover">
+                        </div>
+                        <h3 class="mt-3 text-lg font-black uppercase tracking-tight text-slate-900">
+                            Доставка оборудования
+                        </h3>
+                        <p class="mt-4 text-sm text-slate-600 leading-relaxed flex-grow">
+                            Логистика и доставка на площадку: упаковка, такелаж, график поставки и контроль комплектности.
+                        </p>
+                        <a href="services/index.html#delivery"
+                            class="mt-8 btn-primary inline-flex items-center justify-center gap-2 px-8 py-4 rounded-2xl text-[11px] font-black uppercase tracking-[0.22em] text-white transition-all hover:scale-[1.02]">
+                            Подробнее <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                    </article>
+                </div>
+            </section>
+        </main>
+
+        <!-- FOOTER PLACEHOLDER -->
+        <div id="footer-placeholder"></div>
+    </div>
+
+    <script src="js/script.js"></script>
+</body>
+
+</html>
+

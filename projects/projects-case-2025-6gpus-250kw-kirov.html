@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+	    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	    <meta name="description" content="Поставка ГПУ, монтажная интеграция и пусконаладочные работы (ПНР). Настройка автоматики и защит, ввод в эксплуатацию." />
+	    <title>Энергоцентр: 6 ГПУ по 250 кВт (поставка и ПНР) | Проекты | Элемент Энергия</title>
+
+	    <script>
+	      (function () {
+	        var p = String(location.pathname || '');
+	        if (location.protocol === 'file:') {
+	          var marker = '/gkee.ru/';
+	          var idx = p.lastIndexOf(marker);
+	          if (idx >= 0) p = p.slice(idx + marker.length);
+	        }
+	        p = p.replace(/^\/+/, '');
+	        if (!p.endsWith('/')) p = p.replace(/[^/]*$/, '');
+	        var depth = p.split('/').filter(Boolean).length;
+	        var prefix = depth ? Array(depth + 1).join('../') : './';
+	        document.write('<base href="' + prefix + '">');
+	      })();
+	    </script>
+
+	    <script>
+	      window.tailwind = window.tailwind || {};
+	      window.tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              accent: '#0ea5e9',
+              'accent-dark': '#0284c7',
+            }
+          }
+        }
+      };
+    </script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@700&display=swap" rel="stylesheet" />
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon/favicon-32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon/favicon-16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/favicon/apple-touch-icon.png" />
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+
+  <body class="projects-page" data-project="projects-case-2025-6gpus-250kw-kirov">
+    <div id="header-placeholder"></div>
+
+	    <div class="page-light">
+	      <div class="bg-blob blob-1"></div>
+	      <div class="bg-blob blob-2"></div>
+
+	      <main class="pb-24">
+	        <div id="projectStream"></div>
+	      </main>
+
+      <div id="footer-placeholder"></div>
+    </div>
+
+    <script src="js/projects_data.js"></script>
+    <script src="js/projects_stream.js"></script>
+    <script src="js/script.js"></script>
+  </body>
+</html>

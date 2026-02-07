@@ -96,13 +96,29 @@ const render = (item) => {
 <html lang="ru">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="${htmlEscape(metaDescription)}" />
-    <title>${htmlEscape(pageTitle)}</title>
+	    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	    <meta name="description" content="${htmlEscape(metaDescription)}" />
+	    <title>${htmlEscape(pageTitle)}</title>
 
-    <script>
-      window.tailwind = window.tailwind || {};
-      window.tailwind.config = {
+	    <script>
+	      (function () {
+	        var p = String(location.pathname || '');
+	        if (location.protocol === 'file:') {
+	          var marker = '/gkee.ru/';
+	          var idx = p.lastIndexOf(marker);
+	          if (idx >= 0) p = p.slice(idx + marker.length);
+	        }
+	        p = p.replace(/^\\/+/, '');
+	        if (!p.endsWith('/')) p = p.replace(/[^/]*$/, '');
+	        var depth = p.split('/').filter(Boolean).length;
+	        var prefix = depth ? Array(depth + 1).join('../') : './';
+	        document.write('<base href="' + prefix + '">');
+	      })();
+	    </script>
+
+	    <script>
+	      window.tailwind = window.tailwind || {};
+	      window.tailwind.config = {
         theme: {
           extend: {
             colors: {
@@ -125,25 +141,13 @@ const render = (item) => {
   <body class="projects-page" data-project="${htmlEscape(item.slug)}">
     <div id="header-placeholder"></div>
 
-    <div class="page-light">
-      <div class="bg-blob blob-1"></div>
-      <div class="bg-blob blob-2"></div>
+	    <div class="page-light">
+	      <div class="bg-blob blob-1"></div>
+	      <div class="bg-blob blob-2"></div>
 
-      <nav class="pt-24 lg:pt-20 pb-8">
-        <div class="max-w-7xl mx-auto px-6">
-          <ol class="flex flex-wrap items-center gap-2 text-[11px] font-black uppercase tracking-[0.22em] text-slate-500" aria-label="breadcrumbs">
-            <li><a href="index.html" class="hover:text-accent transition">Главная</a></li>
-            <li aria-hidden="true" class="text-slate-400">/</li>
-            <li><a href="projects.html" class="hover:text-accent transition">Проекты</a></li>
-            <li aria-hidden="true" class="text-slate-400">/</li>
-            <li id="projectBreadcrumbTitle">${htmlEscape(title)}</li>
-          </ol>
-        </div>
-      </nav>
-
-      <main class="pb-24">
-        <div id="projectStream"></div>
-      </main>
+	      <main class="pb-24">
+	        <div id="projectStream"></div>
+	      </main>
 
       <div id="footer-placeholder"></div>
     </div>
@@ -191,16 +195,17 @@ const main = async () => {
   )};\n`;
   await fs.writeFile(PROJECTS_DATA_JS_PATH, js, 'utf8');
 
-  // Write output pages to repo root as <slug>.html to avoid breaking existing relative nav links.
+  const OUT_DIR = path.join(ROOT, 'projects');
+  await fs.mkdir(OUT_DIR, { recursive: true });
   await Promise.all(
     items.map(async (item) => {
-      const outPath = path.join(ROOT, `${item.slug}.html`);
+      const outPath = path.join(OUT_DIR, `${item.slug}.html`);
       await fs.writeFile(outPath, render(item), 'utf8');
     })
   );
 
   // Basic manifest for quick checks.
-  const manifest = items.map((i) => ({ slug: i.slug, page: `${i.slug}.html` }));
+  const manifest = items.map((i) => ({ slug: i.slug, page: `projects/${i.slug}.html` }));
   await fs.writeFile(path.join(ROOT, 'data', 'projects.manifest.json'), JSON.stringify({ version: 1, items: manifest }, null, 2) + '\n', 'utf8');
 };
 

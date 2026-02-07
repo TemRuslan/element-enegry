@@ -7,6 +7,22 @@
     <title>Утилизация тепла (когенерация): как снять «вторую экономику» с энергоцентра | Блог | Элемент Энергия</title>
 
     <script>
+      (function () {
+        var p = String(location.pathname || '');
+        if (location.protocol === 'file:') {
+          var marker = '/gkee.ru/';
+          var idx = p.lastIndexOf(marker);
+          if (idx >= 0) p = p.slice(idx + marker.length);
+        }
+        p = p.replace(/^\/+/, '');
+        if (!p.endsWith('/')) p = p.replace(/[^/]*$/, '');
+        var depth = p.split('/').filter(Boolean).length;
+        var prefix = depth ? Array(depth + 1).join('../') : './';
+        document.write('<base href="' + prefix + '">');
+      })();
+    </script>
+
+    <script>
       window.tailwind = window.tailwind || {};
       window.tailwind.config = {
         theme: {
@@ -22,40 +38,28 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@700&display=swap" rel="stylesheet" />
-    <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon/favicon-32.png" />
-    <link rel="icon" type="image/png" sizes="16x16" href="../assets/favicon/favicon-16.png" />
-    <link rel="apple-touch-icon" sizes="180x180" href="../assets/favicon/apple-touch-icon.png" />
-    <link rel="stylesheet" href="../css/styles.css" />
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon/favicon-32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon/favicon-16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/favicon/apple-touch-icon.png" />
+    <link rel="stylesheet" href="css/styles.css" />
   </head>
 
   <body class="projects-page blog-article-page" data-article="heat-recovery-cogeneration-kod">
     <div id="header-placeholder"></div>
 
-    <div class="page-light">
-      <div class="bg-blob blob-1"></div>
-      <div class="bg-blob blob-2"></div>
+	    <div class="page-light">
+	      <div class="bg-blob blob-1"></div>
+	      <div class="bg-blob blob-2"></div>
 
-      <nav class="pt-24 lg:pt-20 pb-8">
-        <div class="max-w-7xl mx-auto px-6">
-          <ol class="flex flex-wrap items-center gap-2 text-[11px] font-black uppercase tracking-[0.22em] text-slate-500" aria-label="breadcrumbs">
-            <li><a href="../index.html" class="hover:text-accent transition">Главная</a></li>
-            <li aria-hidden="true" class="text-slate-400">/</li>
-            <li><a href="../blog.html" class="hover:text-accent transition">Блог</a></li>
-            <li aria-hidden="true" class="text-slate-400">/</li>
-            <li id="articleBreadcrumbTitle">Утилизация тепла (когенерация): как снять «вторую экономику» с энергоцентра</li>
-          </ol>
-        </div>
-      </nav>
-
-      <main class="pb-24">
-        <div id="articleStream"></div>
-      </main>
+	      <main class="pb-24">
+	        <div id="articleStream"></div>
+	      </main>
 
       <div id="footer-placeholder"></div>
     </div>
 
-    <script src="../js/blog_data.js"></script>
-    <script src="../js/blog_stream.js"></script>
-    <script src="../js/script.js"></script>
+    <script src="js/blog_data.js"></script>
+    <script src="js/blog_stream.js"></script>
+    <script src="js/script.js"></script>
   </body>
 </html>
