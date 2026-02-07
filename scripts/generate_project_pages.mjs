@@ -131,12 +131,7 @@ const render = (item) => {
 
       <nav class="pt-24 lg:pt-20 pb-8">
         <div class="max-w-7xl mx-auto px-6">
-          <a href="projects.html" class="inline-flex items-center gap-2 text-[11px] font-black uppercase tracking-[0.22em] text-slate-500 hover:text-accent transition">
-            <i class="fa-solid fa-arrow-left"></i>
-            Все проекты
-          </a>
-
-          <ol class="mt-6 flex flex-wrap items-center gap-2 text-[11px] font-black uppercase tracking-[0.22em] text-slate-500" aria-label="breadcrumbs">
+          <ol class="flex flex-wrap items-center gap-2 text-[11px] font-black uppercase tracking-[0.22em] text-slate-500" aria-label="breadcrumbs">
             <li><a href="index.html" class="hover:text-accent transition">Главная</a></li>
             <li aria-hidden="true" class="text-slate-400">/</li>
             <li><a href="projects.html" class="hover:text-accent transition">Проекты</a></li>
