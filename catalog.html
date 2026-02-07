@@ -36,25 +36,27 @@
         */
 	        @media (min-width: 1280px) {
 	            .gpu-catalog-sidebar {
-	                position: absolute;
+	                /* Fixed left gutter column so filtering doesn't affect its layout (no jumping). */
+	                position: fixed;
 	                top: 0;
 	                bottom: 0;
-	                /* Build a whole gutter column from the viewport edge up to the product grid. */
-	                left: calc(-1 * (max(0px, calc((100vw - 1280px) / 2)) + 24px));
+	                left: 0;
 	                width: calc(max(0px, calc((100vw - 1280px) / 2)) + 24px);
-	                z-index: 40;
+	                z-index: 1200;
 	                pointer-events: none; /* let only the panel itself capture input */
 	            }
 
 	            .gpu-catalog-sidebar-panel {
-	                position: sticky;
-	                top: 60px; /* tighter: keep it close to the top while header overlays */
+	                position: absolute;
+	                top: 60px;
+	                right: 0;
 	                width: min(320px, 100%);
 	                margin-left: auto; /* stick to the product grid edge */
 	                padding-right: 12px; /* tiny breathing room from cards */
 	                pointer-events: auto;
-	                max-height: calc(100vh - 56px);
-	                overflow: auto;
+	                max-height: calc(100vh - 80px);
+	                overflow-y: auto;
+	                scrollbar-gutter: stable;
 	            }
 
 	            .gpu-catalog-sidebar .glass-card {
