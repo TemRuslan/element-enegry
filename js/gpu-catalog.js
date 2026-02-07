@@ -510,39 +510,41 @@
             return null;
         }
 
-        function initPriceRangeBounds() {
-            if (!priceMinRangeEl || !priceMaxRangeEl) return;
+	        function initPriceRangeBounds() {
+	            if (!priceMinRangeEl || !priceMaxRangeEl) return;
 
-            const prices = data.map(getItemPriceRub).filter((n) => Number.isFinite(n) && n > 0);
-            const dataMax = prices.length ? Math.max(...prices) : 0;
+	            const prices = data.map(getItemPriceRub).filter((n) => Number.isFinite(n) && n > 0);
+	            const dataMin = prices.length ? Math.min(...prices) : 0;
+	            const dataMax = prices.length ? Math.max(...prices) : 0;
 
-            // User preference: keep the price filter practical by default.
-            const HARD_MIN = 1_000_000;
-            const HARD_MAX = 22_000_000;
+	            // Step: "half a million" increments for a cleaner UX.
+	            const step = 500_000;
+	            const floorToStep = (n) => Math.floor(n / step) * step;
+	            const ceilToStep = (n) => Math.ceil(n / step) * step;
 
-            const step = Number(priceMinRangeEl.step || 100000) || 100000;
-            const ceilToStep = (n) => Math.ceil(n / step) * step;
+	            // Use actual min/max from cards.
+	            const minBound = Math.max(0, floorToStep(dataMin || 0));
+	            const maxBound = Math.max(minBound + step, ceilToStep(dataMax || step));
 
-            const minBound = HARD_MIN;
-            const maxBound = Math.max(minBound, Math.min(HARD_MAX, ceilToStep(dataMax || HARD_MAX)));
+	            priceMinRangeEl.min = String(minBound);
+	            priceMinRangeEl.max = String(maxBound);
+	            priceMinRangeEl.step = String(step);
+	            priceMaxRangeEl.min = String(minBound);
+	            priceMaxRangeEl.max = String(maxBound);
+	            priceMaxRangeEl.step = String(step);
 
-            priceMinRangeEl.min = String(minBound);
-            priceMinRangeEl.max = String(maxBound);
-            priceMaxRangeEl.min = String(minBound);
-            priceMaxRangeEl.max = String(maxBound);
+	            priceMinRangeEl.value = String(minBound);
+	            priceMaxRangeEl.value = String(maxBound);
 
-            priceMinRangeEl.value = String(minBound);
-            priceMaxRangeEl.value = String(maxBound);
-
-            if (priceMinEl) {
-                priceMinEl.value = '';
-                priceMinEl.placeholder = formatIntSpaced(minBound);
-            }
-            if (priceMaxEl) {
-                priceMaxEl.value = '';
-                priceMaxEl.placeholder = formatIntSpaced(maxBound);
-            }
-        }
+	            if (priceMinEl) {
+	                priceMinEl.value = '';
+	                priceMinEl.placeholder = formatIntSpaced(minBound);
+	            }
+	            if (priceMaxEl) {
+	                priceMaxEl.value = '';
+	                priceMaxEl.placeholder = formatIntSpaced(maxBound);
+	            }
+	        }
 
         function setRangeFill(minV, maxV) {
             if (!priceFillEl || !priceMinRangeEl || !priceMaxRangeEl) return;
@@ -770,15 +772,15 @@
 	                if (set.size) list = list.filter((x) => set.has(Number(x.continuous_kw)));
 	            }
 
-            if (priceMin !== null || priceMax !== null) {
-                list = list.filter((x) => {
-                    const p = Number(x.price_rrc_rub);
-                    if (!Number.isFinite(p) || p <= 0) return false;
-                    if (priceMin !== null && p < priceMin) return false;
-                    if (priceMax !== null && p > priceMax) return false;
-                    return true;
-                });
-            }
+	            if (priceMin !== null || priceMax !== null) {
+	                list = list.filter((x) => {
+	                    const p = getItemPriceRub(x);
+	                    if (!Number.isFinite(p) || p <= 0) return false;
+	                    if (priceMin !== null && p < priceMin) return false;
+	                    if (priceMax !== null && p > priceMax) return false;
+	                    return true;
+	                });
+	            }
 
             if (sort === 'popular') {
                 const score = (x) => {
