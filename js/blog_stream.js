@@ -208,6 +208,7 @@
     const blocksHtml = renderBlocks(article.blocks);
 
     section.innerHTML = `
+      <div class="article-top-marker h-px w-full" data-slug="${esc(article.slug)}" aria-hidden="true"></div>
       <div class="max-w-7xl mx-auto px-6">
         <div class="flex flex-wrap gap-2">
           ${chips}
@@ -247,19 +248,25 @@
     return section;
   };
 
+  // Observe a small marker at the top of each article instead of the whole <section>.
+  // For long articles, the section intersection ratio is tiny and a high threshold never triggers.
+  const urlObserver = new IntersectionObserver(
+    (entries) => {
+      for (const entry of entries) {
+        if (!entry.isIntersecting) continue;
+        const slug = entry.target.getAttribute('data-slug');
+        const article = articles.find((a) => a && a.slug === slug);
+        if (article) updateUrl(article);
+      }
+    },
+    // A thin "activation band" around the middle of the viewport.
+    { threshold: 0, rootMargin: '-45% 0px -50% 0px' }
+  );
+
   const observeSection = (section) => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries) {
-          if (!entry.isIntersecting) continue;
-          const slug = entry.target.getAttribute('data-slug');
-          const article = articles.find((a) => a && a.slug === slug);
-          if (article) updateUrl(article);
-        }
-      },
-      { threshold: 0.6 }
-    );
-    observer.observe(section);
+    const marker = section.querySelector('.article-top-marker[data-slug]');
+    if (!marker) return;
+    urlObserver.observe(marker);
   };
 
   const sentinel = document.createElement('div');
