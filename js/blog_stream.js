@@ -33,10 +33,25 @@
     breadcrumbObserver.observe(document.body, { childList: true, subtree: true });
   };
 
-  const articles = Array.isArray(window.blogArticles) ? window.blogArticles : [];
-  if (articles.length === 0) return;
+  const allArticles = Array.isArray(window.blogArticles) ? window.blogArticles : [];
+  if (allArticles.length === 0) return;
 
   const currentSlug = document.body.getAttribute('data-article') || '';
+
+  const isPublished = (article) => {
+    if (!article || typeof article !== 'object') return false;
+    if (typeof article.published === 'boolean') return article.published;
+    if (article.status) return String(article.status).toLowerCase() === 'published';
+    return true;
+  };
+
+  const articles = allArticles.filter((article) => {
+    if (!article) return false;
+    if (article.slug === currentSlug) return true;
+    return isPublished(article);
+  });
+  if (articles.length === 0) return;
+
   const foundIndex = articles.findIndex((a) => a && a.slug === currentSlug);
   const startIndex = Math.max(0, foundIndex);
 
@@ -168,7 +183,41 @@
     return out.join('');
   };
 
-  const renderArticle = (article) => {
+  const renderNextArticle = (article) => {
+    if (!article || !article.slug) return '';
+
+    const imageHtml = article.image
+      ? `
+        <div class="projects-card-media relative overflow-hidden bg-white/40">
+          <img src="${esc(resolveAsset(article.image))}" alt="${esc(article.imageAlt || article.title)}" class="w-full h-auto aspect-[16/10] object-cover" loading="lazy">
+        </div>
+      `
+      : '';
+
+    return `
+      <div class="mt-14">
+        <div class="text-[11px] font-black uppercase tracking-[0.22em] text-slate-500">Следующая статья</div>
+        <a href="blog/${esc(article.slug)}.html" class="glass-card mt-4 p-8 flex flex-col no-underline">
+          ${imageHtml}
+          <div class="mt-6 flex items-baseline justify-between gap-4">
+            <div class="text-[11px] font-black uppercase tracking-[0.22em] text-accent">${esc(article.category || '')}</div>
+            <div class="text-[11px] font-black uppercase tracking-[0.22em] text-slate-500">${esc(article.date || '')}</div>
+          </div>
+          <div class="mt-3 text-2xl font-black uppercase tracking-tight text-slate-900 break-anywhere">
+            ${esc(article.title || 'Статья')}
+          </div>
+          <div class="mt-3 text-sm text-slate-600 leading-relaxed break-anywhere">
+            ${esc(article.excerpt || '')}
+          </div>
+          <div class="mt-6 inline-flex items-center gap-2 text-[11px] font-black uppercase tracking-[0.22em] text-accent">
+            Читать <i class="fa-solid fa-arrow-right"></i>
+          </div>
+        </a>
+      </div>
+    `;
+  };
+
+  const renderArticle = (article, nextArticle) => {
     const section = document.createElement('section');
     section.className = 'article-section py-12';
     section.setAttribute('data-slug', article.slug);
@@ -206,6 +255,7 @@
       : '';
 
     const blocksHtml = renderBlocks(article.blocks);
+    const nextArticleHtml = renderNextArticle(nextArticle);
 
     section.innerHTML = `
       <div class="article-top-marker h-px w-full" data-slug="${esc(article.slug)}" aria-hidden="true"></div>
@@ -241,6 +291,7 @@
               Получить расчет <i class="fa-solid fa-arrow-right"></i>
             </a>
           </div>
+          ${nextArticleHtml}
         </div>
       </div>
     `;
@@ -248,8 +299,7 @@
     return section;
   };
 
-  // Observe a small marker at the top of each article instead of the whole <section>.
-  // For long articles, the section intersection ratio is tiny and a high threshold never triggers.
+  // Observe a small marker at the top of each article so URL changes even for long texts.
   const urlObserver = new IntersectionObserver(
     (entries) => {
       for (const entry of entries) {
@@ -259,8 +309,8 @@
         if (article) updateUrl(article);
       }
     },
-    // A thin "activation band" around the middle of the viewport.
-    { threshold: 0, rootMargin: '-45% 0px -50% 0px' }
+    // Update when the article top hits the top 20% of the viewport.
+    { threshold: 0, rootMargin: '0px 0px -80% 0px' }
   );
 
   const observeSection = (section) => {
@@ -289,7 +339,9 @@
     if (articles.length === 0) return;
     if (nextIndex >= articles.length) nextIndex = 0; // loop like AI Pool
 
-    const section = renderArticle(articles[nextIndex]);
+    const current = articles[nextIndex];
+    const next = articles.length > 1 ? articles[(nextIndex + 1) % articles.length] : null;
+    const section = renderArticle(current, next);
     if (renderedCount > 0) {
       stream.insertBefore(renderDivider(), sentinel);
     }

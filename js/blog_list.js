@@ -2,9 +2,6 @@
   const grid = document.getElementById('blog-grid');
   if (!grid) return;
 
-  const articles = Array.isArray(window.blogArticles) ? window.blogArticles : [];
-  if (articles.length === 0) return;
-
   const safeText = (v) => (v == null ? '' : String(v));
   const resolveAsset = (src) => {
     const s = safeText(src).trim();
@@ -21,6 +18,13 @@
       return s.replace(/^(\.\.\/)+/, '');
     }
     return s;
+  };
+
+  const isPublished = (article) => {
+    if (!article || typeof article !== 'object') return false;
+    if (typeof article.published === 'boolean') return article.published;
+    if (article.status) return String(article.status).toLowerCase() === 'published';
+    return true;
   };
 
   const renderCard = (item) => {
@@ -83,13 +87,43 @@
     return card;
   };
 
-  // The array is already sorted by scripts/generate_blog_pages.mjs, but keep it explicit.
-  const sorted = [...articles].sort((a, b) => {
-    const ad = String(a.isoDate || '');
-    const bd = String(b.isoDate || '');
-    if (bd !== ad) return bd.localeCompare(ad);
-    return String(a.slug || '').localeCompare(String(b.slug || ''));
-  });
+  const renderError = () => {
+    grid.innerHTML = `
+      <div class="glass-card p-10 md:col-span-2">
+        <div class="text-[11px] font-black uppercase tracking-[0.22em] text-slate-500">Ошибка</div>
+        <div class="mt-3 text-slate-600 leading-relaxed">
+          Не удалось загрузить список статей. Если вы открываете страницу локально (file://),
+          запустите любой локальный сервер или откройте сайт по домену.
+        </div>
+      </div>
+    `;
+  };
 
-  for (const item of sorted) grid.appendChild(renderCard(item));
+  const load = async () => {
+    try {
+      const res = await fetch('data/blog.json', { cache: 'no-store' });
+      if (!res.ok) throw new Error('Failed to load blog.json');
+      const json = await res.json();
+      const items = Array.isArray(json) ? json : (Array.isArray(json.items) ? json.items : []);
+      const published = items.filter(isPublished);
+      if (published.length === 0) return;
+
+      const sorted = [...published].sort((a, b) => {
+        const ad = String(a.isoDate || '');
+        const bd = String(b.isoDate || '');
+        if (bd !== ad) return bd.localeCompare(ad);
+        return String(a.slug || '').localeCompare(String(b.slug || ''));
+      });
+
+      for (const item of sorted) grid.appendChild(renderCard(item));
+    } catch (e) {
+      renderError();
+    }
+  };
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', load);
+  } else {
+    load();
+  }
 })();
